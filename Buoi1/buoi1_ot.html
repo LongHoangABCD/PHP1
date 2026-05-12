@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 1: Ôn tập kiến thức PHP cơ bản</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #6366f1;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <h1 class="text-4xl font-bold">Lập trình PHP 1</h1>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 1: Ôn tập kiến thức PHP cơ bản
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#thong-tin-chung"
+          class="px-5 py-2 bg-white hover:bg-indigo-50 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-info-circle"></i> Thông tin chung
+        </a>
+        <a
+          href="#dau-diem"
+          class="px-5 py-2 bg-white hover:bg-indigo-50 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-chart-simple"></i> Đầu điểm
+        </a>
+        <a
+          href="#noi-dung-mon"
+          class="px-5 py-2 bg-white hover:bg-indigo-50 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-book"></i> Nội dung môn học
+        </a>
+        <a
+          href="#buoi-1"
+          class="px-5 py-2 bg-indigo-600 text-white hover:bg-indigo-700 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-play"></i> Buổi học 1
+        </a>
+      </nav>
+
+      <!-- PHẦN A: THÔNG TIN CHUNG -->
+      <section id="thong-tin-chung" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >A</span
+          >
+          Thông tin chung môn học
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="section-card bg-white p-8 rounded-3xl shadow-sm border">
+            <h3 class="text-2xl font-semibold mb-4">Thông tin môn học</h3>
+            <div class="space-y-4">
+              <div class="flex gap-4">
+                <div class="w-32 font-medium text-gray-500">Tên môn học</div>
+                <div class="font-semibold">Lập trình PHP 1</div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-32 font-medium text-gray-500">Lịch học</div>
+                <div>Ca 5 - Thứ 3, 5, 7 hàng tuần</div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-32 font-medium text-gray-500">Tài liệu</div>
+                <a
+                  href="https://drive.google.com/drive/folders/1NRsHaBlqBOaekAzVlzcoIrRRAu74lcTE"
+                  target="_blank"
+                  class="text-indigo-600 hover:underline flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-folder"></i>
+                  Drive Tài liệu (Slide, Lab, Assignment)
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card bg-white p-8 rounded-3xl shadow-sm border">
+            <h3 class="text-2xl font-semibold mb-4">Quy định lớp học</h3>
+            <ul class="space-y-3 text-gray-700">
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Đi học
+                đầy đủ, đúng giờ
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Không
+                nghỉ quá <span class="font-bold text-red-600">3 buổi</span>
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-emerald-500 mt-0.5"></i> Không
+                đến muộn quá 15 phút
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-bell text-amber-500 mt-0.5"></i> Mọi thông
+                báo qua nhóm <strong>Zalo</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN B: ĐẦU ĐIỂM -->
+      <section id="dau-diem" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >B</span
+          >
+          Đầu điểm
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-3xl p-7 shadow-sm border">
+            <h3 class="font-bold text-lg mb-4 text-indigo-700">Lab (8 điểm)</h3>
+            <ul class="space-y-3 text-sm">
+              <li>• Bài tập làm trực tiếp trên lớp</li>
+              <li>• Bài tập về nhà (deadline rõ ràng, độ khó cao hơn)</li>
+            </ul>
+          </div>
+          <div class="bg-white rounded-3xl p-7 shadow-sm border">
+            <h3 class="font-bold text-lg mb-4 text-indigo-700">
+              Assignment (2 điểm)
+            </h3>
+            <ul class="space-y-3 text-sm">
+              <li>• <strong>Giai đoạn 1</strong>: Nộp tuần thứ 4</li>
+              <li>• <strong>Giai đoạn 2</strong>: Nộp trước buổi học cuối</li>
+            </ul>
+          </div>
+          <div class="bg-white rounded-3xl p-7 shadow-sm border">
+            <h3 class="font-bold text-lg mb-4 text-indigo-700">
+              Google Classroom
+            </h3>
+            <a
+              href="https://classroom.google.com/c/ODU4ODE4ODU0OTE0?cjc=u2uaqq5w"
+              target="_blank"
+              class="inline-flex items-center gap-3 text-indigo-600 hover:text-indigo-700 font-medium"
+            >
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              Truy cập lớp học
+            </a>
+            <p class="text-sm mt-4 text-gray-600">
+              Bài tập lý thuyết nộp trước mỗi buổi học
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHẦN C: NỘI DUNG MÔN HỌC -->
+      <section id="noi-dung-mon" class="mb-16">
+        <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >C</span
+          >
+          Nội dung chính môn học
+        </h2>
+        <div class="bg-white rounded-3xl p-10 shadow-sm border">
+          <ol class="space-y-6 text-lg">
+            <li class="flex gap-6">
+              <span class="font-bold text-3xl text-emerald-200">01</span>
+              <div><strong>Phần 1:</strong> Ôn tập về lập trình PHP cơ bản</div>
+            </li>
+            <li class="flex gap-6">
+              <span class="font-bold text-3xl text-emerald-200">02</span>
+              <div>
+                <strong>Phần 2:</strong> OOP (Lập trình hướng đối tượng) trong
+                PHP
+              </div>
+            </li>
+            <li class="flex gap-6">
+              <span class="font-bold text-3xl text-emerald-200">03</span>
+              <div>
+                <strong>Phần 3:</strong> MVC (Model - View - Controller) trong
+                PHP
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- PHẦN D: BUỔI HỌC 1 -->
+      <section id="buoi-1">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >D</span
+          >
+          Nội dung chính Buổi học 1
+        </h2>
+
+        <!-- 1. Mô hình Client-Server -->
+        <div class="mb-14">
+          <h3 class="text-2xl font-semibold mb-5 flex items-center gap-3">
+            1. Mô hình Client - Server
+          </h3>
+          <div class="bg-white border rounded-3xl p-10">
+            <div
+              class="flex flex-col md:flex-row items-center justify-center gap-10 text-center"
+            >
+              <div class="bg-blue-50 p-8 rounded-2xl w-full md:w-72">
+                <i class="fa-solid fa-laptop text-6xl text-blue-500 mb-4"></i>
+                <h4 class="font-bold text-xl">Client</h4>
+                <p class="text-sm text-gray-600 mt-2">
+                  Trình duyệt web (Chrome, Firefox...)
+                </p>
+                <p class="text-xs mt-6 text-gray-500">Gửi Request</p>
+              </div>
+              <div class="text-4xl text-gray-300 hidden md:block">→</div>
+              <div
+                class="bg-purple-50 p-8 rounded-2xl w-full md:w-80 border-2 border-purple-400"
+              >
+                <i class="fa-solid fa-server text-6xl text-purple-600 mb-4"></i>
+                <h4 class="font-bold text-xl">Server</h4>
+                <p class="text-sm text-gray-600 mt-2">
+                  Web Server + PHP + MySQL
+                </p>
+                <p
+                  class="mt-4 bg-white text-xs px-4 py-2 rounded-xl inline-block"
+                >
+                  <strong>PHP</strong> nằm ở tầng Server
+                </p>
+                <p class="text-xs mt-6 text-gray-500">
+                  Xử lý logic → Trả về Response (HTML)
+                </p>
+              </div>
+            </div>
+            <p class="text-center mt-8 text-gray-600">
+              PHP là ngôn ngữ phía Server, thực thi trên máy chủ và sinh ra HTML
+              trả về cho Client.
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Môi trường chạy PHP -->
+        <div class="mb-14">
+          <h3 class="text-2xl font-semibold mb-5">2. Môi trường chạy PHP</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white p-7 rounded-3xl border">
+              <h4 class="font-bold text-lg mb-2">Laragon</h4>
+              <p class="text-sm">
+                Công cụ phát triển web All-in-One (Windows). Bao gồm Apache,
+                Nginx, PHP, MySQL, Redis...
+              </p>
+            </div>
+            <div class="bg-white p-7 rounded-3xl border">
+              <h4 class="font-bold text-lg mb-2">Apache</h4>
+              <p class="text-sm">
+                Web Server phổ biến nhất, chịu trách nhiệm nhận request từ
+                client và gọi PHP xử lý.
+              </p>
+            </div>
+            <div
+              class="bg-emerald-50 p-7 rounded-3xl border border-emerald-200"
+            >
+              <h4 class="font-bold text-lg mb-3 text-emerald-700">
+                Tại sao chỉ cần Laragon?
+              </h4>
+              <p class="text-emerald-700 text-sm">
+                Laragon đã tích hợp sẵn Apache + PHP + MySQL → Chỉ cần cài một
+                gói là có thể code và chạy PHP ngay.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Cấu trúc điều khiển -->
+        <div class="mb-20">
+          <h3 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span
+              class="bg-orange-100 text-orange-600 w-10 h-10 rounded-2xl flex items-center justify-center"
+              >3</span
+            >
+            Cấu trúc điều khiển (Control Structures)
+          </h3>
+
+          <div class="mb-12">
+            <h4 class="text-2xl font-semibold mb-4 text-orange-700">
+              1. if ... else
+            </h4>
+            <p class="text-lg mb-4">
+              <strong>Lý thuyết:</strong> Dùng để thực thi khối lệnh khi điều
+              kiện đúng (<code>true</code>) và khối lệnh khác khi sai
+              (<code>false</code>).
+            </p>
+            <pre><code>if (điều_kiện) {
+    // code khi đúng
+} elseif (điều_kiện_2) {
+    // code khi điều kiện 2 đúng
+} else {
+    // code khi tất cả sai
+}</code></pre>
+          </div>
+
+          <div class="mb-12">
+            <h4 class="text-2xl font-semibold mb-4 text-orange-700">
+              2. switch ... case
+            </h4>
+            <p class="text-lg mb-4">
+              <strong>Lý thuyết:</strong> Dùng để so sánh một biến với nhiều giá
+              trị khác nhau.
+            </p>
+            <pre><code>switch ($bien) {
+    case gia_tri_1:
+        // lệnh
+        break;
+    default:
+        // lệnh mặc định
+}</code></pre>
+          </div>
+
+          <div class="exercise p-8 rounded-3xl">
+            <h4 class="font-bold text-xl mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-pen-to-square text-orange-600"></i>
+              Bài tập ứng dụng (Cấu trúc điều khiển)
+            </h4>
+            <ol class="space-y-6 text-lg">
+              <li>
+                <strong>Bài 1:</strong> Nhập một số nguyên, kiểm tra chẵn hay
+                lẻ.
+              </li>
+              <li>
+                <strong>Bài 2:</strong> Nhập điểm trung bình (0-10), phân loại
+                học lực (Xuất sắc, Giỏi, Khá, Trung bình, Yếu).
+              </li>
+              <li>
+                <strong>Bài 3:</strong> Nhập tháng (1-12), in ra số ngày của
+                tháng đó (không nhuận).
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- 4. Vòng lặp -->
+        <div>
+          <h3 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span
+              class="bg-blue-100 text-blue-600 w-10 h-10 rounded-2xl flex items-center justify-center"
+              >4</span
+            >
+            Vòng lặp (Loops)
+          </h3>
+
+          <div class="grid md:grid-cols-3 gap-8 mb-12">
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="text-xl font-bold mb-3 text-blue-700">1. for</h4>
+              <pre><code>for ($i = 1; $i &lt;= 10; $i++) {
+    echo $i;
+}</code></pre>
+            </div>
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="text-xl font-bold mb-3 text-blue-700">2. while</h4>
+              <pre><code>while (điều_kiện) {
+    // code
+}</code></pre>
+            </div>
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="text-xl font-bold mb-3 text-blue-700">
+                3. do...while
+              </h4>
+              <pre><code>do {
+    // code
+} while (điều_kiện);</code></pre>
+            </div>
+          </div>
+
+          <div class="exercise p-8 rounded-3xl">
+            <h4 class="font-bold text-xl mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-pen-to-square text-blue-600"></i>
+              Bài tập ứng dụng (Vòng lặp)
+            </h4>
+            <ol class="space-y-6 text-lg">
+              <li>
+                <strong>Bài 1:</strong> In bảng cửu chương 5 (từ 1 đến 10) dùng
+                <code>for</code>.
+              </li>
+              <li>
+                <strong>Bài 2:</strong> Tính tổng các số chẵn từ 1 đến 100 dùng
+                <code>while</code>.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 1 - Lập trình PHP 1
+      </div>
+    </div>
+  </body>
+</html>
