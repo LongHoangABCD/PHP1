@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Buổi 1: Ôn tập kiến thức PHP cơ bản</title>
+    <title>Buổi 1: Ôn tập kiến thức PHP cơ bản (buổi 1)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -45,7 +45,7 @@
         <div class="flex items-center gap-4">
           <i class="fa-solid fa-code text-5xl"></i>
           <div>
-            <h1 class="text-4xl font-bold">Lập trình PHP 1</h1>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
             <p class="text-xl mt-2 opacity-90">
               Buổi 1: Ôn tập kiến thức PHP cơ bản
             </p>
@@ -136,7 +136,13 @@
               </li>
               <li class="flex gap-3">
                 <i class="fa-solid fa-bell text-amber-500 mt-0.5"></i> Mọi thông
-                báo qua nhóm <strong>Zalo</strong>
+                báo qua nhóm
+                <a
+                  href="https://zalo.me/g/zeeehylanqyfpgggz6og"
+                  class="font-bold"
+                >
+                  Zalo
+                </a>
               </li>
             </ul>
           </div>
@@ -321,18 +327,73 @@
             <h4 class="text-2xl font-semibold mb-4 text-orange-700">
               1. if ... else
             </h4>
+
             <p class="text-lg mb-4">
               <strong>Lý thuyết:</strong> Dùng để thực thi khối lệnh khi điều
               kiện đúng (<code>true</code>) và khối lệnh khác khi sai
               (<code>false</code>).
             </p>
-            <pre><code>if (điều_kiện) {
-    // code khi đúng
-} elseif (điều_kiện_2) {
-    // code khi điều kiện 2 đúng
-} else {
-    // code khi tất cả sai
-}</code></pre>
+
+            <pre><code>
+  if ($điều_kiện) {
+      // code khi đúng
+  } else if ($điều_kiện_2) {
+      // code khi điều kiện 2 đúng
+  } else {
+      // code khi tất cả sai
+  }
+        </code></pre>
+
+            <div class="mt-6">
+              <h5 class="text-xl font-semibold mb-3 text-orange-600">
+                Truthy và Falsy trong PHP
+              </h5>
+
+              <p class="text-lg mb-4">
+                Trong PHP, điều kiện trong <code>if</code> không bắt buộc phải
+                là <code>true</code> hoặc <code>false</code>. PHP sẽ tự động
+                chuyển đổi giá trị sang kiểu boolean.
+              </p>
+
+              <p class="text-lg mb-2">
+                <strong>Falsy</strong> là các giá trị được xem là
+                <code>false</code>:
+              </p>
+
+              <pre><code>false
+          0
+          0.0
+          ""
+          "0"
+          []
+          null</code></pre>
+
+              <p class="text-lg mt-4 mb-2">
+                <strong>Truthy</strong> là các giá trị còn lại, ví dụ:
+              </p>
+
+              <pre><code>true
+          1
+          -5
+          "hello"
+          [1, 2, 3]
+          new stdClass()</code></pre>
+
+              <p class="text-lg mt-4 mb-2">Ví dụ:</p>
+
+              <pre><code>$username = "";
+
+          if ($username) {
+              echo "Có username";
+          } else {
+              echo "Không có username";
+          }</code></pre>
+
+              <p class="text-lg mt-4">
+                Vì <code>""</code> là giá trị <strong>falsy</strong>, nên chương
+                trình sẽ chạy vào khối <code>else</code>.
+              </p>
+            </div>
           </div>
 
           <div class="mb-12">
@@ -345,11 +406,20 @@
             </p>
             <pre><code>switch ($bien) {
     case gia_tri_1:
-        // lệnh
+        // code chạy khi $bien = gia_tri_1
+        break;
+    case gia_tri_2:
+        // code chạy khi $bien = gia_tri_2
         break;
     default:
-        // lệnh mặc định
+        // code mặc định (chạy khi $bien không bằng bất kỳ case nào bên trên)
 }</code></pre>
+            <p class="text-lg mb-4">
+              <strong>break:</strong>
+              dùng để dừng switch sau khi thực thi xong một case. Nếu không có
+              break, chương trình sẽ tiếp tục chạy các case phía dưới dù điều
+              kiện không khớp. Điều này gọi là fall-through.
+            </p>
           </div>
 
           <div class="exercise p-8 rounded-3xl">
@@ -358,17 +428,119 @@
               Bài tập ứng dụng (Cấu trúc điều khiển)
             </h4>
             <ol class="space-y-6 text-lg">
-              <li>
-                <strong>Bài 1:</strong> Nhập một số nguyên, kiểm tra chẵn hay
-                lẻ.
+              <li
+                class="border border-gray-300 rounded-xl overflow-hidden mb-4"
+              >
+                <div
+                  class="w-full flex items-center px-5 py-4 bg-orange-100 hover:bg-orange-200 transition"
+                >
+                  <span class="text-left font-semibold text-lg text-orange-800">
+                    Bài 1: Nhập một số nguyên, kiểm tra chẵn hay lẻ.
+                  </span>
+                </div>
               </li>
               <li>
-                <strong>Bài 2:</strong> Nhập điểm trung bình (0-10), phân loại
-                học lực (Xuất sắc, Giỏi, Khá, Trung bình, Yếu).
+                <div
+                  class="border border-gray-300 rounded-xl overflow-hidden mb-4"
+                >
+                  <!-- Header -->
+                  <button
+                    type="button"
+                    onclick="
+                      document
+                        .getElementById('exercise-2')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex items-center justify-between px-5 py-4 bg-orange-100 hover:bg-orange-200 transition"
+                  >
+                    <span
+                      class="text-left font-semibold text-lg text-orange-800"
+                    >
+                      Bài 2: Nhập điểm trung bình (0-10), phân loại học lực
+                      (Xuất sắc, Giỏi, Khá, Trung bình, Yếu)
+                    </span>
+
+                    <span class="text-2xl font-bold text-orange-700">+</span>
+                  </button>
+
+                  <!-- Content -->
+                  <div id="exercise-2" class="hidden p-5 bg-white">
+                    <h4 class="text-xl font-semibold mb-3 text-orange-700">
+                      Cách 1: Sử dụng if...else
+                    </h4>
+
+                    <pre
+                      class="p-4 rounded-lg overflow-x-auto mb-6"
+                    ><code>&lt;?php
+
+              $score = 8.5;
+
+              if ($score &lt; 0 || $score &gt; 10) {
+                  echo "Điểm không hợp lệ";
+              } elseif ($score &gt;= 9) {
+                  echo "Xuất sắc";
+              } elseif ($score &gt;= 8) {
+                  echo "Giỏi";
+              } elseif ($score &gt;= 6.5) {
+                  echo "Khá";
+              } elseif ($score &gt;= 5) {
+                  echo "Trung bình";
+              } else {
+                  echo "Yếu";
+              }</code></pre>
+
+                    <h4 class="text-xl font-semibold mb-3 text-orange-700">
+                      Cách 2: Sử dụng switch...case
+                    </h4>
+
+                    <pre class="p-4 rounded-lg overflow-x-auto"><code>&lt;?php
+
+                      $score = 8.5;
+
+                      switch ((int)$score) {
+                          case 10:
+                          case 9:
+                              echo "Xuất sắc";
+                              break;
+
+                          case 8:
+                              echo "Giỏi";
+                              break;
+
+                          case 7:
+                          case 6:
+                              echo "Khá";
+                              break;
+
+                          case 5:
+                              echo "Trung bình";
+                              break;
+
+                          case 4:
+                          case 3:
+                          case 2:
+                          case 1:
+                          case 0:
+                              echo "Yếu";
+                              break;
+
+                          default:
+                              echo "Điểm không hợp lệ";
+                      }</code></pre>
+                  </div>
+                </div>
               </li>
-              <li>
-                <strong>Bài 3:</strong> Nhập tháng (1-12), in ra số ngày của
-                tháng đó (không nhuận).
+              <li
+                class="border border-gray-300 rounded-xl overflow-hidden mb-4"
+              >
+                <div
+                  class="w-full flex items-center px-5 py-4 bg-orange-100 hover:bg-orange-200 transition"
+                >
+                  <span class="text-left font-semibold text-lg text-orange-800">
+                    Bài 3: Nhập tháng (1-12), in ra số ngày của tháng đó (không
+                    nhuận).
+                  </span>
+                </div>
               </li>
             </ol>
           </div>
@@ -384,26 +556,121 @@
             Vòng lặp (Loops)
           </h3>
 
-          <div class="grid md:grid-cols-3 gap-8 mb-12">
+          <div class="grid md:grid-cols-1 gap-8 mb-12">
+            <!-- FOR -->
             <div class="bg-white p-7 rounded-3xl shadow">
               <h4 class="text-xl font-bold mb-3 text-blue-700">1. for</h4>
+
+              <p class="text-lg mb-4">
+                <strong>Lý thuyết:</strong>
+                Vòng lặp <code>for</code> thường được dùng khi biết trước số lần
+                lặp. Nó gồm 3 phần:
+              </p>
+
+              <ul class="list-disc pl-6 mb-4 space-y-2">
+                <li>Khởi tạo biến đếm</li>
+                <li>Điều kiện lặp</li>
+                <li>Tăng / giảm biến đếm sau mỗi lần lặp</li>
+              </ul>
+
               <pre><code>for ($i = 1; $i &lt;= 10; $i++) {
-    echo $i;
-}</code></pre>
+              echo $i;
+          }</code></pre>
             </div>
+
+            <!-- WHILE -->
             <div class="bg-white p-7 rounded-3xl shadow">
               <h4 class="text-xl font-bold mb-3 text-blue-700">2. while</h4>
-              <pre><code>while (điều_kiện) {
-    // code
-}</code></pre>
+
+              <p class="text-lg mb-4">
+                <strong>Lý thuyết:</strong>
+                Vòng lặp <code>while</code> sẽ kiểm tra điều kiện trước. Nếu
+                điều kiện đúng thì code mới được thực thi.
+              </p>
+
+              <p class="text-lg mb-4">
+                Nếu điều kiện sai ngay từ đầu thì vòng lặp sẽ không chạy lần
+                nào.
+              </p>
+
+              <pre><code>$i = 1;
+
+          while ($i &lt;= 5) {
+              echo $i;
+              $i++;
+          }</code></pre>
             </div>
+
+            <!-- DO WHILE -->
             <div class="bg-white p-7 rounded-3xl shadow">
               <h4 class="text-xl font-bold mb-3 text-blue-700">
                 3. do...while
               </h4>
-              <pre><code>do {
-    // code
-} while (điều_kiện);</code></pre>
+
+              <p class="text-lg mb-4">
+                <strong>Lý thuyết:</strong>
+                Vòng lặp <code>do...while</code> sẽ chạy code trước, sau đó mới
+                kiểm tra điều kiện.
+              </p>
+
+              <p class="text-lg mb-4">
+                Vì vậy vòng lặp này luôn chạy ít nhất 1 lần dù điều kiện sai.
+              </p>
+
+              <pre><code>$i = 1;
+
+          do {
+              echo $i;
+              $i++;
+          } while ($i &lt;= 5);</code></pre>
+            </div>
+
+            <!-- BREAK -->
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="text-xl font-bold mb-3 text-red-700">4. break</h4>
+
+              <p class="text-lg mb-4">
+                <strong>Lý thuyết:</strong>
+                <code>break</code> dùng để thoát khỏi vòng lặp ngay lập tức.
+              </p>
+
+              <p class="text-lg mb-4">
+                Khi gặp <code>break</code>, chương trình sẽ dừng vòng lặp hiện
+                tại.
+              </p>
+
+              <pre><code>for ($i = 1; $i &lt;= 10; $i++) {
+
+              if ($i == 5) {
+                  break;
+              }
+
+              echo $i;
+          }</code></pre>
+
+              <p class="mt-4">Kết quả: <code>1234</code></p>
+            </div>
+
+            <!-- CONTINUE -->
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="text-xl font-bold mb-3 text-green-700">5. continue</h4>
+
+              <p class="text-lg mb-4">
+                <strong>Lý thuyết:</strong>
+                <code>continue</code> dùng để bỏ qua lần lặp hiện tại và chuyển
+                sang lần lặp tiếp theo.
+              </p>
+
+              <pre><code>for ($i = 1; $i &lt;= 5; $i++) {
+
+              if ($i == 3) {
+                  continue;
+              }
+
+              echo $i;
+          }</code></pre>
+
+              <p class="mt-4">Kết quả: <code>1245</code></p>
             </div>
           </div>
 
@@ -414,12 +681,128 @@
             </h4>
             <ol class="space-y-6 text-lg">
               <li>
-                <strong>Bài 1:</strong> In bảng cửu chương 5 (từ 1 đến 10) dùng
-                <code>for</code>.
+                <div
+                  class="border border-gray-300 rounded-xl overflow-hidden mb-4"
+                >
+                  <!-- Header -->
+                  <button
+                    type="button"
+                    onclick="
+                      document
+                        .getElementById('exercise-1')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex items-center justify-between px-5 py-4 bg-blue-100 hover:bg-blue-200 transition"
+                  >
+                    <span class="text-left font-semibold text-lg text-blue-800">
+                      Bài 1: In bảng cửu chương 5 (từ 1 đến 10) dùng for
+                    </span>
+
+                    <span class="text-2xl font-bold text-blue-700">+</span>
+                  </button>
+
+                  <!-- Content -->
+                  <div id="exercise-1" class="hidden p-5 bg-white">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-700">
+                      Lời giải
+                    </h4>
+
+                    <pre class="p-4 rounded-lg overflow-x-auto"><code>&lt;?php
+
+              for ($i = 1; $i &lt;= 10; $i++) {
+                  echo "5 x $i = " . (5 * $i) . "&lt;br&gt;";
+              }</code></pre>
+
+                    <div class="mt-6">
+                      <h5 class="text-lg font-semibold mb-2 text-blue-700">
+                        Giải thích
+                      </h5>
+
+                      <ul class="list-disc pl-6 space-y-2">
+                        <li><code>$i = 1</code>: Khởi tạo biến bắt đầu từ 1</li>
+
+                        <li>
+                          <code>$i &lt;= 10</code>: Lặp đến khi i nhỏ hơn hoặc
+                          bằng 10
+                        </li>
+
+                        <li><code>$i++</code>: Tăng i lên 1 sau mỗi lần lặp</li>
+
+                        <li><code>(5 * $i)</code>: Tính kết quả phép nhân</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </li>
               <li>
-                <strong>Bài 2:</strong> Tính tổng các số chẵn từ 1 đến 100 dùng
-                <code>while</code>.
+                <div
+                  class="border border-gray-300 rounded-xl overflow-hidden mb-4"
+                >
+                  <!-- Header -->
+                  <button
+                    type="button"
+                    onclick="
+                      document
+                        .getElementById('exercise-3')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex items-center justify-between px-5 py-4 bg-blue-100 hover:bg-blue-200 transition"
+                  >
+                    <span class="text-left font-semibold text-lg text-blue-800">
+                      Bài 2: Tính tổng các số chẵn từ 1 đến 100 dùng while
+                    </span>
+
+                    <span class="text-2xl font-bold text-blue-700">+</span>
+                  </button>
+
+                  <!-- Content -->
+                  <div id="exercise-3" class="hidden p-5 bg-white">
+                    <h4 class="text-xl font-semibold mb-3 text-blue-700">
+                      Lời giải
+                    </h4>
+
+                    <pre class="p-4 rounded-lg overflow-x-auto"><code>&lt;?php
+
+                $i = 2;
+                $sum = 0;
+
+                while ($i &lt;= 100) {
+                    $sum += $i;
+                    $i += 2;
+                }
+
+                echo "Tổng các số chẵn từ 1 đến 100 là: " . $sum;</code></pre>
+
+                    <div class="mt-6">
+                      <h5 class="text-lg font-semibold mb-2 text-blue-700">
+                        Giải thích
+                      </h5>
+
+                      <ul class="list-disc pl-6 space-y-2">
+                        <li>
+                          <code>$i = 2</code>: Bắt đầu từ số chẵn đầu tiên
+                        </li>
+
+                        <li><code>$sum = 0</code>: Biến dùng để lưu tổng</li>
+
+                        <li>
+                          <code>while ($i &lt;= 100)</code>: Lặp khi i còn nhỏ
+                          hơn hoặc bằng 100
+                        </li>
+
+                        <li>
+                          <code>$sum += $i</code>: Cộng giá trị hiện tại của i
+                          vào tổng
+                        </li>
+
+                        <li>
+                          <code>$i += 2</code>: Tăng thêm 2 để sang số chẵn tiếp
+                          theo
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
               </li>
             </ol>
           </div>

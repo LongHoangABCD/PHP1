@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 2: Ôn tập Mảng và Hàm trong PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #14b8a6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 2: Ôn tập Mảng và Hàm trong PHP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#mang"
+          class="px-5 py-2 bg-sky-600 text-white hover:bg-sky-700 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-list"></i> Mảng
+        </a>
+        <a
+          href="#ham"
+          class="px-5 py-2 bg-emerald-600 text-white hover:bg-emerald-700 rounded-full border text-sm font-medium flex items-center gap-2"
+        >
+          <i class="fa-solid fa-function"></i> Hàm
+        </a>
+      </nav>
+
+      <!-- PHẦN MẢNG -->
+      <section id="mang">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >E</span
+          >
+          Mảng trong PHP (Arrays)
+        </h2>
+
+        <div class="mb-20">
+          <h3 class="text-3xl font-bold mb-6 text-teal-700">
+            1. Các loại mảng
+          </h3>
+
+          <div class="grid md:grid-cols-1 gap-6 mb-12">
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-3 text-teal-600">
+                1. Mảng chỉ số (Indexed)
+              </h4>
+              <pre><code>$arr = ["HTML", "CSS", "PHP"];
+echo $arr[0]; // HTML</code></pre>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-3 text-teal-600">
+                2. Mảng kết hợp (Associative)
+              </h4>
+              <pre><code>$sv = [
+    "ten" => "Long",
+    "tuoi" => 20,
+    "lop" => "PHP01"
+];
+echo $sv["ten"]; // Long</code></pre>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-3 text-teal-600">
+                3. Mảng đa chiều
+              </h4>
+              <pre><code>$ds = [
+    ["ten" => "An", "diem" => 8.5],
+    ["ten" => "Bình", "diem" => 9.0]
+];
+echo $ds[0]["ten"]; // An</code></pre>
+            </div>
+          </div>
+
+          <h3 class="text-3xl font-bold mb-6 text-teal-700">
+            2. Một số hàm mảng quan trọng
+          </h3>
+          <div class="grid md:grid-cols-1 gap-8">
+            <div>
+              <pre><code>count($arr)           // đếm số phần tử
+array_push($arr, ...) // thêm vào cuối
+array_pop($arr)       // lấy ra từ cuối
+array_shift($arr)     // lấy ra từ đầu
+array_unshift($arr, ...) // thêm vào đầu
+sort($arr)            // sắp xếp tăng dần
+rsort($arr)           // sắp xếp giảm dần</code></pre>
+            </div>
+            <div class="bg-white p-7 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-4 text-teal-600">
+                Thao tác với vị trí cụ thể (array_splice)
+              </h4>
+
+              <p class="text-lg mb-4">
+                <strong>Hàm <code>array_splice()</code></strong> là hàm mạnh
+                nhất để chèn, xóa, thay thế phần tử ở giữa mảng.
+              </p>
+
+              <pre><code>array_splice(array &$array, int $offset, ?int $length = null, mixed $replacement = []);</code></pre>
+
+              <h5 class="font-semibold mt-5 mb-3 text-teal-700">
+                Ý nghĩa 4 tham số:
+              </h5>
+
+              <table class="w-full text-sm border-collapse mb-6">
+                <thead>
+                  <tr class="bg-teal-50">
+                    <th class="border p-3 text-left">Tham số</th>
+                    <th class="border p-3 text-left">Ý nghĩa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="border p-3 font-medium">$array</td>
+                    <td class="border p-3">
+                      Mảng gốc (sẽ bị thay đổi trực tiếp - pass by reference)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border p-3 font-medium">$offset</td>
+                    <td class="border p-3">
+                      Vị trí bắt đầu thao tác (dương: từ đầu, âm: từ cuối)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border p-3 font-medium">$length</td>
+                    <td class="border p-3">
+                      Số lượng phần tử muốn <strong>xóa</strong>. <br /><small
+                        >Không truyền = xóa đến hết | 0 = không xóa</small
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="border p-3 font-medium">$replacement</td>
+                    <td class="border p-3">
+                      Giá trị hoặc mảng thay thế/chèn vào vị trí đã xóa
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h5 class="font-semibold mb-3 text-teal-700">Ví dụ minh họa:</h5>
+              <pre><code>// Chỉnh sửa phần tử
+            $arr[2] = "Giá trị mới";                    // indexed
+            $arr['key'] = "Giá trị mới";                // associative
+
+            // Thêm vào giữa mảng (không xóa)
+            array_splice($arr, $vi_tri, 0, $gia_tri_can_chen);
+
+            // Xóa 1 phần tử ở giữa
+            array_splice($arr, $vi_tri, 1);
+
+            // Thay thế 1 phần tử
+            array_splice($arr, $vi_tri, 1, "Giá trị thay thế");
+
+            // Thêm nhiều phần tử
+            array_splice($arr, 2, 0, ["A", "B", "C"]);</code></pre>
+            </div>
+            <div>
+              <pre><code>foreach ($arr as $value) { ... }
+foreach ($arr as $key => $value) { ... }</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bài tập Mảng -->
+        <div class="exercise p-8 rounded-3xl mb-20">
+          <h4 class="font-bold text-xl mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-teal-600"></i>
+            Bài tập ứng dụng - Mảng
+          </h4>
+          <ol class="space-y-8 text-lg">
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex1').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-teal-100 hover:bg-teal-200 transition"
+                >
+                  <span class="font-semibold"
+                    >Bài 1: Tính tổng và trung bình của mảng số</span
+                  >
+                  <span class="text-2xl">+</span>
+                </button>
+                <div id="ex1" class="hidden p-6 bg-white">
+                  <pre><code>&lt;?php
+$numbers = [5, 8, 12, 7, 9];
+$sum = 0;
+foreach ($numbers as $num) {
+    $sum += $num;
+}
+$avg = $sum / count($numbers);
+
+echo "Tổng = $sum | Trung bình = $avg";</code></pre>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex2').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-teal-100 hover:bg-teal-200 transition"
+                >
+                  <span class="font-semibold"
+                    >Bài 2: Tìm phần tử lớn nhất và nhỏ nhất trong mảng</span
+                  >
+                  <span class="text-2xl">+</span>
+                </button>
+                <div id="ex2" class="hidden p-6 bg-white">
+                  <pre><code>&lt;?php
+$arr = [34, 12, 56, 7, 89, 23];
+$max = $arr[0];
+$min = $arr[0];
+
+foreach ($arr as $val) {
+    if ($val > $max) $max = $val;
+    if ($val < $min) $min = $val;
+}
+echo "Max: $max - Min: $min";</code></pre>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex3').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-teal-100 hover:bg-teal-200 transition"
+                >
+                  <div class="text-left">
+                    <span class="font-semibold"
+                      >Bài 3: Thao tác thêm, sửa, xóa phần tử trong mảng
+                      (array_splice)</span
+                    >
+                    <h5 class="font-semibold text-teal-700 mb-3">Đề bài:</h5>
+                    <p class="mb-4">
+                      Cho mảng ban đầu:<br />
+                      <code
+                        >$languages = ["HTML", "CSS", "JavaScript", "PHP",
+                        "Python"];</code
+                      >
+                    </p>
+
+                    <p class="mb-4 font-medium">
+                      Yêu cầu thực hiện lần lượt các thao tác sau:
+                    </p>
+                    <ol class="list-decimal pl-6 space-y-2 mb-6 text-[17px]">
+                      <li>
+                        Chèn <strong>"Tailwind CSS"</strong> vào vị trí thứ 3
+                        (index 2)
+                      </li>
+                      <li>
+                        Thay thế <strong>"JavaScript"</strong> bằng
+                        <strong>"TypeScript"</strong>
+                      </li>
+                      <li>Xóa phần tử <strong>"PHP"</strong></li>
+                      <li>Thêm <strong>"MySQL"</strong> vào cuối mảng</li>
+                      <li>In ra mảng sau khi hoàn thành tất cả các thao tác</li>
+                    </ol>
+                  </div>
+                  <span class="text-2xl">+</span>
+                </button>
+                <div id="ex3" class="hidden p-6 bg-white">
+                  <h5 class="font-semibold text-teal-700 mb-3">Lời giải:</h5>
+                  <pre><code>&lt;?php
+          $languages = ["HTML", "CSS", "JavaScript", "PHP", "Python"];
+
+          echo "Mảng ban đầu: ";
+          print_r($languages);
+
+          echo "&lt;br&gt;&lt;br&gt;";
+
+          // 1. Chèn "Tailwind CSS" vào vị trí index 2
+          array_splice($languages, 2, 0, "Tailwind CSS");
+
+          // 2. Thay thế "JavaScript" bằng "TypeScript"
+          $index = array_search("JavaScript", $languages);
+          if ($index !== false) {
+              $languages[$index] = "TypeScript";
+          }
+
+          // 3. Xóa "PHP"
+          $index = array_search("PHP", $languages);
+          if ($index !== false) {
+              array_splice($languages, $index, 1);
+          }
+
+          // 4. Thêm "MySQL" vào cuối mảng
+          array_push($languages, "MySQL");
+
+          echo "Mảng sau khi thao tác: ";
+          print_r($languages);
+          ?&gt;</code></pre>
+
+                  <div class="mt-6 bg-teal-50 p-4 rounded-2xl text-sm">
+                    <strong>Kết quả mong đợi:</strong><br />
+                    <code
+                      >["HTML", "CSS", "Tailwind CSS", "TypeScript", "Python",
+                      "MySQL"]</code
+                    >
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- PHẦN HÀM -->
+      <section id="ham">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >F</span
+          >
+          Hàm trong PHP (Functions)
+        </h2>
+
+        <div class="mb-12">
+          <h3 class="text-3xl font-bold mb-6 text-emerald-700">
+            1. Định nghĩa hàm
+          </h3>
+          <pre><code>function tenHam($thamSo1, $thamSo2 = "giá trị mặc định") {
+    // nội dung hàm
+    return $ketQua;   // trả về giá trị
+}</code></pre>
+        </div>
+
+        <div class="grid md:grid-cols-1 gap-8 mb-12">
+          <div class="bg-white p-7 rounded-3xl shadow">
+            <h4 class="font-bold text-xl mb-4 text-emerald-600">
+              Ví dụ 1: Hàm tính tổng
+            </h4>
+            <pre><code>function tinhTong($a, $b) {
+    return $a + $b;
+}
+echo tinhTong(5, 7); // 12</code></pre>
+          </div>
+          <div class="bg-white p-7 rounded-3xl shadow">
+            <h4 class="font-bold text-xl mb-4 text-emerald-600">
+              Ví dụ 2: Hàm kiểm tra chẵn lẻ
+            </h4>
+            <pre><code>function chanLe($n) {
+    if ($n % 2 == 0) {
+        return "Chẵn";
+    }
+    return "Lẻ";
+}
+echo chanLe(9); // Lẻ</code></pre>
+          </div>
+          <div class="bg-white p-7 rounded-3xl shadow">
+            <h4 class="font-bold text-xl mb-4 text-emerald-600">
+              Ví dụ 3: (Early Return - Guard Clause)
+            </h4>
+            <ul class="my-2 pl-10">
+              <li>- Thay vì viết if - else lồng nhau (tư duy xuôi),</li>
+              <li>
+                - Ta kiểm tra các trường hợp lỗi/sai trước, return ngay nếu phát
+                hiện lỗi.
+              </li>
+              <li>
+                - Code chính (logic chính) sẽ nằm ở cuối hàm, sạch sẽ và dễ đọc
+                hơn.
+              </li>
+            </ul>
+            <pre>
+              <code>
+  function chanLe($n) {
+    if ($n % 2 == 0) {
+        return "Chẵn";
+    } else {
+        return "Lẻ";
+    }
+}
+              </code>
+            </pre>
+            <pre class="mt-10">
+              <code>
+function chanLe($n) {
+    if ($n % 2 == 0) {
+        return "Chẵn";
+    }
+    
+    return "Lẻ";   // Nếu không phải chẵn thì mặc định là lẻ
+}
+              </code>
+            </pre>
+          </div>
+        </div>
+
+        <h3 class="text-3xl font-bold mb-6 text-emerald-700">2. Bài tập Hàm</h3>
+        <!-- Bài tập Hàm -->
+        <div class="exercise p-8 rounded-3xl">
+          <h4 class="font-bold text-xl mb-6 flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-emerald-600"></i>
+            Bài tập ứng dụng - Hàm
+          </h4>
+          <ol class="space-y-8 text-lg">
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex10').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-emerald-100 hover:bg-emerald-200 transition"
+                >
+                  <span class="font-semibold"
+                    >Bài 1: Viết hàm tính giai thừa</span
+                  >
+                  <span class="text-2xl">+</span>
+                </button>
+                <div id="ex10" class="hidden p-6 bg-white">
+                  <pre><code>function giaiThua($n) {
+    if ($n <= 1) return 1;
+    return $n * giaiThua($n - 1);
+}
+echo giaiThua(5); // 120</code></pre>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex4').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-emerald-100 hover:bg-emerald-200 transition"
+                >
+                  <span class="font-semibold"
+                    >Bài 2: Hàm kiểm tra số nguyên tố</span
+                  >
+                  <span class="text-2xl">+</span>
+                </button>
+                <div id="ex4" class="hidden p-6 bg-white">
+                  <pre><code>function laNguyenTo($n) {
+    if ($n < 2) return false;
+    for ($i = 2; $i <= sqrt($n); $i++) {
+        if ($n % $i == 0) return false;
+    }
+    return true;
+}
+echo laNguyenTo(17) ? "Nguyên tố" : "Không nguyên tố";</code></pre>
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <div class="border border-gray-300 rounded-xl overflow-hidden">
+                <button
+                  onclick="
+                    document.getElementById('ex5').classList.toggle('hidden')
+                  "
+                  class="w-full flex justify-between items-center px-6 py-5 bg-emerald-100 hover:bg-emerald-200 transition"
+                >
+                  <span class="font-semibold"
+                    >Bài 3: Hàm validate đăng ký tài khoản (Early Return vs
+                    If-Else lồng)</span
+                  >
+                  <span class="text-2xl">+</span>
+                </button>
+
+                <div id="ex5" class="hidden p-6 bg-white">
+                  <h5 class="font-semibold text-emerald-700 mb-4">Đề bài:</h5>
+                  <p class="mb-5">
+                    Viết hàm
+                    <code>dangKyTaiKhoan($username, $email, $password)</code>
+                    kiểm tra thông tin đăng ký với các quy tắc sau:
+                  </p>
+                  <ul class="list-disc pl-6 mb-6 space-y-1 text-[17px]">
+                    <li>Username không được để trống</li>
+                    <li>Email không được để trống</li>
+                    <li>Mật khẩu phải có ít nhất 6 ký tự</li>
+                  </ul>
+
+                  <h5 class="font-semibold text-red-600 mb-3">
+                    Cách 1: Dùng if-else lồng nhau (Tư duy xuôi)
+                  </h5>
+                  <pre><code>function dangKyTaiKhoan($username, $email, $password) {
+  if (!empty($username)) {
+      if (!empty($email)) {
+          if (strlen($password) >= 6) {
+              // Logic đăng ký tài khoản
+              return "Đăng ký thành công";
+          } else {
+              return "Mật khẩu phải có ít nhất 6 ký tự";
+          }
+      } else {
+          return "Email không được để trống";
+      }
+  } else {
+      return "Username không được để trống";
+  }
+}</code></pre>
+
+                  <h5 class="font-semibold text-emerald-600 mt-8 mb-3">
+                    Cách 2: Early Return (Guard Clause) - Khuyến khích dùng
+                  </h5>
+                  <pre><code>function dangKyTaiKhoan($username, $email, $password) {
+    // Kiểm tra lỗi sớm và return ngay (Guard Clause)
+    if (empty($username)) {
+        return "Username không được để trống";
+    }
+    
+    if (empty($email)) {
+        return "Email không được để trống";
+    }
+    
+    if (strlen($password) < 6) {
+        return "Mật khẩu phải có ít nhất 6 ký tự";
+    }
+    
+    // Nếu đã vượt qua tất cả kiểm tra → Logic chính
+    // ... code xử lý đăng ký tài khoản
+    
+    return "Đăng ký thành công";
+}</code></pre>
+
+                  <div class="mt-6 p-4 bg-emerald-50 rounded-2xl text-sm">
+                    <strong>Lợi ích của Early Return:</strong><br />
+                    • Code ngắn gọn, dễ đọc hơn<br />
+                    • Giảm độ sâu lồng nhau (nesting)<br />
+                    • Logic chính nằm ở cuối hàm<br />
+                    • Dễ thêm điều kiện validate mới
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- PHẦN ĐỆ QUY -->
+        <section id="dequy" class="mt-20">
+          <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+            <span
+              class="w-10 h-10 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+              >G</span
+            >
+            Tư duy Đệ quy (Recursion)
+          </h2>
+
+          <div class="mb-16">
+            <h3 class="text-3xl font-bold mb-6 text-purple-700">
+              1. Đệ quy là gì?
+            </h3>
+            <p class="text-lg leading-relaxed">
+              <strong>Đệ quy</strong> là kỹ thuật một hàm
+              <strong>gọi lại chính nó</strong> để giải quyết bài toán. Tư duy
+              đệ quy là chia bài toán lớn thành các bài toán nhỏ giống hệt nhau,
+              cho đến khi gặp trường hợp đơn giản nhất (base case).
+            </p>
+
+            <div
+              class="bg-purple-50 border border-purple-200 p-6 rounded-3xl mt-6"
+            >
+              <strong>So sánh:</strong><br />
+              • Vòng lặp = Lặp đi lặp lại một công việc<br />
+              • Đệ quy = Gọi chính mình để giải quyết phiên bản nhỏ hơn của vấn
+              đề
+            </div>
+          </div>
+
+          <div class="mb-16">
+            <h3 class="text-3xl font-bold mb-6 text-purple-700">
+              2. Cấu trúc của hàm đệ quy
+            </h3>
+            <p class="text-lg mb-4">
+              Một hàm đệ quy đúng cần có <strong>2 phần quan trọng</strong>:
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="bg-white p-6 rounded-3xl shadow">
+                <h4 class="font-bold text-purple-600 mb-2">
+                  1. Base Case (Trường hợp dừng)
+                </h4>
+                <p class="text-gray-600">
+                  Điều kiện để hàm dừng việc gọi lại chính nó. Đây là "điểm neo"
+                  quan trọng nhất.
+                </p>
+              </div>
+              <div class="bg-white p-6 rounded-3xl shadow">
+                <h4 class="font-bold text-purple-600 mb-2">
+                  2. Recursive Case (Trường hợp đệ quy)
+                </h4>
+                <p class="text-gray-600">
+                  Phần hàm gọi lại chính nó với phiên bản nhỏ hơn của bài toán.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ví dụ 1: Giai thừa -->
+          <div class="bg-white p-7 rounded-3xl shadow mb-12">
+            <h4 class="font-bold text-xl mb-4 text-purple-600">
+              Ví dụ 1: Tính giai thừa (Factorial)
+            </h4>
+            <pre><code>function giaiThua($n) {
+    // Base Case
+    if ($n <= 1) {
+        return 1;
+    }
+    
+    // Recursive Case
+    return $n * giaiThua($n - 1);
+}
+
+echo giaiThua(5); // 120</code></pre>
+            <p class="mt-4 text-sm text-gray-600">
+              5! = 5 × 4 × 3 × 2 × 1 = 120
+            </p>
+          </div>
+
+          <!-- Ví dụ 2: In số ngược -->
+          <div class="bg-white p-7 rounded-3xl shadow mb-12">
+            <h4 class="font-bold text-xl mb-4 text-purple-600">
+              Ví dụ 2: In dãy số từ n về 1
+            </h4>
+            <pre><code>function inSoNguoc($n) {
+    if ($n < 1) return;        // Base Case
+    
+    echo $n . " ";
+    inSoNguoc($n - 1);         // Recursive Case
+}
+
+inSoNguoc(10); 
+// Kết quả: 10 9 8 7 6 5 4 3 2 1</code></pre>
+          </div>
+
+          <div class="exercise p-8 rounded-3xl">
+            <h4 class="font-bold text-xl mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-pen-to-square text-purple-600"></i>
+              Bài tập áp dụng Đệ quy
+            </h4>
+            <ol class="space-y-8 text-lg">
+              <li>
+                <div class="border border-gray-300 rounded-xl overflow-hidden">
+                  <button
+                    onclick="
+                      document
+                        .getElementById('dequy1')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex justify-between items-center px-6 py-5 bg-purple-100 hover:bg-purple-200 transition"
+                  >
+                    <span class="font-semibold"
+                      >Bài 1: Tính tổng các số từ 1 đến n (dùng đệ quy)</span
+                    >
+                    <span class="text-2xl">+</span>
+                  </button>
+                  <div id="dequy1" class="hidden p-6 bg-white">
+                    <pre><code>function tongDenN($n) {
+    if ($n <= 1) return $n;
+    return $n + tongDenN($n - 1);
+}
+
+echo tongDenN(10); // 55</code></pre>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="border border-gray-300 rounded-xl overflow-hidden">
+                  <button
+                    onclick="
+                      document
+                        .getElementById('dequy2')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex justify-between items-center px-6 py-5 bg-purple-100 hover:bg-purple-200 transition"
+                  >
+                    <span class="font-semibold">Bài 2: Tính dãy Fibonacci</span>
+                    <span class="text-2xl">+</span>
+                  </button>
+                  <div id="dequy2" class="hidden p-6 bg-white">
+                    <pre><code>function fibonacci($n) {
+    if ($n <= 1) return $n;
+    return fibonacci($n - 1) + fibonacci($n - 2);
+}
+
+echo fibonacci(6); // 8</code></pre>
+                    <p class="mt-3 text-sm text-amber-600">
+                      Lưu ý: Cách đệ quy thuần này hiệu suất kém với n lớn. (Sẽ
+                      học tối ưu sau bằng Dynamic Programming)
+                    </p>
+                  </div>
+                </div>
+              </li>
+
+              <li>
+                <div class="border border-gray-300 rounded-xl overflow-hidden">
+                  <button
+                    onclick="
+                      document
+                        .getElementById('dequy3')
+                        .classList.toggle('hidden')
+                    "
+                    class="w-full flex justify-between items-center px-6 py-5 bg-purple-100 hover:bg-purple-200 transition"
+                  >
+                    <span class="font-semibold"
+                      >Bài 3: In ra tất cả các phần tử của mảng (dùng đệ
+                      quy)</span
+                    >
+                    <span class="text-2xl">+</span>
+                  </button>
+                  <div id="dequy3" class="hidden p-6 bg-white">
+                    <pre><code>function inMang($arr, $index = 0) {
+    if ($index >= count($arr)) return;
+    
+    echo $arr[$index] . " ";
+    inMang($arr, $index + 1);
+}
+
+$arr = [3, 7, 12, 19, 25];
+inMang($arr);</code></pre>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 3 - Mảng &amp; Hàm trong PHP
+      </div>
+    </div>
+  </body>
+</html>
