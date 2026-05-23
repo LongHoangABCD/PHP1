@@ -59,63 +59,95 @@
           DANH SÁCH BUỔI HỌC
         </h2>
 
-        <nav class="space-y-2">
-          <a
-            href="Buoi1/buoi1_ot.html"
-            class="menu-item active flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-indigo-700"
+        <!-- Dropdown Phần 1 -->
+        <div class="mb-6">
+          <button
+            onclick="toggleDropdown(this)"
+            class="w-full flex items-center justify-between px-5 py-4 bg-white border border-gray-200 hover:border-indigo-200 rounded-2xl font-semibold text-lg text-gray-800 transition-all"
           >
-            <span
-              class="w-7 h-7 bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold"
-              >01</span
-            >
-            Buổi 1: Ôn tập kiến thức PHP cơ bản (buổi 1)
-          </a>
+            <span class="flex items-center gap-3">
+              Phần 1: Ôn tập kiến thức PHP cơ bản
+            </span>
+            <span class="text-xl transition-transform duration-300">▼</span>
+          </button>
 
-          <a
-            href="Buoi2/buoi2_ot.html"
-            class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-600 hover:text-gray-800"
+          <!-- Nội dung dropdown -->
+          <div class="dropdown-content hidden mt-2">
+            <nav class="space-y-2">
+              <a
+                href="Buoi1/buoi1_ot.html"
+                class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 transition-all"
+              >
+                <span
+                  class="w-7 h-7 bg-gray-100 hover:bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold transition-colors"
+                  >01</span
+                >
+                Buổi 1: Ôn tập kiến thức PHP cơ bản (buổi 1)
+              </a>
+
+              <a
+                href="Buoi2/buoi2_ot.html"
+                class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 transition-all"
+              >
+                <span
+                  class="w-7 h-7 bg-gray-100 hover:bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold transition-colors"
+                  >02</span
+                >
+                Buổi 2: Ôn tập kiến thức PHP cơ bản (buổi 2)
+              </a>
+
+              <a
+                href="Buoi3/buoi3_ot.html"
+                class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 transition-all"
+              >
+                <span
+                  class="w-7 h-7 bg-gray-100 hover:bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold transition-colors"
+                  >03</span
+                >
+                Buổi 3: Ôn tập kiến thức PHP cơ bản (buổi 3)
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <button
+            onclick="toggleDropdown(this)"
+            class="w-full flex items-center justify-between px-5 py-4 bg-white border border-gray-200 hover:border-indigo-200 rounded-2xl font-semibold text-lg text-gray-800 transition-all"
           >
-            <span
-              class="w-7 h-7 bg-gray-100 rounded-xl flex items-center justify-center text-sm font-bold"
-              >02</span
-            >
-            Buổi 2: Ôn tập kiến thức PHP cơ bản (buổi 2)
-          </a>
+            <span class="flex items-center gap-3">
+              Phần 2: OOP trong PHP (Lập trình hướng đối tượng trong PHP)
+            </span>
+            <span class="text-xl transition-transform duration-300">▼</span>
+          </button>
 
-          <a
-            href="#"
-            class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-600 hover:text-gray-800"
-          >
-            <span
-              class="w-7 h-7 bg-gray-100 rounded-xl flex items-center justify-center text-sm font-bold"
-              >03</span
-            >
-            Buổi 3: [Tiêu đề buổi 3]
-          </a>
+          <!-- Nội dung dropdown -->
+          <div class="dropdown-content hidden mt-2">
+            <nav class="space-y-2">
+              <a
+                href="Buoi4/buoi4_ot.html"
+                class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 transition-all"
+              >
+                <span
+                  class="w-7 h-7 bg-gray-100 hover:bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold transition-colors"
+                  >04</span
+                >
+                Buổi 4: Class - Object
+              </a>
 
-          <a
-            href="#"
-            class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-600 hover:text-gray-800"
-          >
-            <span
-              class="w-7 h-7 bg-gray-100 rounded-xl flex items-center justify-center text-sm font-bold"
-              >04</span
-            >
-            Buổi 4: [Tiêu đề buổi 4]
-          </a>
-
-          <a
-            href="#"
-            class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-600 hover:text-gray-800"
-          >
-            <span
-              class="w-7 h-7 bg-gray-100 rounded-xl flex items-center justify-center text-sm font-bold"
-              >05</span
-            >
-            Buổi 5: [Tiêu đề buổi 5]
-          </a>
-        </nav>
-
+              <a
+                href="Buoi5/buoi5_ot.html"
+                class="menu-item flex items-center gap-3 px-5 py-4 rounded-2xl font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50 transition-all"
+              >
+                <span
+                  class="w-7 h-7 bg-gray-100 hover:bg-indigo-100 rounded-xl flex items-center justify-center text-sm font-bold transition-colors"
+                  >04</span
+                >
+                Buổi 5: Constructor - Destructor
+              </a>
+            </nav>
+          </div>
+        </div>
         <hr class="my-8" />
 
         <div class="space-y-4 text-sm">
@@ -197,6 +229,72 @@
                 <i class="fa-solid fa-arrow-right text-4xl opacity-75"></i>
               </div>
             </a>
+
+            <a
+              href="Buoi3/buoi3_ot.html"
+              class="mt-10 block bg-gradient-to-r from-indigo-500 to-violet-600 text-white p-8 rounded-3xl hover:shadow-xl transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <span
+                    class="px-4 py-2 bg-white/20 text-white text-sm rounded-full"
+                    >Buổi 3</span
+                  >
+                  <h4 class="text-2xl font-bold mt-4">
+                    Ôn tập kiến thức PHP cơ bản (buổi 3)
+                  </h4>
+                  <p class="mt-2 opacity-90">
+                    Form (Biểu mẫu), <br />
+                    Session (Phiên làm việc),<br />
+                  </p>
+                </div>
+                <i class="fa-solid fa-arrow-right text-4xl opacity-75"></i>
+              </div>
+            </a>
+
+            <a
+              href="Buoi4/buoi4_ot.html"
+              class="mt-10 block bg-gradient-to-r from-indigo-500 to-violet-600 text-white p-8 rounded-3xl hover:shadow-xl transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <span
+                    class="px-4 py-2 bg-white/20 text-white text-sm rounded-full"
+                    >Buổi 4</span
+                  >
+                  <h4 class="text-2xl font-bold mt-4">Class - Object</h4>
+                  <p class="mt-2 opacity-90">
+                    Khái niệm cơ bản của phong cách lập trình hướng đối tượng,
+                    <br />
+                    Class (Lớp), <br />
+                    Object (Đối tượng),<br />
+                  </p>
+                </div>
+                <i class="fa-solid fa-arrow-right text-4xl opacity-75"></i>
+              </div>
+            </a>
+
+            <a
+              href="Buoi5/buoi5_ot.html"
+              class="mt-10 block bg-gradient-to-r from-indigo-500 to-violet-600 text-white p-8 rounded-3xl hover:shadow-xl transition"
+            >
+              <div class="flex justify-between items-start">
+                <div>
+                  <span
+                    class="px-4 py-2 bg-white/20 text-white text-sm rounded-full"
+                    >Buổi 5</span
+                  >
+                  <h4 class="text-2xl font-bold mt-4">
+                    Constructor - Destructor
+                  </h4>
+                  <p class="mt-2 opacity-90">
+                    Constructor (Phương thức khởi tạo), <br />
+                    Destructor (Phương thức huỷ),<br />
+                  </p>
+                </div>
+                <i class="fa-solid fa-arrow-right text-4xl opacity-75"></i>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -206,4 +304,19 @@
       Tài liệu học tập Lập trình PHP 1
     </footer>
   </body>
+
+  <script>
+    function toggleDropdown(button) {
+      const content = button.nextElementSibling;
+      const arrow = button.querySelector("span:last-child");
+
+      content.classList.toggle("hidden");
+
+      if (content.classList.contains("hidden")) {
+        arrow.style.transform = "rotate(0deg)";
+      } else {
+        arrow.style.transform = "rotate(180deg)";
+      }
+    }
+  </script>
 </html>

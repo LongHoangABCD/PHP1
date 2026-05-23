@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 5: Constructor và Destructor trong OOP PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #14b8a6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 5: Constructor và Destructor trong OOP PHP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#this-keyword"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-hand-pointer"></i>
+          $this là gì?
+        </a>
+        <a
+          href="#constructor"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-play"></i>
+          1. Constructor
+        </a>
+        <a
+          href="#destructor"
+          class="px-6 py-3 bg-rose-600 text-white hover:bg-rose-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-trash"></i>
+          2. Destructor
+        </a>
+      </nav>
+
+      <!-- ==================== $THIS KEYWORD ==================== -->
+      <section id="this-keyword" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >$this</span
+          >
+          Biến $this trong OOP
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong><code>$this</code></strong> là một biến đặc biệt
+            (pseudo-variable) trong PHP OOP. Nó đại diện cho
+            <strong>đối tượng hiện tại (instance)</strong> đang được thao tác.
+          </p>
+
+          <div
+            class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl my-8"
+          >
+            <p class="font-semibold text-indigo-700 mb-2">Ý nghĩa:</p>
+            <p>
+              <code>$this</code> cho phép bạn truy cập đến
+              <strong>thuộc tính</strong> và <strong>phương thức</strong> của
+              chính đối tượng đó từ bên trong class.
+            </p>
+          </div>
+
+          <h4 class="font-bold text-lg mt-8 mb-3">Ví dụ minh họa:</h4>
+          <pre><code>&lt;?php
+class Student {
+    public $name;
+    public $age;
+
+    public function setInfo($name, $age) {
+        $this-&gt;name = $name;   // $this chỉ đến đối tượng hiện tại
+        $this-&gt;age  = $age;
+    }
+
+    public function showInfo() {
+        echo "Tên: " . $this-&gt;name . " - Tuổi: " . $this-&gt;age;
+    }
+}
+
+$sv = new Student();
+$sv-&gt;setInfo("Long", 21);
+$sv-&gt;showInfo();
+?&gt;</code></pre>
+
+          <p class="text-sm text-gray-600 mt-6">
+            <strong>Lưu ý:</strong>
+            <code>$this</code> chỉ có thể sử dụng
+            <strong>bên trong class</strong>. Không thể dùng
+            <code>$this</code> ở bên ngoài class.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==================== CONSTRUCTOR ==================== -->
+      <section id="constructor" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Constructor (Phương thức khởi tạo)
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>Constructor</strong> là phương thức đặc biệt được gọi
+            <strong>tự động</strong>
+            ngay khi tạo ra một đối tượng từ class.
+          </p>
+          <p class="text-gray-600">
+            Mục đích: Khởi tạo giá trị ban đầu cho thuộc tính và thực hiện các
+            thiết lập cần thiết.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl my-8">
+          <h3 class="font-semibold text-xl mb-4 text-sky-700">Đặc điểm:</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li><strong>Tên:</strong> <code>__construct()</code></li>
+            <li><strong>Có thể có tham số</strong></li>
+            <li><strong>Không có kiểu trả về</strong>: (không có return)</li>
+          </ul>
+        </div>
+
+        <h4 class="font-bold text-lg mb-3">Ví dụ:</h4>
+        <pre><code>&lt;?php
+class Student {
+    public $id;
+    public $name;
+    public $age;
+
+    public function __construct($id, $name, $age) {
+        $this-&gt;id   = $id;
+        $this-&gt;name  = $name;
+        $this-&gt;age   = $age;
+        
+        echo "Đối tượng Student đã được tạo!<br>";
+    }
+}
+
+$sv1 = new Student("SV001", "Nguyễn Văn A", 20);
+?&gt;</code></pre>
+      </section>
+
+      <!-- ==================== DESTRUCTOR ==================== -->
+      <section id="destructor" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Destructor (Phương thức huỷ)
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>Destructor</strong> là phương thức được gọi
+            <strong>tự động</strong>
+            khi đối tượng bị huỷ khỏi bộ nhớ.
+          </p>
+          <p class="text-gray-600">
+            Mục đích: Dọn dẹp tài nguyên (đóng file, đóng kết nối database, giải
+            phóng bộ nhớ...).
+          </p>
+
+          <!-- Phần bổ sung mới -->
+          <div class="bg-amber-50 border border-amber-200 p-6 rounded-3xl mt-8">
+            <h4 class="font-semibold text-amber-700 mb-3">
+              Khi nào một Object bị huỷ?
+            </h4>
+            <ul class="space-y-3 text-gray-700">
+              <li>
+                <strong>1.</strong> Khi script PHP chạy xong (kết thúc file)
+              </li>
+              <li>
+                <strong>2.</strong> Khi biến chứa object ra khỏi phạm vi (out of
+                scope)
+              </li>
+              <li>
+                <strong>3.</strong> Khi gán <code>null</code> hoặc dùng hàm
+                <code>unset($object)</code>
+              </li>
+              <li>
+                <strong>4.</strong> Khi không còn bất kỳ biến nào tham chiếu đến
+                object đó (Garbage Collection)
+              </li>
+            </ul>
+            <p class="text-sm text-amber-600 mt-4">
+              💡 Trong thực tế, Destructor thường được dùng để đóng kết nối
+              database hoặc file.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl my-8">
+          <h3 class="font-semibold text-xl mb-4 text-rose-700">Đặc điểm:</h3>
+          <ul class="space-y-3 text-gray-700">
+            <li><strong>Tên:</strong> <code>__destruct()</code></li>
+            <li><strong>Không có tham số</strong></li>
+            <li><strong>Không có kiểu trả về</strong>: (không có return)</li>
+          </ul>
+        </div>
+
+        <h4 class="font-bold text-lg mb-3">Ví dụ minh họa:</h4>
+        <pre><code>&lt;?php
+class Connection {
+    public function __construct() {
+        echo "🔗 Kết nối Database thành công!<br>";
+    }
+
+    public function __destruct() {
+        echo " Đã đóng kết nối Database.<br>";
+    }
+}
+
+// Tạo object
+$db = new Connection();
+
+echo "Đang thực hiện công việc...<br>";
+
+// Kết thúc script → Destructor tự động chạy
+?&gt;</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 5 - Constructor &amp; Destructor trong OOP PHP
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 3: Ôn tập Form và Session trong PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #14b8a6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 3: Ôn tập Form và Session trong PHP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#form"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-file-lines"></i>
+          1. Form trong PHP
+        </a>
+        <a
+          href="#session"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cookie"></i>
+          2. Session trong PHP
+        </a>
+      </nav>
+
+      <!-- ==================== PHẦN FORM ==================== -->
+      <section id="form">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >F</span
+          >
+          Form trong HTML và PHP
+        </h2>
+
+        <div class="prose max-w-none text-gray-700">
+          <p class="text-lg leading-relaxed">
+            <strong>Form</strong> là một trong những thành phần quan trọng nhất
+            của website động. Nó cho phép người dùng tương tác và gửi dữ liệu
+            lên server để xử lý.
+          </p>
+        </div>
+
+        <!-- 1. Form là gì? -->
+        <div class="mt-12">
+          <h3
+            class="text-2xl font-bold mb-6 text-sky-700 flex items-center gap-3"
+          >
+            1. Form là gì? Vai trò của Form
+          </h3>
+          <div class="bg-white p-8 rounded-3xl shadow section-card">
+            <ul class="space-y-4 text-lg">
+              <li>
+                <strong>Form</strong> là một vùng chứa (container) cho phép
+                người dùng nhập dữ liệu.
+              </li>
+              <li>
+                Dùng để thu thập thông tin: đăng ký, đăng nhập, liên hệ, đặt
+                hàng, bình luận, upload file...
+              </li>
+              <li>Là cầu nối giữa Client (trình duyệt) và Server (PHP).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. Cấu trúc cơ bản -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            2. Cấu trúc cơ bản của Form
+          </h3>
+          <pre><code>&lt;form action="xuly.php" method="POST" enctype="multipart/form-data"&gt;
+    &lt;!-- Các input, textarea, select... --&gt;
+    &lt;button type="submit"&gt;Gửi dữ liệu&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+
+        <!-- 3. Thuộc tính action và method -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            3. Hai thuộc tính quan trọng: <code>action</code> và
+            <code>method</code>
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-3 text-amber-600">action</h4>
+              <p class="text-gray-600">
+                Đường dẫn file PHP sẽ nhận và xử lý dữ liệu từ form.
+              </p>
+              <ul class="mt-3 text-sm space-y-1">
+                <li>
+                  • Nếu để trống hoặc không ghi: gửi về chính trang hiện tại.
+                </li>
+                <li>• Ví dụ: <code>action="register.php"</code></li>
+              </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <h4 class="font-bold text-xl mb-3 text-amber-600">method</h4>
+              <p class="text-gray-600">Phương thức gửi dữ liệu:</p>
+              <div class="mt-3 space-y-4">
+                <div>
+                  <span class="font-semibold text-green-600">GET</span> — Dữ
+                  liệu hiện rõ trên URL (dùng cho tìm kiếm, lọc)
+                </div>
+                <div>
+                  <span class="font-semibold text-red-600">POST</span> — Dữ liệu
+                  gửi trong body (ẩn, an toàn hơn, dùng cho đăng ký, đăng
+                  nhập...)
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Upload file -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            4. Upload File - Thuộc tính <code>enctype</code>
+          </h3>
+          <div class="bg-amber-50 border border-amber-200 p-6 rounded-3xl">
+            <p class="font-medium mb-3">
+              Khi form có upload file, bắt buộc phải dùng:
+            </p>
+            <pre><code>&lt;form action="upload.php" method="POST" enctype="multipart/form-data"&gt;</code></pre>
+            <p class="mt-4 text-sm">
+              Nếu không có <code>enctype="multipart/form-data"</code>, file sẽ
+              không được gửi lên server.
+            </p>
+          </div>
+        </div>
+
+        <!-- 5. Các thành phần form -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            5. Các thành phần cơ bản trong Form
+          </h3>
+
+          <div class="space-y-12">
+            <!-- ==================== CÁC LOẠI INPUT ==================== -->
+            <div>
+              <h4
+                class="font-semibold mb-6 text-lg flex items-center gap-2 text-sky-700"
+              >
+                <span>📌</span> Các loại thẻ <code>&lt;input&gt;</code>
+              </h4>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <!-- Text -->
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    type="text"
+                  </div>
+                  <div class="p-6">
+                    <pre
+                      class="text-sm mb-4"
+                    ><code>&lt;input type="text" name="hoten" placeholder="Nhập họ tên" required&gt;</code></pre>
+                    <div class="preview border rounded-2xl p-4 bg-gray-50">
+                      <input
+                        type="text"
+                        name="hoten"
+                        placeholder="Nhập họ tên"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-sky-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    type="password"
+                  </div>
+                  <div class="p-6">
+                    <pre
+                      class="text-sm mb-4"
+                    ><code>&lt;input type="password" name="matkhau" placeholder="Nhập mật khẩu"&gt;</code></pre>
+                    <div class="preview border rounded-2xl p-4 bg-gray-50">
+                      <input
+                        type="password"
+                        name="matkhau"
+                        placeholder="Nhập mật khẩu"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-sky-500"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Email, Number, Date, File -->
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    type="email" - type="number" - type="date"
+                  </div>
+                  <div class="p-6 space-y-4">
+                    <pre
+                      class="text-sm"
+                    ><code>&lt;input type="email" name="email"&gt;
+&lt;input type="number" name="tuoi"&gt;
+&lt;input type="date" name="ngaysinh"&gt;</code></pre>
+                    <div
+                      class="preview border rounded-2xl p-5 bg-gray-50 space-y-4"
+                    >
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl"
+                      />
+                      <input
+                        type="number"
+                        placeholder="Tuổi"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl"
+                      />
+                      <input
+                        type="date"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- File -->
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    type="file"
+                  </div>
+                  <div class="p-6">
+                    <pre
+                      class="text-sm mb-4"
+                    ><code>&lt;input type="file" name="avatar" accept="image/*"&gt;</code></pre>
+                    <div class="preview border rounded-2xl p-4 bg-gray-50">
+                      <input
+                        type="file"
+                        name="avatar"
+                        accept="image/*"
+                        class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-sky-600 file:text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Checkbox & Radio -->
+                <div
+                  class="md:col-span-2 bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    Checkbox và Radio
+                  </div>
+                  <div class="p-6">
+                    <pre
+                      class="text-sm mb-5"
+                    ><code>&lt;input type="checkbox" name="sothich[]" value="thethao"&gt; Thể thao
+&lt;input type="radio" name="gioitinh" value="nam"&gt; Nam</code></pre>
+                    <div
+                      class="preview border rounded-2xl p-6 bg-gray-50 grid md:grid-cols-2 gap-8"
+                    >
+                      <div>
+                        <p class="font-medium mb-3">Checkbox (chọn nhiều):</p>
+                        <label class="flex items-center gap-2"
+                          ><input type="checkbox" class="w-5 h-5" /> Bóng
+                          đá</label
+                        ><br />
+                        <label class="flex items-center gap-2"
+                          ><input type="checkbox" class="w-5 h-5" /> Âm
+                          nhạc</label
+                        >
+                      </div>
+                      <div>
+                        <p class="font-medium mb-3">Radio (chọn một):</p>
+                        <label class="flex items-center gap-2"
+                          ><input type="radio" name="gioitinh_demo" checked />
+                          Nam</label
+                        ><br />
+                        <label class="flex items-center gap-2"
+                          ><input type="radio" name="gioitinh_demo" /> Nữ</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==================== CÁC THẺ KHÁC ==================== -->
+            <div>
+              <h4
+                class="font-semibold mb-6 text-lg flex items-center gap-2 text-sky-700"
+              >
+                <span>📌</span> Các thẻ form khác
+              </h4>
+
+              <div class="grid md:grid-cols-2 gap-8">
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    Textarea
+                  </div>
+                  <div class="p-6">
+                    <pre
+                      class="text-sm mb-4"
+                    ><code>&lt;textarea name="noidung" rows="4" placeholder="Nhập nội dung...">&lt;/textarea&gt;</code></pre>
+                    <div class="preview border rounded-2xl p-4 bg-gray-50">
+                      <textarea
+                        name="noidung"
+                        rows="4"
+                        placeholder="Nhập nội dung..."
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-sky-500"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="bg-white border border-gray-200 rounded-3xl overflow-hidden"
+                >
+                  <div class="bg-gray-50 px-6 py-3 border-b font-medium">
+                    Select Dropdown
+                  </div>
+                  <div class="p-6">
+                    <pre class="text-sm mb-4"><code>&lt;select name="khoa"&gt;
+  &lt;option value="cntt"&gt;Công nghệ thông tin&lt;/option&gt;
+  &lt;option value="kt"&gt;Kế toán&lt;/option&gt;
+&lt;/select&gt;</code></pre>
+                    <div class="preview border rounded-2xl p-4 bg-gray-50">
+                      <select
+                        name="khoa"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-sky-500"
+                      >
+                        <option value="">Chọn khoa...</option>
+                        <option value="cntt">Công nghệ thông tin</option>
+                        <option value="kt">Kế toán</option>
+                        <option value="qtkd">Quản trị kinh doanh</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Thuộc tính name quan trọng -->
+        <div class="mt-12 bg-white p-8 rounded-3xl shadow">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            6. Thuộc tính <code>name</code> – Rất quan trọng!
+          </h3>
+          <p class="mb-4">
+            Tất cả các trường dữ liệu muốn gửi lên server
+            <strong>phải có thuộc tính <code>name</code></strong
+            >.
+          </p>
+          <pre><code>&lt;input type="text" name="hoten" /&gt;
+&lt;input type="email" name="email" /&gt;
+&lt;textarea name="noidung"&gt;&lt;/textarea&gt;</code></pre>
+        </div>
+
+        <!-- 7. Lấy dữ liệu ở PHP -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            7. Lấy dữ liệu từ Form trong PHP
+          </h3>
+          <pre><code>&lt;?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $hoten = $_POST['hoten'] ?? '';
+    $email = $_POST['email'] ?? '';
+    
+    echo "Họ tên: " . htmlspecialchars($hoten);
+}
+?&gt;</code></pre>
+        </div>
+
+        <!-- 8. Quy trình hoạt động -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-sky-700">
+            8. Quy trình hoạt động của Form
+          </h3>
+
+          <div class="bg-white p-8 rounded-3xl shadow">
+            <p class="text-center text-gray-600 mb-8">
+              Quy trình từ khi người dùng submit form đến khi server xử lý xong
+            </p>
+
+            <!-- Hình minh họa quy trình -->
+
+            <div class="mt-8 grid md:grid-cols-4 gap-6 text-center text-sm">
+              <div>
+                <div
+                  class="w-8 h-8 mx-auto bg-sky-100 text-sky-600 rounded-xl flex items-center justify-center font-bold mb-2"
+                >
+                  1
+                </div>
+                <strong>Client Side</strong><br />
+                Người dùng nhập dữ liệu & Submit
+              </div>
+              <div>
+                <div
+                  class="w-8 h-8 mx-auto bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center font-bold mb-2"
+                >
+                  2
+                </div>
+                <strong>Request</strong><br />
+                Trình duyệt gửi dữ liệu lên Server
+              </div>
+              <div>
+                <div
+                  class="w-8 h-8 mx-auto bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold mb-2"
+                >
+                  3
+                </div>
+                <strong>Server Side</strong><br />
+                PHP nhận $_POST / $_GET
+              </div>
+              <div>
+                <div
+                  class="w-8 h-8 mx-auto bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center font-bold mb-2"
+                >
+                  4
+                </div>
+                <strong>Xử lý</strong><br />
+                Kiểm tra, lưu DB, gửi email...
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PHẦN SESSION ==================== -->
+      <section id="session" class="mt-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >S</span
+          >
+          Session trong PHP
+        </h2>
+
+        <div class="prose max-w-none text-gray-700">
+          <p class="text-lg leading-relaxed">
+            <strong>Session</strong> là cách lưu trữ dữ liệu tạm thời của người
+            dùng trên server trong suốt quá trình họ duyệt website.
+          </p>
+        </div>
+
+        <!-- 1. Khái niệm -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+            1. Session là gì?
+          </h3>
+          <div class="bg-white p-8 rounded-3xl shadow">
+            <ul class="space-y-4 text-lg">
+              <li>
+                <strong>Session</strong> là phiên làm việc của người dùng với
+                website.
+              </li>
+              <li>
+                Dữ liệu được lưu trên <strong>Server</strong>, không phải trên
+                trình duyệt của người dùng.
+              </li>
+              <li>Mỗi người dùng sẽ có một Session ID riêng biệt.</li>
+              <li>
+                Session thường dùng để lưu thông tin đăng nhập, giỏ hàng, quyền
+                truy cập...
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. So sánh Cookie và Session -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+            2. So sánh Cookie và Session
+          </h3>
+          <div class="overflow-x-auto">
+            <table
+              class="w-full border-collapse bg-white rounded-3xl overflow-hidden shadow"
+            >
+              <thead>
+                <tr class="bg-emerald-600 text-white">
+                  <th class="px-6 py-4 text-left">Tiêu chí</th>
+                  <th class="px-6 py-4 text-left">Cookie</th>
+                  <th class="px-6 py-4 text-left">Session</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-700">
+                <tr class="border-t">
+                  <td class="px-6 py-4 font-medium">Nơi lưu trữ</td>
+                  <td class="px-6 py-4">Trình duyệt (Client)</td>
+                  <td class="px-6 py-4 bg-emerald-50">Server</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="px-6 py-4 font-medium">Dung lượng</td>
+                  <td class="px-6 py-4">Rất nhỏ (khoảng 4KB)</td>
+                  <td class="px-6 py-4 bg-emerald-50">Lớn hơn nhiều</td>
+                </tr>
+                <tr class="border-t">
+                  <td class="px-6 py-4 font-medium">Bảo mật</td>
+                  <td class="px-6 py-4 text-red-600">Thấp (dễ bị xem, sửa)</td>
+                  <td class="px-6 py-4 bg-emerald-50 text-emerald-600">
+                    Cao hơn
+                  </td>
+                </tr>
+                <tr class="border-t">
+                  <td class="px-6 py-4 font-medium">Thời gian tồn tại</td>
+                  <td class="px-6 py-4">Tùy chỉnh (có thể vĩnh viễn)</td>
+                  <td class="px-6 py-4 bg-emerald-50">
+                    Hết khi đóng trình duyệt hoặc timeout
+                  </td>
+                </tr>
+                <tr class="border-t">
+                  <td class="px-6 py-4 font-medium">Ứng dụng</td>
+                  <td class="px-6 py-4">Nhớ tên, ngôn ngữ, tùy chọn</td>
+                  <td class="px-6 py-4 bg-emerald-50">
+                    Đăng nhập, giỏ hàng, quyền user
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 3. Cách Session hoạt động chi tiết -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+            3. Quy trình hoạt động chi tiết của Session
+          </h3>
+
+          <div class="bg-white p-8 rounded-3xl shadow space-y-8">
+            <div class="flex gap-6">
+              <div
+                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold flex-shrink-0"
+              >
+                1
+              </div>
+              <div>
+                <strong>Khi người dùng truy cập website:</strong><br />
+                PHP tự động tạo một <strong>Session ID</strong> (một chuỗi ngẫu
+                nhiên dài).
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div
+                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold flex-shrink-0"
+              >
+                2
+              </div>
+              <div>
+                <strong>Server lưu Session:</strong><br />
+                Dữ liệu Session được lưu trên server (thường trong thư mục
+                <code>tmp</code> hoặc database).
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div
+                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold flex-shrink-0"
+              >
+                3
+              </div>
+              <div>
+                <strong>Gửi Session ID về Client:</strong><br />
+                PHP gửi <strong>Session ID</strong> về trình duyệt qua
+                <strong>Cookie</strong> (tên mặc định là
+                <code>PHPSESSID</code>).
+              </div>
+            </div>
+
+            <div class="flex gap-6">
+              <div
+                class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center font-bold flex-shrink-0"
+              >
+                4
+              </div>
+              <div>
+                <strong>Các lần truy cập sau:</strong><br />
+                Trình duyệt gửi lại <code>PHPSESSID</code> trong Cookie → Server
+                lấy Session ID đó để khôi phục dữ liệu Session.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Ví dụ thực tế: Hệ thống Đăng nhập -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+            4. Ví dụ thực tế: Hệ thống Đăng nhập sử dụng Session
+          </h3>
+
+          <div class="bg-white p-8 rounded-3xl shadow">
+            <h4 class="font-semibold text-lg mb-6 text-gray-800">
+              Quy trình Đăng nhập với Session (Timeline)
+            </h4>
+
+            <!-- TIMELINE -->
+            <div
+              class="relative border-l-4 border-emerald-300 pl-8 ml-6 space-y-12"
+            >
+              <!-- Bước 1 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  1
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>Người dùng nhập thông tin và Submit form</strong>
+                  <pre
+                    class="text-sm mt-3 p-3 rounded-xl"
+                  ><code>&lt;form action="login.php" method="POST"&gt;
+    Username: &lt;input type="text" name="username"&gt;
+    Password: &lt;input type="password" name="password"&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+              </div>
+
+              <!-- Bước 2 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  2
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>Server (login.php) nhận dữ liệu và kiểm tra</strong>
+                  <pre
+                    class="text-sm mt-3 p-3 rounded-xl"
+                  ><code>if (username và password đúng) {
+    // Tiến hành tạo session
+}</code></pre>
+                </div>
+              </div>
+
+              <!-- Bước 3 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  3
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>Khởi tạo Session &amp; Lưu thông tin</strong>
+                  <pre
+                    class="text-sm mt-3 p-3 rounded-xl"
+                  ><code>session_start();
+
+$_SESSION['user_id']   = 15;
+$_SESSION['username']  = "nguyenvanA";
+$_SESSION['role']      = "sinhvien";
+$_SESSION['login_time'] = time();</code></pre>
+                </div>
+              </div>
+
+              <!-- Bước 4 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  4
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>PHP tự động tạo và gửi Session ID về Client</strong>
+                  <p class="text-sm mt-2 text-gray-600">
+                    Server tạo <strong>PHPSESSID</strong> và gửi về trình duyệt
+                    qua Cookie.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Bước 5 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  5
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>Chuyển hướng sang trang Dashboard</strong>
+                  <pre
+                    class="text-sm mt-3 p-3 rounded-xl"
+                  ><code>header("Location: dashboard.php");
+exit();</code></pre>
+                </div>
+              </div>
+
+              <!-- Bước 6 -->
+              <div class="relative">
+                <div
+                  class="absolute -left-10 w-8 h-8 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold"
+                >
+                  6
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-2xl">
+                  <strong>Các lần truy cập sau</strong>
+                  <p class="text-sm mt-2">
+                    Trình duyệt tự động gửi <code>PHPSESSID</code> trong Cookie
+                    → Server dùng ID này để khôi phục <strong>$_SESSION</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- End Timeline -->
+
+            <div class="mt-10">
+              <h4 class="font-semibold mb-4">Code đầy đủ login.php</h4>
+              <pre><code>&lt;?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Giả sử kiểm tra thành công
+    if ($username === "admin" && $password === "123456") {
+        
+        $_SESSION['user_id'] = 1;
+        $_SESSION['username'] = $username;
+        $_SESSION['fullname'] = "Nguyễn Văn A";
+        $_SESSION['role'] = "admin";
+
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        echo "Sai tài khoản hoặc mật khẩu!";
+    }
+}
+?&gt;</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Các hàm Session quan trọng -->
+        <div class="mt-12">
+          <h3 class="text-2xl font-bold mb-6 text-emerald-700">
+            5. Các hàm Session thường dùng
+          </h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <code class="font-bold">session_start()</code><br />
+              <span class="text-sm text-gray-500"
+                >Khởi tạo hoặc khôi phục session</span
+              >
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <code class="font-bold">$_SESSION['key'] = value;</code><br />
+              <span class="text-sm text-gray-500">Lưu dữ liệu vào session</span>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <code class="font-bold">unset($_SESSION['key']);</code><br />
+              <span class="text-sm text-gray-500">Xóa một biến session</span>
+            </div>
+            <div class="bg-white p-6 rounded-3xl shadow">
+              <code class="font-bold">session_destroy();</code><br />
+              <span class="text-sm text-gray-500"
+                >Xóa toàn bộ session (đăng xuất)</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ỨNG DỤNG THỰC TẾ ==================== -->
+      <div class="mt-16">
+        <h2
+          class="text-3xl font-bold mb-8 flex items-center gap-3 text-gray-800"
+        >
+          Ứng dụng thực tế của Form và Session
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Ứng dụng của Form -->
+          <div class="bg-white p-8 rounded-3xl shadow">
+            <h3
+              class="text-xl font-bold mb-6 flex items-center gap-3 text-sky-700"
+            >
+              Ứng dụng của Form
+            </h3>
+            <ul class="space-y-4 text-gray-700">
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Đăng ký / Đăng nhập thành viên
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Liên hệ, Góp ý, Hỗ trợ khách hàng
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Đặt hàng, Thanh toán (E-commerce)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Upload ảnh, tài liệu, CV
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Tìm kiếm, Lọc sản phẩm, Bài viết
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Form Khảo sát, Bình chọn, Đánh giá
+              </li>
+            </ul>
+          </div>
+
+          <!-- Ứng dụng của Session -->
+          <div class="bg-white p-8 rounded-3xl shadow">
+            <h3
+              class="text-xl font-bold mb-6 flex items-center gap-3 text-emerald-700"
+            >
+              Ứng dụng của Session
+            </h3>
+            <ul class="space-y-4 text-gray-700">
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Giữ trạng thái đăng nhập (Login persistence)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Quản lý Giỏ hàng mua sắm
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Lưu thông tin cá nhân hóa (Tên, Quyền truy cập)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Kiểm soát quyền truy cập (Authorization)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Lưu dữ liệu tạm thời (Multi-step form)
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-500 font-bold">•</span>
+                Ngăn chặn đăng nhập trùng (Session timeout)
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Ứng dụng kết hợp Form + Session -->
+        <div
+          class="mt-10 bg-gradient-to-r from-sky-50 to-emerald-50 p-8 rounded-3xl border border-sky-100"
+        >
+          <h3 class="text-xl font-bold mb-5 text-center text-gray-800">
+            Các tính năng thường kết hợp Form + Session
+          </h3>
+          <ul class="grid md:grid-cols-2 gap-x-10 gap-y-3 text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Đăng ký tài khoản → Kiểm tra form → Lưu thông tin vào Session →
+              Chuyển hướng
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Thêm sản phẩm vào giỏ hàng (Form + Session)
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Form đặt hàng nhiều bước (Multi-step Form) dùng Session để lưu tạm
+              dữ liệu
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Hệ thống Comment / Bình luận sau khi đăng nhập
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Form chỉnh sửa thông tin cá nhân (Profile)
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-amber-500 mt-1">→</span>
+              Hệ thống quản trị Admin (Dashboard)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 3 - Form &amp; Session trong PHP
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 4: Cơ bản về lập trình hướng đối tượng (OOP) trong PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #14b8a6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 4: Cơ bản về lập trình hướng đối tượng (OOP) trong PHP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#oop-concept"
+          class="px-6 py-3 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          1. OOP là gì?
+        </a>
+        <a
+          href="#pros-cons"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-scale-balanced"></i>
+          2. Ưu nhược điểm
+        </a>
+        <a
+          href="#class"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cube"></i>
+          3. Class
+        </a>
+        <a
+          href="#object"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-object-group"></i>
+          4. Object
+        </a>
+        <a
+          href="#components"
+          class="px-6 py-3 bg-rose-600 text-white hover:bg-rose-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-gears"></i>
+          5. Các thành phần
+        </a>
+      </nav>
+
+      <!-- ==================== PHẦN 1: OOP LÀ GÌ ==================== -->
+      <section id="oop-concept" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          OOP là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong
+              >Lập trình hướng đối tượng (Object-Oriented Programming -
+              OOP)</strong
+            >
+            là một <strong>phong cách lập trình</strong> coi mọi thứ trong
+            chương trình là các <strong>"đối tượng"</strong> (object).
+          </p>
+
+          <p>
+            OOP mô phỏng thế giới thực: mỗi vật thể đều có
+            <strong>thuộc tính</strong> (attributes/properties) và
+            <strong>hành vi</strong> (methods).
+          </p>
+
+          <div class="bg-blue-50 border border-blue-200 p-6 rounded-3xl my-8">
+            <p class="font-semibold text-blue-700 mb-3">
+              💡 OOP là phong cách chung, không phải “của PHP”
+            </p>
+            <p class="text-gray-700">
+              Bạn có thể áp dụng OOP trong rất nhiều ngôn ngữ khác nhau. PHP chỉ
+              là một trong số đó.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-1 gap-6 mt-8">
+            <div class="bg-white p-6 rounded-3xl border">
+              <h3 class="font-semibold text-lg mb-3">
+                Các phong cách lập trình chính
+              </h3>
+              <ul class="space-y-3">
+                <li>
+                  <strong>Procedural Programming</strong> (C, PHP cũ): Tập trung
+                  vào hàm và thủ tục
+                </li>
+                <li>
+                  <strong>Object-Oriented Programming</strong> (PHP, Java, C#,
+                  Python...): Tập trung vào đối tượng
+                </li>
+                <li>
+                  <strong>Functional Programming</strong>: Tập trung vào hàm
+                  thuần túy
+                </li>
+              </ul>
+            </div>
+            <div class="bg-white p-6 rounded-3xl border">
+              <h3 class="font-semibold text-lg mb-3">So sánh</h3>
+              <table class="w-full text-sm">
+                <tr class="border-b">
+                  <td class="py-2 font-medium">Procedural</td>
+                  <td class="py-2">Code theo thứ tự, dùng hàm</td>
+                </tr>
+                <tr class="border-b">
+                  <td class="py-2 font-medium">OOP</td>
+                  <td class="py-2">
+                    Code theo đối tượng, dễ quản lý code lớn, dễ mở rộng, dễ bảo
+                    trì, dễ tái sử dụng các đoạn code
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-semibold mt-10 mb-4">
+            Phân loại ngôn ngữ theo OOP
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Thuần OOP -->
+            <div class="bg-white p-6 rounded-3xl border border-violet-200">
+              <h4
+                class="font-bold text-violet-700 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-gem"></i>
+                Ngôn ngữ thuần OOP (Pure OOP)
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Là ngôn ngữ buộc phải sử dụng OOP trong hầu hết code. Không
+                (hoặc rất hạn chế) cho phép viết theo kiểu procedural.
+              </p>
+              <ul class="space-y-2 text-gray-700">
+                <li><strong>Java</strong> — Rất nghiêm ngặt với OOP</li>
+                <li><strong>C#</strong> — Thuần OOP</li>
+                <li>
+                  <strong>Smalltalk</strong> — Ngôn ngữ đầu tiên áp dụng OOP
+                </li>
+                <li><strong>Ruby</strong> — Gần như thuần OOP</li>
+              </ul>
+            </div>
+
+            <!-- Hỗ trợ OOP -->
+            <div class="bg-white p-6 rounded-3xl border border-emerald-200">
+              <h4
+                class="font-bold text-emerald-700 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-layer-group"></i>
+                Ngôn ngữ hỗ trợ OOP (Multi-paradigm)
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Là ngôn ngữ cho phép sử dụng nhiều phong cách lập trình khác
+                nhau (OOP, Procedural, Functional…) tùy theo nhu cầu.
+              </p>
+              <ul class="space-y-2 text-gray-700">
+                <li>
+                  <strong>PHP</strong> — Hỗ trợ OOP (từ phiên bản 5 trở lên)
+                </li>
+                <li><strong>Python</strong> — Hỗ trợ mạnh OOP</li>
+                <li><strong>JavaScript</strong> — Dùng prototype-based OOP</li>
+                <li><strong>C++</strong> — Hỗ trợ cả Procedural và OOP</li>
+                <li>
+                  <strong>TypeScript</strong> — Tăng cường OOP cho JavaScript
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PHẦN 2: ƯU NHƯỢC ĐIỂM ==================== -->
+      <section id="pros-cons" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Ưu và nhược điểm của OOP
+        </h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          <div
+            class="section-card bg-green-50 border border-green-200 p-8 rounded-3xl"
+          >
+            <h3 class="text-2xl font-semibold text-green-700 mb-6">Ưu điểm</h3>
+            <ul class="space-y-4 text-lg">
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                <strong>Tái sử dụng code</strong> cao (Inheritance,
+                Polymorphism)
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-green-600 mt-1"></i>
+                <strong>Dễ bảo trì</strong> và mở rộng
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-green-600 mt-1"></i> Code rõ
+                ràng, có cấu trúc
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-check text-green-600 mt-1"></i> Dễ làm
+                việc nhóm
+              </li>
+            </ul>
+          </div>
+          <div
+            class="section-card bg-red-50 border border-red-200 p-8 rounded-3xl"
+          >
+            <h3 class="text-2xl font-semibold text-red-700 mb-6">Nhược điểm</h3>
+            <ul class="space-y-4 text-lg">
+              <li class="flex gap-3">
+                <i class="fa-solid fa-xmark text-red-600 mt-1"></i> Khúc đầu khó
+                học hơn
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-xmark text-red-600 mt-1"></i> Code dài hơn
+                một chút
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-xmark text-red-600 mt-1"></i> Hiệu năng
+                thấp hơn chút so với Procedural (trong PHP)
+              </li>
+              <li class="flex gap-3">
+                <i class="fa-solid fa-xmark text-red-600 mt-1"></i> Dễ lạm dụng,
+                dẫn đến over-engineering
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PHẦN 3: CLASS ==================== -->
+      <section id="class" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Class là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg">
+          <p>
+            <strong>Class</strong> là
+            <strong>bản thiết kế (blueprint) ~ hay khuôn mẫu</strong> để tạo ra
+            các đối tượng.
+          </p>
+
+          <p>
+            <span
+              >Từ một class (1 bản thiết kế) có thể tạo ra nhiều đối tượng khác
+              nhau.</span
+            >
+            <br /><br />
+            <span
+              >Ví dụ: Từ một bản thiết kế ngôi nhà chung: có thể tạo ra ngôi nhà
+              của bạn Lan (nhà cấp 4), có thể tạo ra nhà của bạn Mai (nhà chung
+              cư), có thể tạo ra nhà của bạn Hùng (nhà biệt thự)</span
+            >
+          </p>
+          <p>
+            <span>
+              => Đặc điểm chung của chúng đều là các ngôi nhà (Đều được tạo ra
+              từ class)</span
+            >
+          </p>
+
+          <pre><code>&lt;?php
+class User {
+    // Thuộc tính (properties / attributes)
+    public $name;
+    public $email;
+    private $password;
+    
+    // Phương thức (methods)
+    public function register() {
+        // logic đăng ký
+    }
+    
+    public function login() {
+        // logic đăng nhập
+    }
+}
+?&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- ==================== PHẦN 4: OBJECT ==================== -->
+      <section id="object" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Object là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg">
+          <p>
+            <strong>Object</strong> là <strong>thực thể (instance)</strong> được
+            tạo ra từ Class.
+          </p>
+
+          <pre><code>&lt;?php
+// Tạo object từ class
+$user1 = new User();
+$user1-&gt;name = "Nguyễn Văn A";
+$user1-&gt;email = "a@gmail.com";
+
+$user2 = new User();
+$user2-&gt;name = "Trần Thị B";
+?&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- ==================== PHẦN 5: CÁC THÀNH PHẦN ==================== -->
+      <section id="components" class="mb-16">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >5</span
+          >
+          Các thành phần chính trong Class
+        </h2>
+
+        <div class="grid md:grid-cols-1 gap-8">
+          <!-- PROPERTIES -->
+          <div class="bg-white p-8 rounded-3xl section-card">
+            <h3
+              class="font-bold text-xl mb-4 text-rose-600 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-database"></i>
+              1. Properties / Attributes (Thuộc tính)
+            </h3>
+            <div class="prose text-gray-700">
+              <p>
+                <strong>Properties</strong> là các <strong>biến</strong> mô tả
+                <strong>đặc điểm, trạng thái</strong> của đối tượng.
+              </p>
+              <p class="text-sm text-gray-600 mt-3">
+                Ví dụ: Một đối tượng <code>Student</code> có thể có thuộc tính:
+                <code>name</code>, <code>age</code>, <code>studentId</code>,
+                <code>email</code>...
+              </p>
+
+              <div class="mt-6">
+                <p class="font-semibold text-rose-700 mb-2">
+                  Quy tắc đặt tên Properties trong PHP:
+                </p>
+                <ul class="text-sm space-y-2">
+                  <li>
+                    • Bắt đầu bằng chữ cái hoặc dấu gạch dưới (<code>_</code>)
+                  </li>
+                  <li>
+                    • Thường dùng <strong>camelCase</strong>:
+                    <code>$firstName</code>, <code>$studentId</code>
+                  </li>
+                  <li>
+                    • Có thể dùng <strong>snake_case</strong>:
+                    <code>$first_name</code> (PHP chấp nhận cả hai)
+                  </li>
+                  <li>
+                    • Nên có tính mô tả rõ ràng, dễ hiểu, thường sẽ là các danh
+                    từ
+                  </li>
+                </ul>
+              </div>
+
+              <p class="mt-5 text-sm">
+                <strong>Phạm vi truy cập:</strong>
+                <code>public</code> • <code>protected</code> •
+                <code>private</code>
+              </p>
+            </div>
+          </div>
+
+          <!-- METHODS -->
+          <div class="bg-white p-8 rounded-3xl section-card">
+            <h3
+              class="font-bold text-xl mb-4 text-rose-600 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-gear"></i>
+              2. Methods (Phương thức)
+            </h3>
+            <div class="prose text-gray-700">
+              <p>
+                <strong>Methods</strong> là các
+                <strong>hàm bên trong class</strong>, dùng để định nghĩa
+                <strong>hành vi, hành động</strong> của đối tượng.
+              </p>
+              <p class="text-sm text-gray-600 mt-3">
+                Ví dụ: <code>register()</code>, <code>login()</code>,
+                <code>calculateGPA()</code>, <code>getInfo()</code>...
+              </p>
+
+              <div class="mt-6">
+                <p class="font-semibold text-rose-700 mb-2">
+                  Quy tắc đặt tên Methods trong PHP:
+                </p>
+                <ul class="text-sm space-y-2">
+                  <li>• Bắt đầu bằng chữ cái thường</li>
+                  <li>
+                    • Thường dùng <strong>camelCase</strong>:
+                    <code>getUserInfo()</code>, <code>updateProfile()</code>
+                  </li>
+                  <li>
+                    • Tên method nên là <strong>động từ</strong> hoặc
+                    <strong>hành động</strong>
+                  </li>
+                  <li>• Rõ ràng, mô tả được công việc method đó làm</li>
+                </ul>
+              </div>
+
+              <p class="mt-5 text-sm">
+                Methods cũng có thể có <strong>phạm vi truy cập</strong>:
+                <code>public</code>, <code>protected</code>,
+                <code>private</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ví dụ thực tế -->
+      <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-8">Ví dụ thực tế đầy đủ</h2>
+        <pre><code>&lt;?php
+class Student {
+    public $id;
+    public $name;
+    public $age;
+    private $gpa;
+
+    // Constructor
+    public function __construct($id, $name, $age) {
+        $this-&gt;id = $id;
+        $this-&gt;name = $name;
+        $this-&gt;age = $age;
+        $this-&gt;gpa = 0.0;
+    }
+
+    public function setGPA($gpa) {
+        if ($gpa &gt;= 0 && $gpa &lt;= 4.0) {
+            $this-&gt;gpa = $gpa;
+        }
+    }
+
+    public function getInfo() {
+        return "MSSV: $this-&gt;id - $this-&gt;name ($this-&gt;age tuổi)";
+    }
+}
+
+// Sử dụng
+$sv1 = new Student("SV001", "Phạm Thị Hương", 20);
+$sv1-&gt;setGPA(3.5);
+
+echo $sv1-&gt;getInfo();
+?&gt;</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 4 - Cơ bản OOP trong PHP
+      </div>
+    </div>
+  </body>
+</html>
