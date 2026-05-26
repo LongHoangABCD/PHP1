@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 6: Tính Đóng Gói (Encapsulation) trong OOP PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      .section-card {
+        transition: all 0.3s ease;
+      }
+      .section-card:hover {
+        transform: translateY(-8px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise {
+        background-color: #f8fafc;
+        border-left: 5px solid #14b8a6;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 6: Tính Đóng Gói (Encapsulation) trong OOP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#concept"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          Khái niệm
+        </a>
+        <a
+          href="#access-modifiers"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-shield-halved"></i>
+          Phạm vi truy cập
+        </a>
+        <a
+          href="#getter-setter"
+          class="px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-key"></i>
+          Getter & Setter
+        </a>
+        <a
+          href="#example"
+          class="px-6 py-3 bg-rose-600 text-white hover:bg-rose-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-file-code"></i>
+          Ví dụ thực tế
+        </a>
+      </nav>
+
+      <!-- ==================== KHÁI NIỆM ==================== -->
+      <section id="concept" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Tính Đóng Gói (Encapsulation) là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>Tính đóng gói</strong> là một trong 4 tính chất cốt lõi của
+            OOP. Nó cho phép chúng ta
+            <strong
+              >che giấu dữ liệu (thuộc tính) và hành vi (phương thức)</strong
+            >
+            của một lớp (class) khỏi các truy cập trực tiếp từ bên ngoài.
+            <br />
+            Đồng thời cung cấp các phương thức công khai để bên ngoài có thể
+            truy cập được
+          </p>
+
+          <div
+            class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl my-8"
+          >
+            <p class="font-semibold text-indigo-700 mb-2">Mục tiêu chính:</p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Bảo vệ dữ liệu khỏi truy cập trực tiếp không an toàn</li>
+              <li>Kiểm soát cách dữ liệu được đọc và thay đổi</li>
+              <li>Dễ dàng bảo trì và mở rộng code</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== PHẠM VI TRUY CẬP ==================== -->
+      <section id="access-modifiers" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Phạm vi truy cập (Access Modifiers)
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <table
+            class="w-full border-collapse border border-gray-300 rounded-xl overflow-hidden"
+          >
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border p-4 text-left">Phạm vi</th>
+                <th class="border p-4 text-left">Từ khóa</th>
+                <th class="border p-4 text-left">Tác dụng</th>
+                <th class="border p-4 text-left">Ứng dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border p-4 font-medium">Công khai</td>
+                <td class="border p-4">
+                  <code class="bg-gray-100 px-2 py-1 rounded">public</code>
+                </td>
+
+                <td class="border p-4">
+                  Là phạm vi rộng nhất. <br />
+                  Có thể truy cập ở bất kỳ đâu cả
+                  <strong>bên trong và bên ngoài</strong> class
+                </td>
+                <td class="border p-4">
+                  Dùng cho <strong>Getter & Setter</strong> hoặc các
+                  <strong>phương thức công khai</strong> cần gọi từ bên ngoài
+                  class
+                </td>
+              </tr>
+              <tr>
+                <td class="border p-4 font-medium">Riêng tư</td>
+                <td class="border p-4">
+                  <code class="bg-gray-100 px-2 py-1 rounded">private</code>
+                </td>
+
+                <td class="border p-4">
+                  <strong>Che giấu hoàn toàn</strong> thuộc tính hoặc phương
+                  thức, không cho phép truy cập trực tiếp từ bên ngoài class.
+                </td>
+                <td class="border p-4 font-semibold text-rose-600">
+                  Phạm vi được dùng nhiều nhất cho thuộc tính
+                </td>
+              </tr>
+              <tr>
+                <td class="border p-4 font-medium">Bảo vệ</td>
+                <td class="border p-4">
+                  <code class="bg-gray-100 px-2 py-1 rounded">protected</code>
+                </td>
+
+                <td class="border p-4">
+                  Có thể truy cập bên trong <strong>class đó</strong> và trong
+                  các <strong>class con kế thừa</strong>
+                </td>
+                <td class="border p-4">
+                  Dùng cho thuộc tính/phương thức khi muốn cho class con kế thừa
+                  sử dụng
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p class="mb-6 mt-8">
+            Để thực hiện <strong>tính đóng gói</strong>, chúng ta cần sử dụng
+            các phạm vi truy cập một cách có chủ đích.
+          </p>
+          <div class="bg-amber-50 border border-amber-200 p-8 rounded-3xl">
+            <p class="font-semibold text-amber-700 mb-5 text-lg">
+              Quy tắc thực tế khi áp dụng Tính Đóng Gói:
+            </p>
+
+            <ul class="space-y-5 text-amber-800">
+              <li>
+                <strong class="block text-base mb-1"
+                  >Bước 1: Khai báo thuộc tính</strong
+                >
+                Nên khai báo thuộc tính với phạm vi
+                <code class="bg-white px-2 py-0.5 rounded">private</code>
+                (che giấu hoàn toàn) hoặc
+                <code class="bg-white px-2 py-0.5 rounded">protected</code>.
+              </li>
+
+              <li>
+                <strong class="block text-base mb-1"
+                  >Bước 2: Cung cấp phương thức công khai</strong
+                >
+                <ul class="list-disc pl-6 mt-2 space-y-2">
+                  <li>
+                    <strong>Getter & Setter</strong>: Khai báo
+                    <code>public</code> để cho phép bên ngoài truy cập và thay
+                    đổi dữ liệu có kiểm soát.
+                  </li>
+                  <li>
+                    <strong>Các phương thức công khai khác</strong>: Khai báo
+                    <code>public</code> nếu cần gọi từ bên ngoài class.
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <strong class="block text-base mb-1 text-red-600"
+                  >Lưu ý quan trọng:</strong
+                >
+                <span class="block mt-1">
+                  Tránh khai báo thuộc tính <code>public</code> (trừ một số
+                  trường hợp đặc biệt).
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== GETTER SETTER ==================== -->
+      <!-- ==================== GETTER SETTER ==================== -->
+      <section id="getter-setter" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Getter & Setter
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            Khi thuộc tính được khai báo <code>private</code> hoặc
+            <code>protected</code>, ta không thể truy cập trực tiếp từ bên
+            ngoài. Lúc này, <strong>Getter</strong> và
+            <strong>Setter</strong> đóng vai trò là "cửa ngõ" an toàn để đọc và
+            ghi dữ liệu.
+          </p>
+
+          <h4 class="font-bold text-xl mt-8 mb-4">Ví dụ cơ bản:</h4>
+          <pre><code>&lt;?php
+class Person {
+    private $name;
+    private $age;
+
+    // Getter
+    public function getName() {
+        return $this-&gt;name;
+    }
+
+    public function getAge() {
+        return $this-&gt;age;
+    }
+
+    // Setter
+    public function setName($name) {
+        if (empty($name)) {
+            echo "Tên không được để trống!";
+            return;
+        }
+        $this-&gt;name = $name;
+    }
+
+    public function setAge($age) {
+        if ($age &lt; 0 || $age &gt; 150) {
+            echo "Tuổi không hợp lệ!";
+            return;
+        }
+        $this-&gt;age = $age;
+    }
+}
+?&gt;</code></pre>
+
+          <div class="bg-blue-50 border border-blue-200 p-7 rounded-3xl mt-8">
+            <h5 class="font-bold text-blue-700 mb-4">
+              Tại sao phải dùng Getter & Setter thay vì truy cập trực tiếp?
+            </h5>
+
+            <p class="mb-4">
+              Giả sử thuộc tính <code>$name</code> và <code>$age</code> được
+              khai báo <code>public</code>, chúng ta có thể viết:
+            </p>
+            <pre><code>$person-&gt;name = "";     // Không kiểm soát được
+$person-&gt;age  = -50;     // Dữ liệu không hợp lệ</code></pre>
+
+            <p class="mt-6 mb-4">
+              <strong>Vấn đề khi truy cập trực tiếp:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Dễ gán dữ liệu sai (tên rỗng, tuổi âm, tuổi quá lớn...).</li>
+              <li>
+                Khó kiểm soát logic, dữ liệu có thể bị lấy, sửa một cách tuỳ
+                tiện.
+              </li>
+              <li>
+                Vi phạm nguyên tắc <strong>Tính Đóng Gói</strong> (che dấu dữ
+                liệu bên trong class).
+              </li>
+              <li>Khó bảo trì sau này khi cần thay đổi quy tắc.</li>
+            </ul>
+
+            <p class="mt-6 mb-4">
+              <strong>Lợi ích khi dùng Getter & Setter:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>
+                <strong>Kiểm soát dữ liệu (Validation)</strong>: Do nó là một
+                hàm, ta hoàn toàn có thể viết các logic if..else, kiểm tra dữ
+                liệu trước khi gán (như ví dụ trên).
+              </li>
+              <li>
+                <strong>Bảo vệ dữ liệu</strong>: Thuộc tính
+                <code>private</code> không thể bị thay đổi trực tiếp từ bên
+                ngoài.
+              </li>
+              <li>
+                <strong>Dễ mở rộng</strong>: Sau này có thể thêm logic (ví dụ:
+                ghi log, cập nhật timestamp, kiểm tra quyền...).
+              </li>
+              <li><strong>Code rõ ràng và an toàn hơn</strong>.</li>
+            </ul>
+
+            <div class="mt-6 pt-5 border-t border-blue-200">
+              <p class="font-medium text-blue-700">
+                <strong>Kết luận:</strong> Getter & Setter chính là cách thực
+                hiện <strong>tính đóng gói</strong> một cách hiệu quả nhất.
+                Chúng cho phép bên ngoài truy cập dữ liệu
+                <strong>có kiểm soát</strong> thay vì truy cập trực tiếp và
+                không an toàn.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VÍ DỤ THỰC TẾ ==================== -->
+      <!-- ==================== VÍ DỤ THỰC TẾ ==================== -->
+      <section id="example" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Ví dụ thực tế: Quản lý tài khoản ngân hàng
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Dưới đây là một ví dụ thực tế minh họa rõ nhất lợi ích của
+            <strong>Tính Đóng Gói</strong> trong lập trình.
+          </p>
+
+          <h4 class="font-bold text-xl mt-6 mb-4">Code ví dụ:</h4>
+          <pre><code>&lt;?php
+class BankAccount {
+    private $accountNumber;
+    private $balance = 0;
+
+    public function __construct($accountNumber) {
+        $this-&gt;accountNumber = $accountNumber;
+    }
+
+    public function getBalance() {
+        return $this-&gt;balance;
+    }
+
+    public function deposit($amount) {
+        if ($amount &gt; 0) {
+            $this-&gt;balance += $amount;
+            echo "Nạp tiền thành công: " . number_format($amount) . " VNĐ\n";
+        }
+    }
+
+    public function withdraw($amount) {
+        if ($amount &gt; 0 && $amount &lt;= $this-&gt;balance) {
+            $this-&gt;balance -= $amount;
+            echo "Rút tiền thành công: " . number_format($amount) . " VNĐ\n";
+        } else {
+            echo "Số dư không đủ hoặc số tiền không hợp lệ!\n";
+        }
+    }
+}
+
+// Sử dụng
+$account = new BankAccount("123456789");
+$account-&gt;deposit(5000000);
+$account-&gt;withdraw(2000000);
+echo "Số dư hiện tại: " . number_format($account-&gt;getBalance()) . " VNĐ";
+?&gt;</code></pre>
+
+          <div
+            class="bg-emerald-50 border border-emerald-200 p-7 rounded-3xl mt-8"
+          >
+            <h5 class="font-bold text-emerald-700 mb-4">
+              Phân tích chi tiết ví dụ này:
+            </h5>
+
+            <p class="mb-4">
+              <strong>1. Tính Đóng Gói được thể hiện qua:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+              <li>
+                <code>private $accountNumber</code> và
+                <code>private $balance</code>: Hai thuộc tính này được
+                <strong>che giấu hoàn toàn</strong>. Bên ngoài không thể truy
+                cập trực tiếp (không thể viết
+                <code>$account-&gt;balance = 1000000000;</code>).
+              </li>
+              <li>
+                Chỉ có thể tương tác với tài khoản thông qua các phương thức
+                công khai (<code>public</code>): <code>deposit()</code>,
+                <code>withdraw()</code>, <code>getBalance()</code>.
+              </li>
+            </ul>
+
+            <p class="mb-4">
+              <strong>2. Tại sao không cho phép truy cập trực tiếp?</strong>
+            </p>
+            <pre
+              class="p-4 rounded-2xl text-sm"
+            ><code>// Cách nguy hiểm (nếu balance là public)
+$account-&gt;balance = -5000000;        // Số dư âm không hợp lệ
+$account-&gt;balance = "một triệu";     // Sai kiểu dữ liệu</code></pre>
+
+            <p class="mt-6 mb-4">
+              <strong
+                >3. Lợi ích khi dùng Tính Đóng Gói trong ví dụ này:</strong
+              >
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>
+                <strong>Kiểm soát logic kinh doanh</strong>: Phương thức
+                <code>withdraw()</code> kiểm tra số dư trước khi cho rút tiền.
+              </li>
+              <li>
+                <strong>Bảo vệ dữ liệu quan trọng</strong>: Không ai có thể tự ý
+                thay đổi số dư mà không qua quy trình.
+              </li>
+              <li>
+                <strong>Dễ bảo trì</strong>: Nếu sau này ngân hàng thay đổi quy
+                tắc (ví dụ: phí rút tiền, giới hạn rút tối đa một ngày), chỉ cần
+                sửa trong class, không ảnh hưởng đến code bên ngoài.
+              </li>
+              <li>
+                <strong>Tăng tính an toàn</strong>: Tránh các lỗi vô ý hoặc cố ý
+                làm hỏng dữ liệu.
+              </li>
+            </ul>
+
+            <div class="mt-6 pt-5 border-t border-emerald-200">
+              <p class="font-medium text-emerald-700">
+                <strong>Kết luận:</strong> Đây chính là tinh thần cốt lõi của
+                <strong>Tính Đóng Gói</strong> — “Ẩn đi chi tiết bên trong, chỉ
+                cung cấp giao diện an toàn và có kiểm soát cho bên ngoài sử
+                dụng.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 6 - Tính Đóng Gói (Encapsulation) trong OOP
+      </div>
+    </div>
+  </body>
+</html>

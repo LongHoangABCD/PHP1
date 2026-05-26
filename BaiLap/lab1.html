@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 1: Ôn tập kiến thức PHP cơ bản</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      }
+      .exercise-card {
+        transition: all 0.3s ease;
+      }
+      .exercise-card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-flask text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Lab 1: Ôn tập kiến thức PHP cơ bản
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-12 border-b pb-6">
+        <a
+          href="#control-loop"
+          class="px-6 py-3 bg-blue-600 text-white hover:bg-blue-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-repeat"></i>
+          Cấu trúc điều khiển & Vòng lặp
+        </a>
+        <a
+          href="#array-function"
+          class="px-6 py-3 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-list"></i>
+          Array & Hàm
+        </a>
+        <a
+          href="#form-session"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-file-lines"></i>
+          Form & Session
+        </a>
+      </nav>
+
+      <!-- ==================== CẤU TRÚC ĐIỀU KHIỂN & VÒNG LẶP ==================== -->
+      <section id="control-loop" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Cấu trúc điều khiển & Vòng lặp
+        </h2>
+
+        <div class="space-y-10">
+          <!-- Bài 1 -->
+          <div
+            class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-blue-700">
+              Bài 1: In bảng cửu chương & Số nguyên tố
+            </h3>
+            <p class="text-gray-700 text-lg">
+              Viết chương trình thực hiện các yêu cầu sau:
+            </p>
+            <ul class="list-disc pl-6 mt-4 space-y-2 text-gray-700">
+              <li>In ra bảng cửu chương từ 2 đến 9 (dạng đẹp).</li>
+              <li>
+                Cho số nguyên n bất kỳ, in ra tất cả các số nguyên tố từ 2 đến
+                n.
+              </li>
+              <li>Đếm và in ra tổng các số chẵn trong khoảng từ 1 đến 100.</li>
+            </ul>
+          </div>
+
+          <div
+            class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-blue-700">
+              Bài 2: Máy tính Casio đơn giản dùng Switch Case
+            </h3>
+            <p class="text-gray-700 text-lg">
+              Xây dựng một máy tính đơn giản cho phép người dùng chọn phép tính
+              thông qua menu.
+            </p>
+            <p class="text-gray-700 text-lg mt-4">Yêu cầu:</p>
+            <ul class="list-disc pl-6 mt-3 space-y-2 text-gray-700">
+              <li>Cho 2 số nguyên a và b với giá trị bất kỳ.</li>
+              <li>
+                Hiển thị menu lựa chọn phép tính: <br />1. Cộng (+) <br />2. Trừ
+                (-) <br />3. Nhân (×) <br />4. Chia (÷) <br />5. Tính chia lấy
+                dư (%)
+              </li>
+              <li>
+                Sử dụng <strong>switch case</strong> để xử lý lựa chọn của người
+                dùng.
+              </li>
+              <li>Xử lý trường hợp chia cho 0.</li>
+              <li>
+                Cho phép người dùng tiếp tục tính toán hay thoát chương trình.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ARRAY & HÀM ==================== -->
+      <section id="array-function" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Array & Hàm
+        </h2>
+
+        <div class="space-y-10">
+          <!-- Bài 3 -->
+          <div
+            class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-violet-700">
+              Bài 3: Quản lý danh sách sinh viên
+            </h3>
+            <p class="text-gray-700 text-lg">
+              Tạo một mảng liên kết chứa thông tin của 8 sinh viên (tên, điểm
+              toán, điểm văn).<br />
+              Viết các hàm thực hiện:
+            </p>
+            <ul class="list-disc pl-6 mt-4 space-y-2 text-gray-700">
+              <li>Tính điểm trung bình của từng sinh viên.</li>
+              <li>Tìm sinh viên có điểm trung bình cao nhất.</li>
+              <li>
+                Sắp xếp danh sách sinh viên theo điểm trung bình giảm dần.
+              </li>
+              <li>Đếm số sinh viên đạt loại Giỏi (điểm TB ≥ 8.0).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== FORM & SESSION ==================== -->
+      <section id="form-session" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Form & Session
+        </h2>
+
+        <div class="space-y-10">
+          <!-- Bài 5 -->
+          <div
+            class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-emerald-700">
+              Bài 4: Hệ thống đăng nhập đơn giản
+            </h3>
+            <p class="text-gray-700 text-lg">
+              Tạo một form đăng nhập gồm: username và password.<br />
+              Sử dụng Session để:
+            </p>
+            <ul class="list-disc pl-6 mt-4 space-y-2 text-gray-700">
+              <li>
+                Kiểm tra thông tin đăng nhập (username phải là "admin", password
+                phải là "123456").
+              </li>
+              <li>
+                Lưu thông tin người dùng vào Session khi đăng nhập thành công.
+              </li>
+              <li>
+                Tạo trang dashboard hiển thị thông tin người dùng và nút Đăng
+                xuất.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Bài 6 -->
+          <div
+            class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+          >
+            <h3 class="text-2xl font-bold mb-4 text-emerald-700">
+              Bài 6: Quản lý thông tin cá nhân bằng Session
+            </h3>
+            <p class="text-gray-700 text-lg">
+              Xây dựng form nhập thông tin cá nhân gồm: Họ tên, Email, Số điện
+              thoại, Ngày sinh.<br />
+              Sử dụng Session để lưu thông tin và cho phép:
+            </p>
+            <ul class="list-disc pl-6 mt-4 space-y-2 text-gray-700">
+              <li>Hiển thị thông tin đã lưu.</li>
+              <li>Tạo form chỉnh sửa thông tin (cập nhật lại Session).</li>
+              <li>Xóa toàn bộ thông tin (hủy Session).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Lab 1 - Ôn tập kiến thức PHP cơ bản
+      </div>
+    </div>
+  </body>
+</html>

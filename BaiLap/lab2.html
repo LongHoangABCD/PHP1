@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 2: Bài tập Thực hành - Đóng Gói & Kế Thừa OOP PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .exercise-card {
+        transition: all 0.3s ease;
+      }
+      .exercise-card:hover {
+        transform: translateY(-5px);
+        box-shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1),
+          0 8px 10px -6px rgb(0 0 0 / 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-pencil-alt text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Lab 2: Bài tập Thực hành - Tính Đóng Gói & Tính Kế Thừa trong OOP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <div class="bg-white p-6 rounded-3xl shadow-sm mb-10">
+        <h2 class="text-2xl font-bold text-gray-800 mb-3">Hướng dẫn làm bài</h2>
+        <p class="text-gray-600">
+          • Mỗi class phải được triển khai trên một và chỉ một file.<br />
+          • Sử dụng đồng thời cả 2 tính chất đã học để giải quyết các bài toán
+        </p>
+      </div>
+
+      <!-- DANH SÁCH BÀI TẬP -->
+      <div class="space-y-12">
+        <!-- Bài 1 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center font-bold"
+              >1</span
+            >
+            <h3 class="text-2xl font-bold">Bài 1:</h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Tạo lớp <strong>Student</strong> với các thuộc tính được che dấu:
+            tên, tuổi, điểm.<br />
+            Viết các phương thức Getter & Setter cho tất cả thuộc tính. Khi muốn
+            sửa thông tin của điểm phải đảm bảo điểm nằm trong khoảng từ 0 đến
+            10.
+          </p>
+        </div>
+
+        <!-- Bài 2 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center font-bold"
+              >2</span
+            >
+            <h3 class="text-2xl font-bold">Bài 2:</h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Tạo class <strong>Employee</strong> với các thuộc tính được che giấu
+            sau:
+          </p>
+          <ul class="list-disc pl-6 mt-3 mb-4 text-gray-700">
+            <li><code>$employeeId</code> (mã nhân viên)</li>
+            <li><code>$baseSalary</code> (lương cơ bản)</li>
+            <li><code>$workingDays</code> (số ngày làm việc trong tháng)</li>
+            <li><code>$seniority</code> (số năm thâm niên)</li>
+          </ul>
+
+          <p class="text-gray-700 text-lg mt-6"><strong>Yêu cầu:</strong></p>
+          <ul class="list-disc pl-6 space-y-3 text-gray-700">
+            <li>
+              Setter cho <code>$baseSalary</code> phải đảm bảo lương cơ bản ≥
+              5.000.000 VNĐ.
+            </li>
+            <li>
+              Setter cho <code>$workingDays</code> phải nằm trong khoảng 0 - 31
+              ngày.
+            </li>
+            <li>
+              Viết phương thức <code>calculateSalary()</code> (tính tổng lương)
+              trả về tổng lương thực nhận theo công thức:<br />
+              <strong
+                >Lương = (baseSalary × workingDays / 22) + (baseSalary × 0.05 ×
+                seniority)</strong
+              >
+            </li>
+            <li>
+              Viết phương thức <code>increaseSalary($percent)</code> để tăng
+              lương cơ bản theo phần trăm.
+            </li>
+            <li>
+              Viết phương thức <code>showInfo()</code> hiển thị đầy đủ thông tin
+              nhân viên và lương thực nhận.
+            </li>
+          </ul>
+
+          <p class="mt-6 text-amber-700 font-medium">
+            <strong>Gợi ý:</strong> Sử dụng Getter & Setter đầy đủ để đảm bảo
+            Tính Đóng Gói.
+          </p>
+        </div>
+
+        <!-- Bài 3 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center font-bold"
+              >3</span
+            >
+            <h3 class="text-2xl font-bold">
+              Bài 3: Xây dựng hệ thống thông tin cá nhân
+            </h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Giả sử bạn đang xây dựng một hệ thống quản lý thông tin con người.
+            Hãy tạo một lớp <strong>Person</strong> (Người) chứa thông tin cơ
+            bản là tên và tuổi. Hai thông tin này cần được bảo vệ để các lớp
+            khác có thể sử dụng nhưng không thể tùy ý sửa trực tiếp.
+          </p>
+
+          <p class="text-gray-700 text-lg mt-5">
+            Sau đó, tạo lớp <strong>Teacher</strong> (Giáo viên) kế thừa từ lớp
+            <strong>Person</strong>. Mỗi giáo viên có thêm thông tin là
+            <strong>môn dạy</strong>. Khi hiển thị thông tin giáo viên, hãy in
+            ra đầy đủ thông tin cá nhân và môn dạy một cách rõ ràng.
+          </p>
+
+          <p class="mt-6 text-amber-700 font-medium">
+            <strong>Yêu cầu:</strong> Sử dụng kế thừa để tái sử dụng code, và
+            ghi đè phương thức hiển thị thông tin cho phù hợp với giáo viên.
+          </p>
+        </div>
+
+        <!-- Bài 4 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center font-bold"
+              >4</span
+            >
+            <h3 class="text-2xl font-bold">
+              Bài 4: Hệ thống quản lý phương tiện giao thông
+            </h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Bạn đang xây dựng phần mềm quản lý gara ô tô và xe máy. Hãy tạo
+            class <strong>Vehicle</strong> (Phương tiện) là lớp cha chứa thông
+            tin chung như <strong>thương hiệu</strong> và
+            <strong>tốc độ hiện tại</strong>.
+          </p>
+          <p class="text-gray-700 text-lg mt-4">
+            Sau đó tạo hai lớp con là <strong>Car</strong> (Ô tô) và
+            <strong>Bike</strong> (Xe máy) kế thừa từ Vehicle. Mỗi loại phương
+            tiện cần có phương thức riêng thể hiện đặc điểm của nó (ví dụ: ô tô
+            có thể bấm còi, xe máy có thể nhấc bánh trước).
+          </p>
+          <p class="mt-5 text-amber-700 font-medium">
+            <strong>Yêu cầu nâng cao:</strong> Thêm phương thức
+            <code>stop()</code> và <code>getInfo()</code> trong lớp cha. Sử dụng
+            thuộc tính <code>protected</code> cho các thông tin chung. Khi tăng
+            tốc phải kiểm tra không cho vượt quá tốc độ tối đa của từng loại xe.
+          </p>
+        </div>
+
+        <!-- Bài 5 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center font-bold"
+              >5</span
+            >
+            <h3 class="text-2xl font-bold">Bài 5: Hệ thống quản lý thú cưng</h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Bạn đang phát triển ứng dụng quản lý thú cưng. Hãy tạo class
+            <strong>Animal</strong> (Động vật) là lớp cha với thông tin tên và
+            tuổi. Constructor của lớp này phải nhận hai thông tin này.
+          </p>
+          <p class="text-gray-700 text-lg mt-4">
+            Tiếp theo tạo hai lớp con là <strong>Dog</strong> (Chó) và
+            <strong>Cat</strong> (Mèo) kế thừa từ Animal. Mỗi con vật cần có
+            cách thể hiện riêng (ví dụ: chó sủa, mèo kêu meo).
+          </p>
+          <p class="mt-5 text-amber-700 font-medium">
+            <strong>Yêu cầu nâng cao:</strong> Gọi constructor của lớp cha bằng
+            <code>parent::__construct()</code>. Thêm phương thức
+            <code>makeSound()</code> và ghi đè nó ở lớp con. Thêm phương thức
+            <code>eat()</code> chung và ghi đè ở lớp con để thể hiện thức ăn yêu
+            thích.
+          </p>
+        </div>
+
+        <!-- Bài 6 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center font-bold"
+              >6</span
+            >
+            <h3 class="text-2xl font-bold">
+              Bài 6: Ứng dụng tính toán hình học
+            </h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Bạn đang làm một module tính toán hình học cho phần mềm thiết kế.
+            Hãy tạo class <strong>Shape</strong> (Hình học) là lớp cha có phương
+            thức <code>calculateArea()</code> (tính diện tích).
+          </p>
+          <p class="text-gray-700 text-lg mt-4">
+            Tạo hai lớp con là <strong>Rectangle</strong> (Hình chữ nhật) và
+            <strong>Circle</strong> (Hình tròn) kế thừa từ Shape và ghi đè
+            phương thức tính diện tích.
+          </p>
+          <p class="mt-5 text-amber-700 font-medium">
+            <strong>Yêu cầu nâng cao:</strong> Thêm phương thức
+            <code>calculatePerimeter()</code> (tính chu vi). Kiểm tra
+            validation: chiều dài, chiều rộng, bán kính phải lớn hơn 0. Viết
+            phương thức <code>showInfo()</code> để hiển thị đầy đủ thông tin và
+            kết quả tính toán của từng hình.
+          </p>
+        </div>
+
+        <!-- Bài 7 -->
+        <div
+          class="exercise-card bg-white border border-gray-200 rounded-3xl p-8"
+        >
+          <div class="flex items-center gap-4 mb-4">
+            <span
+              class="w-9 h-9 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center font-bold"
+              >7</span
+            >
+            <h3 class="text-2xl font-bold">
+              Bài 7: Hệ thống quản lý tài khoản ngân hàng
+            </h3>
+          </div>
+          <p class="text-gray-700 text-lg">
+            Bạn đang phát triển một hệ thống ngân hàng trực tuyến. Hãy tạo class
+            <strong>BankAccount</strong> (Tài khoản ngân hàng) là lớp cha sử
+            dụng <strong>tính đóng gói</strong> triệt để.
+          </p>
+
+          <p class="text-gray-700 text-lg mt-5">
+            Tạo hai loại tài khoản kế thừa từ <strong>BankAccount</strong>:
+          </p>
+
+          <ul class="list-disc pl-6 mt-3 mb-5 text-gray-700 space-y-2">
+            <li>
+              <strong>SavingsAccount</strong> (Tài khoản tiết kiệm) – có lãi
+              suất hàng tháng.
+            </li>
+            <li>
+              <strong>CheckingAccount</strong> (Tài khoản thanh toán) – có phí
+              giao dịch mỗi lần rút tiền.
+            </li>
+          </ul>
+
+          <p class="text-gray-700 text-lg mt-5">
+            <strong>Yêu cầu chi tiết:</strong>
+          </p>
+          <ul class="list-disc pl-6 space-y-3 text-gray-700">
+            <li>
+              Tất cả thuộc tính trong các class phải là <code>private</code> (số
+              tài khoản, số dư, lãi suất, phí giao dịch…).
+            </li>
+            <li>
+              Viết đầy đủ Getter & Setter cần thiết, đảm bảo không cho phép số
+              dư âm.
+            </li>
+            <li>
+              Các phương thức chung: <code>deposit()</code> (nạp tiền),
+              <code>withdraw()</code> (rút tiền), <code>getBalance()</code>.
+            </li>
+            <li>
+              Trong <strong>SavingsAccount</strong>: Thêm phương thức
+              <code>applyInterest()</code> để tính và cộng lãi suất vào số dư.
+            </li>
+            <li>
+              Trong <strong>CheckingAccount</strong>: Mỗi lần rút tiền phải trừ
+              thêm phí giao dịch.
+            </li>
+            <li>
+              Viết phương thức <code>showInfo()</code> để hiển thị thông tin tài
+              khoản một cách rõ ràng.
+            </li>
+          </ul>
+
+          <p class="mt-6 text-amber-700 font-medium">
+            <strong>Yêu cầu nâng cao:</strong> Sử dụng constructor hợp lý, kiểm
+            tra validation khi nạp/rút tiền, và thể hiện rõ sự khác biệt giữa
+            hai loại tài khoản thông qua kế thừa và ghi đè phương thức.
+          </p>
+        </div>
+      </div>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Lab 2 - Tính Đóng Gói & Tính Kế Thừa trong OOP PHP
+      </div>
+    </div>
+  </body>
+</html>

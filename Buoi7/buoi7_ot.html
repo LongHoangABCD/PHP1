@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 7: Tính Kế Thừa (Inheritance) trong OOP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 7: Tính Kế Thừa (Inheritance) trong OOP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#concept"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          Khái niệm
+        </a>
+        <a
+          href="#syntax"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-code"></i>
+          Cú pháp kế thừa
+        </a>
+        <a
+          href="#access"
+          class="px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-shield-halved"></i>
+          Phạm vi truy cập & Kế thừa
+        </a>
+        <a
+          href="#example"
+          class="px-6 py-3 bg-rose-600 text-white hover:bg-rose-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-file-code"></i>
+          Ví dụ thực tế
+        </a>
+      </nav>
+
+      <!-- ==================== KHÁI NIỆM ==================== -->
+      <section id="concept" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Tính Kế Thừa (Inheritance) là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>Tính kế thừa</strong> là tính chất cho phép một lớp (class
+            con) <strong>kế thừa thuộc tính và phương thức</strong> từ một lớp
+            khác (class cha). Nhờ đó, chúng ta có thể tái sử dụng code một cách
+            hiệu quả.
+          </p>
+
+          <div
+            class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl my-8"
+          >
+            <p class="font-semibold text-indigo-700 mb-3">Mục tiêu chính:</p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Tái sử dụng code (Code Reusability)</li>
+              <li>Tạo ra mối quan hệ phân cấp (is-a relationship)</li>
+              <li>Dễ dàng bảo trì và mở rộng hệ thống</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CÚ PHÁP ==================== -->
+      <section id="syntax" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Cú pháp kế thừa trong PHP
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-4">Sử dụng từ khóa <code>extends</code> để kế thừa:</p>
+          <pre><code>&lt;?php
+class Cha {
+    // thuộc tính và phương thức
+}
+
+class Con extends Cha {
+    // Con kế thừa tất cả thuộc tính và phương thức public/protected của Cha
+}
+?&gt;</code></pre>
+        </div>
+      </section>
+
+      <!-- ==================== PHẠM VI TRUY CẬP ==================== -->
+      <section id="access" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Phạm vi truy cập khi kế thừa
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <table
+            class="w-full border-collapse border border-gray-300 rounded-xl overflow-hidden"
+          >
+            <thead>
+              <tr class="bg-gray-100">
+                <th class="border p-4 text-left">Phạm vi</th>
+                <th class="border p-4 text-left">Từ khóa</th>
+                <th class="border p-4 text-left">
+                  Class con có truy cập được?
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border p-4">Công khai</td>
+                <td class="border p-4"><code>public</code></td>
+                <td class="border p-4">Có</td>
+              </tr>
+              <tr>
+                <td class="border p-4">Bảo vệ</td>
+                <td class="border p-4"><code>protected</code></td>
+                <td class="border p-4">Có</td>
+              </tr>
+              <tr>
+                <td class="border p-4">Riêng tư</td>
+                <td class="border p-4"><code>private</code></td>
+                <td class="border p-4">Không</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== VÍ DỤ CƠ BẢN ==================== -->
+      <section id="example-basic" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Ví dụ cơ bản
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Dưới đây là ví dụ minh họa cơ bản về
+            <strong>Tính Kế Thừa</strong> trong PHP:
+          </p>
+
+          <h4 class="font-bold text-xl mt-6 mb-4">Code ví dụ:</h4>
+          <pre><code>&lt;?php
+class Person {
+    protected $name;
+    protected $age;
+
+    public function setInfo($name, $age) {
+        $this-&gt;name = $name;
+        $this-&gt;age  = $age;
+    }
+
+    public function showInfo() {
+        echo "Tên: $this-&gt;name, Tuổi: $this-&gt;age";
+    }
+}
+
+class Student extends Person {
+    private $studentId;
+
+    public function setStudentId($id) {
+        $this-&gt;studentId = $id;
+    }
+
+    public function showInfo() {
+        parent::showInfo(); // Gọi phương thức của class cha
+        echo " - Mã SV: $this-&gt;studentId";
+    }
+}
+
+$sv = new Student();
+$sv-&gt;setInfo("Hoàng Long", 21);
+$sv-&gt;setStudentId("SV001");
+$sv-&gt;showInfo();
+?&gt;</code></pre>
+
+          <div
+            class="bg-purple-50 border border-purple-200 p-7 rounded-3xl mt-8"
+          >
+            <h5 class="font-bold text-purple-700 mb-4">
+              Phân tích chi tiết ví dụ:
+            </h5>
+
+            <p class="mb-4"><strong>1. Class cha (Person):</strong></p>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+              <li>
+                Khai báo hai thuộc tính <code>protected $name</code> và
+                <code>protected $age</code>: Cho phép class con
+                (<code>Student</code>) truy cập được.
+              </li>
+              <li>
+                Có hai phương thức <code>public</code>:
+                <code>setInfo()</code> và <code>showInfo()</code>.
+              </li>
+            </ul>
+
+            <p class="mb-4"><strong>2. Class con (Student):</strong></p>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+              <li>
+                Sử dụng từ khóa <code>extends Person</code> để kế thừa từ class
+                cha.
+              </li>
+              <li>Thêm thuộc tính riêng <code>private $studentId</code>.</li>
+              <li>
+                Ghi đè (Override) phương thức <code>showInfo()</code> của class
+                cha.
+              </li>
+              <li>
+                Sử dụng <code>parent::showInfo()</code> để gọi phương thức của
+                class cha trước khi bổ sung thông tin riêng.
+              </li>
+            </ul>
+
+            <p class="mb-4"><strong>3. Kết quả khi chạy:</strong></p>
+            <pre
+              class="p-4 rounded-2xl text-sm"
+            ><code>Tên: Hoàng Long, Tuổi: 21 - Mã SV: SV001</code></pre>
+
+            <p class="mt-6 mb-4">
+              <strong>4. Lợi ích thể hiện trong ví dụ:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>
+                <strong>Tái sử dụng code</strong>: Không cần viết lại
+                <code>setInfo()</code> và logic hiển thị tên, tuổi.
+              </li>
+              <li>
+                <strong>Mở rộng dễ dàng</strong>: Class <code>Student</code> chỉ
+                cần thêm những gì riêng của nó.
+              </li>
+              <li>
+                <strong>Phương thức ghi đè (Overriding)</strong>: Class con có
+                thể thay đổi hành vi của phương thức cha.
+              </li>
+              <li>
+                <strong>Sử dụng parent::</strong>: Giúp gọi lại phương thức gốc
+                của class cha khi cần.
+              </li>
+            </ul>
+
+            <div class="mt-6 pt-5 border-t border-purple-200">
+              <p class="font-medium text-purple-700">
+                <strong>Kết luận:</strong> Đây là cách thể hiện rõ nhất mối quan
+                hệ "is-a" (Student là một Person). Tính kế thừa giúp code ngắn
+                gọn, dễ quản lý và dễ mở rộng.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VÍ DỤ THỰC TẾ ==================== -->
+      <section id="example" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >5</span
+          >
+          Ví dụ thực tế: Hệ thống quản lý phương tiện giao thông
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Đây là ví dụ thực tế minh họa rõ nét lợi ích của
+            <strong>Tính Kế Thừa</strong>
+            khi xây dựng hệ thống có nhiều đối tượng có điểm chung.
+          </p>
+
+          <h4 class="font-bold text-xl mt-6 mb-4">Code ví dụ:</h4>
+          <pre><code>&lt;?php
+class Vehicle {
+    protected $brand;
+    protected $speed = 0;
+
+    public function __construct($brand) {
+        $this-&gt;brand = $brand;
+    }
+
+    public function accelerate($amount) {
+        $this-&gt;speed += $amount;
+        echo "$this-&gt;brand tăng tốc lên $this-&gt;speed km/h\n";
+    }
+}
+
+class Car extends Vehicle {
+    private $doors;
+
+    public function __construct($brand, $doors) {
+        parent::__construct($brand); // Gọi constructor của class cha
+        $this-&gt;doors = $doors;
+    }
+
+    public function honk() {
+        echo "Beep Beep! Xe $this-&gt;brand đang bấm còi.\n";
+    }
+}
+
+class Motorcycle extends Vehicle {
+    public function wheelie() {
+        echo " $this-&gt;brand đang làm wheelie!\n";
+    }
+}
+
+// Sử dụng
+$myCar = new Car("Toyota", 4);
+$myCar-&gt;accelerate(60);
+$myCar-&gt;honk();
+
+$moto = new Motorcycle("Honda");
+$moto-&gt;accelerate(40);
+$moto-&gt;wheelie();
+?&gt;</code></pre>
+
+          <div
+            class="bg-emerald-50 border border-emerald-200 p-7 rounded-3xl mt-8"
+          >
+            <h5 class="font-bold text-emerald-700 mb-4">
+              Phân tích chi tiết ví dụ:
+            </h5>
+
+            <p class="mb-4"><strong>1. Class cha (Vehicle):</strong></p>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+              <li>
+                Chứa các thuộc tính và phương thức chung cho tất cả phương tiện:
+                <code>$brand</code>, <code>$speed</code>, và phương thức
+                <code>accelerate()</code>.
+              </li>
+              <li>
+                Sử dụng <code>protected</code> cho thuộc tính để class con có
+                thể truy cập.
+              </li>
+              <li>Có constructor nhận tham số <code>$brand</code>.</li>
+            </ul>
+
+            <p class="mb-4">
+              <strong>2. Class con (Car và Motorcycle):</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 mb-6">
+              <li>
+                <strong>Car</strong> kế thừa từ <code>Vehicle</code> và bổ sung
+                thuộc tính riêng <code>$doors</code>.
+              </li>
+              <li>
+                <strong>Motorcycle</strong> kế thừa từ <code>Vehicle</code> và
+                bổ sung phương thức riêng <code>wheelie()</code>.
+              </li>
+              <li>
+                Cả hai đều gọi <code>parent::__construct($brand)</code> để khởi
+                tạo thuộc tính của class cha.
+              </li>
+            </ul>
+
+            <p class="mb-4">
+              <strong>3. Kết quả khi chạy chương trình:</strong>
+            </p>
+            <pre
+              class="p-4 rounded-2xl text-sm"
+            ><code>Toyota tăng tốc lên 60 km/h
+Beep Beep! Xe Toyota đang bấm còi.
+Honda tăng tốc lên 40 km/h
+=> Honda đang làm wheelie!</code></pre>
+
+            <p class="mt-6 mb-4">
+              <strong>4. Lợi ích nổi bật của Tính Kế Thừa:</strong>
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>
+                <strong>Tái sử dụng code cao</strong>: Phương thức
+                <code>accelerate()</code> chỉ viết một lần nhưng dùng được cho
+                cả xe hơi và xe máy.
+              </li>
+              <li>
+                <strong>Dễ mở rộng hệ thống</strong>: Muốn thêm lớp
+                <code>Truck</code>, <code>Bus</code>, hay
+                <code>ElectricCar</code> chỉ cần kế thừa từ
+                <code>Vehicle</code> và thêm tính năng riêng.
+              </li>
+              <li>
+                <strong>Code sạch và dễ bảo trì</strong>: Logic chung được tập
+                trung ở class cha, tránh lặp code.
+              </li>
+              <li>
+                <strong>Thể hiện mối quan hệ "is-a"</strong>:
+                <code>Car is a Vehicle</code>,
+                <code>Motorcycle is a Vehicle</code>.
+              </li>
+            </ul>
+
+            <div class="mt-6 pt-5 border-t border-emerald-200">
+              <p class="font-medium text-emerald-700">
+                <strong>Kết luận:</strong> Tính Kế Thừa giúp chúng ta xây dựng
+                hệ thống theo kiểu phân cấp tự nhiên, giảm thiểu lặp code và
+                tăng khả năng mở rộng — đây là một trong những lợi thế quan
+                trọng nhất của lập trình hướng đối tượng.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 7 - Tính Kế Thừa (Inheritance) trong OOP
+      </div>
+    </div>
+  </body>
+</html>
