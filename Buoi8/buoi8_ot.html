@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 8: Mô hình MVC ~ Ứng dụng MVC trong PHP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .mvc-diagram {
+        background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-code text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 8: Mô hình MVC ~ Ứng dụng MVC trong PHP
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#concept"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          Khái niệm MVC
+        </a>
+        <a
+          href="#components"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-puzzle-piece"></i>
+          Vai trò các thành phần
+        </a>
+        <a
+          href="#singlefile"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-file-code"></i>
+          Xử lý form trong 1 file
+        </a>
+        <a
+          href="#mvc-example"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-layer-group"></i>
+          Triển khai MVC
+        </a>
+      </nav>
+
+      <!-- ==================== KHÁI NIỆM ==================== -->
+      <section id="concept" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Mô hình MVC là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>MVC (Model - View - Controller)</strong> là một kiến trúc
+            phần mềm (design pattern) giúp tách biệt code thành 3 phần chính,
+            làm cho ứng dụng dễ quản lý, bảo trì và mở rộng hơn.
+          </p>
+
+          <div class="mvc-diagram p-8 rounded-3xl my-10 border border-sky-200">
+            <h3 class="text-center text-xl font-semibold mb-6 text-gray-700">
+              Sơ đồ mô hình MVC
+            </h3>
+            <div class="flex justify-center">
+              <svg
+                width="800"
+                height="320"
+                viewBox="0 0 800 320"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- Model -->
+                <rect
+                  x="100"
+                  y="80"
+                  width="160"
+                  height="120"
+                  rx="15"
+                  fill="#22c55e"
+                  fill-opacity="0.15"
+                  stroke="#22c55e"
+                  stroke-width="3"
+                />
+                <text
+                  x="180"
+                  y="130"
+                  text-anchor="middle"
+                  fill="#166534"
+                  font-size="18"
+                  font-weight="700"
+                >
+                  MODEL
+                </text>
+                <text
+                  x="180"
+                  y="155"
+                  text-anchor="middle"
+                  fill="#166534"
+                  font-size="13"
+                >
+                  Dữ liệu + Kết nối
+                </text>
+                <text
+                  x="180"
+                  y="175"
+                  text-anchor="middle"
+                  fill="#166534"
+                  font-size="13"
+                >
+                  database
+                </text>
+
+                <!-- View -->
+                <rect
+                  x="540"
+                  y="80"
+                  width="160"
+                  height="120"
+                  rx="15"
+                  fill="#3b82f6"
+                  fill-opacity="0.15"
+                  stroke="#3b82f6"
+                  stroke-width="3"
+                />
+                <text
+                  x="620"
+                  y="130"
+                  text-anchor="middle"
+                  fill="#1e40af"
+                  font-size="18"
+                  font-weight="700"
+                >
+                  VIEW
+                </text>
+                <text
+                  x="620"
+                  y="155"
+                  text-anchor="middle"
+                  fill="#1e40af"
+                  font-size="13"
+                >
+                  Giao diện người dùng
+                </text>
+
+                <!-- Controller -->
+                <rect
+                  x="320"
+                  y="40"
+                  width="160"
+                  height="120"
+                  rx="15"
+                  fill="#8b5cf6"
+                  fill-opacity="0.15"
+                  stroke="#8b5cf6"
+                  stroke-width="3"
+                />
+                <text
+                  x="400"
+                  y="90"
+                  text-anchor="middle"
+                  fill="#4c1d95"
+                  font-size="18"
+                  font-weight="700"
+                >
+                  CONTROLLER
+                </text>
+                <text
+                  x="400"
+                  y="115"
+                  text-anchor="middle"
+                  fill="#4c1d95"
+                  font-size="13"
+                >
+                  Xử lý logic
+                </text>
+
+                <!-- Arrows -->
+                <!-- User to View -->
+                <path
+                  d="M 650 220 Q 700 260 650 280"
+                  stroke="#64748b"
+                  stroke-width="3"
+                  fill="none"
+                  stroke-dasharray="5,5"
+                />
+                <polygon points="650,280 645,270 655,270" fill="#64748b" />
+                <text x="710" y="265" fill="#64748b" font-size="12">User</text>
+
+                <!-- View to Controller -->
+                <path
+                  d="M 540 140 L 480 140"
+                  stroke="#3b82f6"
+                  stroke-width="4"
+                  fill="none"
+                />
+                <polygon points="480,140 490,135 490,145" fill="#3b82f6" />
+
+                <!-- Controller to Model -->
+                <path
+                  d="M 320 100 L 260 100"
+                  stroke="#8b5cf6"
+                  stroke-width="4"
+                  fill="none"
+                />
+                <polygon points="260,100 270,95 270,105" fill="#8b5cf6" />
+
+                <!-- Model to Controller -->
+                <path
+                  d="M 260 160 L 320 160"
+                  stroke="#22c55e"
+                  stroke-width="4"
+                  fill="none"
+                />
+                <polygon points="320,160 310,155 310,165" fill="#22c55e" />
+
+                <!-- Controller to View -->
+                <path
+                  d="M 480 180 L 540 180"
+                  stroke="#8b5cf6"
+                  stroke-width="4"
+                  fill="none"
+                />
+                <polygon points="540,180 530,175 530,185" fill="#8b5cf6" />
+              </svg>
+            </div>
+          </div>
+
+          <div
+            class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl my-8"
+          >
+            <p class="font-semibold text-indigo-700 mb-3">Mục tiêu của MVC:</p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Tách biệt trách nhiệm (Separation of Concerns)</li>
+              <li>Dễ bảo trì và mở rộng code</li>
+              <li>Hỗ trợ làm việc nhóm hiệu quả</li>
+              <li>Tái sử dụng code cao</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VAI TRÒ CÁC THÀNH PHẦN ==================== -->
+      <section id="components" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Vai trò của từng thành phần
+        </h2>
+
+        <div class="grid md:grid-cols-1 gap-8">
+          <!-- Model -->
+          <div
+            class="bg-white rounded-3xl p-8 shadow-sm border border-green-100"
+          >
+            <div
+              class="w-8 h-8 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-6"
+            >
+              <i class="fa-solid fa-database"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-green-700">Model</h3>
+            <p class="text-gray-600">
+              Đại diện cho <strong>dữ liệu</strong>. Model tương tác với cơ sở
+              dữ liệu, xử lý dữ liệu, kiểm tra tính hợp lệ dữ liệu.
+            </p>
+            <ul class="mt-4 text-sm text-gray-500 space-y-1">
+              <li>• Lấy dữ liệu từ DB</li>
+              <li>• Thêm/Sửa/Xóa dữ liệu</li>
+              <li>• Xử lý quy tắc nghiệp vụ</li>
+            </ul>
+          </div>
+
+          <!-- View -->
+          <div
+            class="bg-white rounded-3xl p-8 shadow-sm border border-blue-100"
+          >
+            <div
+              class="w-8 h-8 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-6"
+            >
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-blue-700">View</h3>
+            <p class="text-gray-600">
+              Phần <strong>giao diện người dùng</strong>. Chỉ chứa HTML, CSS,
+              JavaScript và một chút logic PHP để hiển thị dữ liệu (không chứa
+              logic phức tạp).
+            </p>
+            <ul class="mt-4 text-sm text-gray-500 space-y-1">
+              <li>• Hiển thị form</li>
+              <li>• Hiển thị dữ liệu từ Controller</li>
+              <li>• Gửi request đến Controller</li>
+            </ul>
+          </div>
+
+          <!-- Controller -->
+          <div
+            class="bg-white rounded-3xl p-8 shadow-sm border border-purple-100"
+          >
+            <div
+              class="w-8 h-8 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-6"
+            >
+              <i class="fa-solid fa-gamepad"></i>
+            </div>
+            <h3 class="text-2xl font-bold mb-3 text-purple-700">Controller</h3>
+            <p class="text-gray-600">
+              <strong>Bộ não</strong> của ứng dụng. Nhận request từ người dùng,
+              xử lý logic, gọi Model lấy dữ liệu và trả về View.
+            </p>
+            <ul class="mt-4 text-sm text-gray-500 space-y-1">
+              <li>• Xử lý form submission</li>
+              <li>• Gọi Model</li>
+              <li>• Trả dữ liệu về View</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== XỬ LÝ FORM TRONG 1 FILE ==================== -->
+      <section id="singlefile" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Ví dụ: Xử lý form đăng nhập trong 1 file
+        </h2>
+
+        <div class="bg-white p-8 rounded-3xl shadow-sm mb-8">
+          <h3 class="font-semibold text-xl mb-4">
+            login.php (cách truyền thống)
+          </h3>
+          <pre><code>&lt;?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    
+    // Logic xử lý
+    if ($username === 'admin' && $password === '123') {
+        echo "&lt;div class='success'&gt;Đăng nhập thành công!&lt;/div&gt;";
+    } else {
+        echo "&lt;div class='error'&gt;Sai thông tin đăng nhập!&lt;/div&gt;";
+    }
+}
+?&gt;
+
+&lt;form method="POST"&gt;
+    &lt;input type="text" name="username" placeholder="Tên đăng nhập" required&gt;&lt;br&gt;
+    &lt;input type="password" name="password" placeholder="Mật khẩu" required&gt;&lt;br&gt;
+    &lt;button type="submit"&gt;Đăng nhập&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+
+        <div class="bg-red-50 border border-red-200 p-6 rounded-3xl">
+          <h4 class="font-bold text-red-700 mb-3">
+            Nhược điểm của cách làm này:
+          </h4>
+          <ul class="list-disc pl-6 space-y-2 text-red-700">
+            <li>Code HTML và PHP logic lẫn lộn → khó đọc, khó bảo trì</li>
+            <li>
+              Khó tái sử dụng code ~ nếu muốn có logic tương tự gần như phải
+              viết lại
+            </li>
+            <li>Không tách biệt được logic business với giao diện</li>
+            <li>
+              Dễ bị tấn công (SQL Injection, XSS) nếu không xử lý cẩn thận
+            </li>
+            <li>Không phù hợp với dự án lớn</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================== TRIỂN KHAI MVC ==================== -->
+      <!-- ==================== TRIỂN KHAI MVC ==================== -->
+      <section id="mvc-example" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Triển khai lại bằng mô hình MVC
+        </h2>
+
+        <div
+          class="prose max-w-none text-gray-700 text-lg leading-relaxed mb-12"
+        >
+          <p>Cấu trúc thư mục cơ bản:</p>
+          <pre><code>project/
+├── app/
+│   ├── Controllers/
+│   │   └── AuthController.php
+│   ├── Models/
+│   │   └── User.php
+│   └── Views/
+│       └── auth/
+│           └── login.php
+├── public/
+│   └── index.php
+├── routes/
+│   └── router.php
+└── config/
+    └── database.php</code></pre>
+        </div>
+
+        <div
+          class="bg-emerald-50 border border-emerald-200 p-6 rounded-3xl mb-12"
+        >
+          <p class="font-medium text-emerald-700 mb-3">Mô tả các file chính:</p>
+          <ul class="list-disc pl-6 space-y-3 text-gray-700">
+            <li>
+              <strong>public/index.php</strong>: Entry point, khởi tạo session
+              và load tất cả file. Mội request của người dùng sẽ phải đi qua
+              file này
+            </li>
+            <li>
+              <strong>routes/router.php</strong>: Xử lý routing. Định tuyến
+              request người dùng và gọi controller tương ứng
+            </li>
+            <li>
+              <strong>AuthController.php</strong>: Xử lý logic đăng nhập theo
+              chuẩn .
+            </li>
+            <li>
+              <strong>User.php</strong>: Model xử lý business logic và thao tác
+              với cơ sở dữ liệu.
+            </li>
+          </ul>
+        </div>
+
+        <!-- 1. Model -->
+        <h3 class="text-2xl font-semibold mb-4 mt-12">
+          1. Model - app/Models/User.php
+        </h3>
+        <pre><code>&lt;?php
+// app/Models/User.php
+class User {
+    public function login($username, $password) {
+        if ($username === 'admin' && $password === '123') {
+            return [
+                'success' => true,
+                'user' => ['id' => 1, 'name' => 'Admin']
+            ];
+        }
+        return [
+            'success' => false,
+            'message' => 'Tên đăng nhập hoặc mật khẩu không đúng!'
+        ];
+    }
+}</code></pre>
+
+        <!-- 2. Controller -->
+        <h3 class="text-2xl font-semibold mb-4 mt-12">
+          2. Controller - app/Controllers/AuthController.php
+        </h3>
+        <pre><code>&lt;?php
+// app/Controllers/AuthController.php
+
+class AuthController {
+    
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
+
+    public function login() {
+        $error = '';
+
+        // Xử lý POST (submit form)
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = trim($_POST['username'] ?? '');
+            $password = trim($_POST['password'] ?? '');
+
+            $result = $this->userModel->login($username, $password);
+
+            if ($result['success']) {
+                $_SESSION['user'] = $result['user'];
+                header('Location: /dashboard');
+                exit;
+            } else {
+                // Lưu lỗi vào session và redirect về GET
+                $_SESSION['login_error'] = $result['message'];
+                header('Location: /login');
+                exit;
+            }
+        }
+
+        // Xử lý GET - Hiển thị form
+        if (isset($_SESSION['login_error'])) {
+            $error = $_SESSION['login_error'];
+            unset($_SESSION['login_error']); // Xóa sau khi hiển thị
+        }
+
+        // Hiển thị View
+        require_once __DIR__ . '/../../Views/auth/login.php';
+    }
+}</code></pre>
+
+        <!-- 3. Router -->
+        <h3 class="text-2xl font-semibold mb-4 mt-12">
+          3. Router - routes/router.php
+        </h3>
+        <pre><code>&lt;?php
+// routes/router.php
+
+$uri = $_SERVER['REQUEST_URI'];
+$parsed = parse_url($uri);
+
+$path = $parsed['path'] ?? '/';
+$queryString = $parsed['query'] ?? '';
+$queryParams = [];
+if ($queryString) {
+    parse_str($queryString, $queryParams);
+}
+
+
+switch ($path) {
+    case '/':
+    case '/login':
+        $controller = new AuthController();
+        $controller->login();
+        break;
+
+    case '/dashboard':
+        echo "Chào mừng đến Dashboard!";
+        break;
+
+    default:
+        http_response_code(404);
+        echo "404 - Trang không tồn tại";
+        break;
+}
+
+</code></pre>
+
+        <!-- 4. Index.php -->
+        <h3 class="text-2xl font-semibold mb-4 mt-12">
+          4. Entry Point - public/index.php
+        </h3>
+        <pre><code>&lt;?php
+// public/index.php
+
+// Khởi tạo session một lần duy nhất ở Entry Point
+session_start();
+
+// Load các file cần thiết
+require_once __DIR__ . '/../app/Models/User.php';
+require_once __DIR__ . '/../app/Controllers/AuthController.php';
+
+// Gọi Router
+require_once __DIR__ . '/../routes/router.php';</code></pre>
+
+        <!-- 5. View -->
+        <h3 class="text-2xl font-semibold mb-4 mt-12">
+          5. View - app/Views/auth/login.php
+        </h3>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="vi"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Đăng nhập&lt;/title&gt;
+    &lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="bg-gray-100"&gt;
+    &lt;div class="max-w-md mx-auto mt-20 bg-white p-8 rounded-2xl shadow"&gt;
+        &lt;h2 class="text-2xl font-bold text-center mb-6"&gt;Đăng nhập&lt;/h2&gt;
+        
+        &lt;?php if(!empty($error)): ?&gt;
+            &lt;div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6"&gt;
+                &lt;?= htmlspecialchars($error) ?&gt;
+            &lt;/div&gt;
+        &lt;?php endif; ?&gt;
+
+        &lt;form method="POST" class="space-y-5"&gt;
+            &lt;input type="text" name="username" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" 
+                   placeholder="Tên đăng nhập" required&gt;
+            
+            &lt;input type="password" name="password" 
+                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500" 
+                   placeholder="Mật khẩu" required&gt;
+            
+            &lt;button type="submit" 
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-medium text-lg transition"&gt;
+                Đăng nhập
+            &lt;/button&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+        <div
+          class="mt-12 bg-emerald-50 border border-emerald-200 p-8 rounded-3xl"
+        >
+          <p class="font-semibold text-emerald-700 mb-5 text-xl">
+            Ưu và Nhược điểm của mô hình MVC
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Ưu điểm -->
+            <div>
+              <p
+                class="font-semibold text-emerald-600 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-check-circle text-xl"></i>
+                Ưu điểm
+              </p>
+              <ul class="list-disc pl-6 space-y-3 text-gray-700">
+                <li>
+                  <strong>Tách biệt rõ ràng</strong> giữa logic, dữ liệu và giao
+                  diện (Separation of Concerns)
+                </li>
+                <li>Dễ bảo trì và mở rộng khi dự án lớn</li>
+                <li>
+                  Hỗ trợ làm việc nhóm hiệu quả (mỗi người có thể làm một phần
+                  riêng)
+                </li>
+                <li>Dễ viết Unit Test cho Controller và Model</li>
+                <li>Tái sử dụng code cao</li>
+                <li>Code rõ ràng, dễ đọc và chuyên nghiệp</li>
+              </ul>
+            </div>
+
+            <!-- Nhược điểm -->
+            <div>
+              <p
+                class="font-semibold text-amber-600 mb-4 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                Nhược điểm
+              </p>
+              <ul class="list-disc pl-6 space-y-3 text-gray-700">
+                <li>
+                  Phức tạp hơn so với cách viết PHP truyền thống (nhiều file,
+                  nhiều lớp)
+                </li>
+                <li>Khúc xạ học ban đầu khá cao với người mới</li>
+                <li>
+                  Dễ over-engineering (làm quá phức tạp) với các dự án nhỏ
+                </li>
+                <li>Số lượng file tăng nhiều, cấu trúc thư mục phức tạp hơn</li>
+                <li>
+                  Hiệu suất hơi giảm so với cách viết một file (do phải load
+                  nhiều file)
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-emerald-200 text-sm">
+            <strong class="text-emerald-700">Kết luận:</strong>
+            MVC rất phù hợp với dự án trung bình và lớn. Với dự án nhỏ, có thể
+            dùng cách đơn giản hơn trước khi chuyển sang MVC.
+          </div>
+        </div>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 8 - Mô hình MVC trong PHP
+      </div>
+    </div>
+  </body>
+</html>
