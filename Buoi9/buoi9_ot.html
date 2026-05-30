@@ -1,0 +1,1730 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 9: Tổng quan về Database</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .db-diagram {
+        background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-database text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">Buổi 9: Tổng quan về Database</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#concept"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          Database là gì?
+        </a>
+        <a
+          href="#types"
+          class="px-6 py-3 bg-sky-600 text-white hover:bg-sky-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-layer-group"></i>
+          Các loại Database
+        </a>
+        <a
+          href="#relational"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-table"></i>
+          Tiêu chí lựa chọn Database
+        </a>
+        <a
+          href="#sql"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-terminal"></i>
+          Giới thiệu SQL
+        </a>
+      </nav>
+
+      <!-- ==================== KHÁI NIỆM ==================== -->
+      <section id="concept" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Database là gì?
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>Database (Cơ sở dữ liệu): </strong> là một tập hợp dữ liệu
+            có tổ chức, được lưu trữ trên máy tính để có thể truy cập, quản lý,
+            cập nhật và khai thác một cách hiệu quả. Nói đơn giản, database
+            giống như một "kho lưu trữ thông tin" của hệ thống. <br />
+            Thay vì lưu dữ liệu rời rạc trong các file, dữ liệu được tổ chức
+            theo cấu trúc giúp việc tìm kiếm và xử lý nhanh chóng hơn.
+            <br />
+            Ví dụ Một hệ thống bán giày có thể lưu trữ:
+          </p>
+          <ul class="pl-2">
+            <li>- Thông tin sản phẩm</li>
+            <li>- Thông tin khách hàng</li>
+            <li>- Đơn hàng</li>
+            <li>- Hóa đơn</li>
+            <li>- Thông tin nhân viên</li>
+          </ul>
+          <p>
+            Tất cả dữ liệu này được lưu trong database thay vì lưu trong nhiều
+            file Excel riêng lẻ.
+          </p>
+
+          <div class="db-diagram p-8 rounded-3xl my-10 border border-sky-200">
+            <h3 class="text-center text-xl font-semibold mb-6 text-gray-700">
+              Mô hình MVC và Database
+            </h3>
+
+            <div class="flex justify-center overflow-x-auto">
+              <svg
+                width="1000"
+                height="350"
+                viewBox="0 0 1000 350"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <!-- View -->
+                <rect
+                  x="60"
+                  y="30"
+                  width="180"
+                  height="80"
+                  rx="15"
+                  fill="#8b5cf620"
+                  stroke="#8b5cf6"
+                  stroke-width="3"
+                />
+                <text
+                  x="150"
+                  y="75"
+                  text-anchor="middle"
+                  fill="#6d28d9"
+                  font-size="22"
+                  font-weight="700"
+                >
+                  View
+                </text>
+
+                <text
+                  x="150"
+                  y="95"
+                  text-anchor="middle"
+                  fill="#475569"
+                  font-size="13"
+                >
+                  Hiển thị giao diện
+                </text>
+
+                <!-- Controller -->
+                <rect
+                  x="60"
+                  y="180"
+                  width="180"
+                  height="100"
+                  rx="15"
+                  fill="#10b98120"
+                  stroke="#10b981"
+                  stroke-width="3"
+                />
+
+                <text
+                  x="150"
+                  y="225"
+                  text-anchor="middle"
+                  fill="#047857"
+                  font-size="22"
+                  font-weight="700"
+                >
+                  Controller
+                </text>
+
+                <text
+                  x="150"
+                  y="248"
+                  text-anchor="middle"
+                  fill="#475569"
+                  font-size="13"
+                >
+                  Xử lý Request
+                </text>
+
+                <!-- Model -->
+                <rect
+                  x="410"
+                  y="180"
+                  width="180"
+                  height="100"
+                  rx="15"
+                  fill="#f59e0b20"
+                  stroke="#f59e0b"
+                  stroke-width="3"
+                />
+
+                <text
+                  x="500"
+                  y="225"
+                  text-anchor="middle"
+                  fill="#b45309"
+                  font-size="22"
+                  font-weight="700"
+                >
+                  Model
+                </text>
+
+                <text
+                  x="500"
+                  y="248"
+                  text-anchor="middle"
+                  fill="#475569"
+                  font-size="13"
+                >
+                  Business Logic
+                </text>
+
+                <!-- Database -->
+                <rect
+                  x="760"
+                  y="150"
+                  width="180"
+                  height="160"
+                  rx="20"
+                  fill="#1e40af20"
+                  stroke="#1e40af"
+                  stroke-width="4"
+                />
+
+                <text
+                  x="850"
+                  y="220"
+                  text-anchor="middle"
+                  fill="#1e40af"
+                  font-size="24"
+                  font-weight="700"
+                >
+                  DATABASE
+                </text>
+
+                <text
+                  x="850"
+                  y="245"
+                  text-anchor="middle"
+                  fill="#475569"
+                  font-size="14"
+                >
+                  Lưu trữ dữ liệu
+                </text>
+
+                <!-- Controller -> Model -->
+                <line
+                  x1="240"
+                  y1="215"
+                  x2="410"
+                  y2="215"
+                  stroke="#64748b"
+                  stroke-width="4"
+                />
+                <polygon points="410,215 395,207 395,223" fill="#64748b" />
+
+                <text
+                  x="325"
+                  y="200"
+                  text-anchor="middle"
+                  fill="#334155"
+                  font-size="13"
+                >
+                  Gọi Model
+                </text>
+
+                <!-- Model -> Controller -->
+                <line
+                  x1="410"
+                  y1="250"
+                  x2="240"
+                  y2="250"
+                  stroke="#64748b"
+                  stroke-width="4"
+                />
+                <polygon points="240,250 255,242 255,258" fill="#64748b" />
+
+                <text
+                  x="325"
+                  y="275"
+                  text-anchor="middle"
+                  fill="#334155"
+                  font-size="13"
+                >
+                  Trả dữ liệu
+                </text>
+
+                <!-- Controller -> View -->
+                <line
+                  x1="150"
+                  y1="180"
+                  x2="150"
+                  y2="110"
+                  stroke="#64748b"
+                  stroke-width="4"
+                />
+                <polygon points="150,110 142,122 158,122" fill="#64748b" />
+
+                <text x="190" y="145" fill="#334155" font-size="13">
+                  Render View
+                </text>
+
+                <!-- Model -> Database -->
+                <line
+                  x1="590"
+                  y1="205"
+                  x2="760"
+                  y2="205"
+                  stroke="#64748b"
+                  stroke-width="4"
+                />
+                <polygon points="760,205 745,197 745,213" fill="#64748b" />
+
+                <text
+                  x="675"
+                  y="190"
+                  text-anchor="middle"
+                  fill="#334155"
+                  font-size="13"
+                >
+                  SELECT / INSERT
+                </text>
+
+                <!-- Database -> Model -->
+                <line
+                  x1="760"
+                  y1="255"
+                  x2="590"
+                  y2="255"
+                  stroke="#64748b"
+                  stroke-width="4"
+                />
+                <polygon points="590,255 605,247 605,263" fill="#64748b" />
+
+                <text
+                  x="675"
+                  y="280"
+                  text-anchor="middle"
+                  fill="#334155"
+                  font-size="13"
+                >
+                  Kết quả truy vấn
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div
+            class="bg-indigo-50 border border-indigo-200 p-6 rounded-3xl my-8"
+          >
+            <p class="font-semibold text-indigo-700 mb-3">
+              Tại sao cần Database?
+            </p>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+              <li>Lưu trữ dữ liệu lâu dài (không mất khi tắt server)</li>
+              <li>Quản lý dữ liệu lớn một cách hiệu quả</li>
+              <li>Hỗ trợ nhiều người dùng truy cập cùng lúc</li>
+              <li>Dễ dàng tìm kiếm, sắp xếp và phân tích dữ liệu</li>
+              <li>Đảm bảo tính toàn vẹn và an ninh dữ liệu</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CÁC LOẠI DATABASE ==================== -->
+      <section id="types" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-sky-100 text-sky-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Các loại Database phổ biến
+        </h2>
+        <div class="grid md:grid-cols-1 gap-8">
+          <div
+            class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+          >
+            <h3 class="text-2xl font-bold text-emerald-600 mb-4">
+              1. Relational Database (RDBMS - Relational Database Management
+              System)
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+              RDBMS (Hệ quản trị cơ sở dữ liệu quan hệ) là loại cơ sở dữ liệu
+              phổ biến nhất hiện nay. Dữ liệu được tổ chức dưới dạng các bảng
+              (Table), trong đó mỗi bảng chứa nhiều hàng (Row) và cột (Column).
+              <br />
+              Các bảng có thể liên kết với nhau thông qua khóa chính (Primary
+              Key) và khóa ngoại (Foreign Key), giúp đảm bảo tính nhất quán và
+              tránh trùng lặp dữ liệu.
+            </p>
+
+            <p class="text-gray-600 mb-4">
+              Các hệ quản trị cơ sở dữ liệu quan hệ sử dụng ngôn ngữ SQL
+              (Structured Query Language) để thực hiện các thao tác như thêm,
+              sửa, xóa và truy vấn dữ liệu.
+            </p>
+
+            <div class="bg-gray-50 p-4 rounded-xl mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Ví dụ thực tế: Hệ thống bán hàng
+              </h4>
+
+              <div class="text-sm text-gray-600 space-y-1">
+                <p><strong>Bảng KhachHang</strong></p>
+
+                <table class="border-collapse border border-gray-300 mb-3">
+                  <tr>
+                    <th class="border px-3 py-1">MaKH</th>
+                    <th class="border px-3 py-1">TenKH</th>
+                  </tr>
+                  <tr>
+                    <td class="border px-3 py-1">1</td>
+                    <td class="border px-3 py-1">Nguyễn Văn A</td>
+                  </tr>
+                </table>
+
+                <p><strong>Bảng DonHang</strong></p>
+
+                <table class="border-collapse border border-gray-300">
+                  <tr>
+                    <th class="border px-3 py-1">MaDH</th>
+                    <th class="border px-3 py-1">MaKH</th>
+                    <th class="border px-3 py-1">TongTien</th>
+                  </tr>
+                  <tr>
+                    <td class="border px-3 py-1">101</td>
+                    <td class="border px-3 py-1">1</td>
+                    <td class="border px-3 py-1">500.000đ</td>
+                  </tr>
+                </table>
+
+                <p class="mt-2">
+                  Trong ví dụ trên, cột <strong>MaKH</strong> trong bảng
+                  <strong>DonHang</strong> là khóa ngoại (Foreign Key) liên kết
+                  với cột <strong>MaKH</strong> trong bảng
+                  <strong>KhachHang</strong>.
+                </p>
+              </div>
+            </div>
+
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li>
+                <strong>Ưu điểm:</strong>
+                Dữ liệu có cấu trúc rõ ràng, đảm bảo tính toàn vẹn dữ liệu, hỗ
+                trợ giao dịch (Transaction), dễ quản lý và bảo trì.
+              </li>
+
+              <li>
+                <strong>Nhược điểm:</strong>
+                Khó mở rộng ngang (Horizontal Scaling) khi dữ liệu quá lớn và
+                cấu trúc dữ liệu thay đổi thường xuyên.
+              </li>
+
+              <li>
+                <strong>Hệ quản trị phổ biến:</strong>
+                MySQL, PostgreSQL, MariaDB, SQL Server, Oracle Database.
+              </li>
+
+              <li>
+                <strong>Ngôn ngữ truy vấn:</strong>
+                SQL (Structured Query Language).
+              </li>
+
+              <li>
+                <strong>Ứng dụng:</strong>
+                Website bán hàng, hệ thống quản lý sinh viên, ngân hàng, quản lý
+                nhân sự, thương mại điện tử, CRM và hầu hết các ứng dụng web
+                truyền thống.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+          >
+            <h3 class="text-2xl font-bold text-emerald-600 mb-4">
+              Một số hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) phổ biến
+            </h3>
+
+            <p class="text-gray-600 mb-6">
+              Hiện nay có nhiều hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) phổ
+              biến. Mỗi hệ quản trị có những ưu điểm, nhược điểm và mục đích sử
+              dụng khác nhau.
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="bg-emerald-50">
+                    <th class="border border-gray-300 p-3 text-left">
+                      Tiêu chí
+                    </th>
+                    <th class="border border-gray-300 p-3">MySQL</th>
+                    <th class="border border-gray-300 p-3">PostgreSQL</th>
+                    <th class="border border-gray-300 p-3">MariaDB</th>
+                    <th class="border border-gray-300 p-3">SQL Server</th>
+                    <th class="border border-gray-300 p-3">Oracle Database</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Nhà phát triển
+                    </td>
+                    <td class="border border-gray-300 p-3">Oracle</td>
+                    <td class="border border-gray-300 p-3">
+                      PostgreSQL Community
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      MariaDB Foundation
+                    </td>
+                    <td class="border border-gray-300 p-3">Microsoft</td>
+                    <td class="border border-gray-300 p-3">Oracle</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Mã nguồn mở
+                    </td>
+                    <td class="border border-gray-300 p-3">✔️</td>
+                    <td class="border border-gray-300 p-3">✔️</td>
+                    <td class="border border-gray-300 p-3">✔️</td>
+                    <td class="border border-gray-300 p-3">⚠️ Một phần</td>
+                    <td class="border border-gray-300 p-3">❌</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Ngôn ngữ
+                    </td>
+                    <td class="border border-gray-300 p-3">SQL</td>
+                    <td class="border border-gray-300 p-3">SQL + PL/pgSQL</td>
+                    <td class="border border-gray-300 p-3">SQL</td>
+                    <td class="border border-gray-300 p-3">SQL + T-SQL</td>
+                    <td class="border border-gray-300 p-3">SQL + PL/SQL</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Độ phổ biến
+                    </td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Dễ học
+                    </td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Hiệu năng
+                    </td>
+                    <td class="border border-gray-300 p-3">Tốt</td>
+                    <td class="border border-gray-300 p-3">Rất tốt</td>
+                    <td class="border border-gray-300 p-3">Tốt</td>
+                    <td class="border border-gray-300 p-3">Rất tốt</td>
+                    <td class="border border-gray-300 p-3">Xuất sắc</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Chi phí
+                    </td>
+                    <td class="border border-gray-300 p-3">Miễn phí</td>
+                    <td class="border border-gray-300 p-3">Miễn phí</td>
+                    <td class="border border-gray-300 p-3">Miễn phí</td>
+                    <td class="border border-gray-300 p-3">Có bản miễn phí</td>
+                    <td class="border border-gray-300 p-3">Thương mại</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Phù hợp
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      PHP, Laravel, WordPress
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Hệ thống lớn, dữ liệu phức tạp
+                    </td>
+                    <td class="border border-gray-300 p-3">Thay thế MySQL</td>
+                    <td class="border border-gray-300 p-3">
+                      .NET, doanh nghiệp
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Ngân hàng, ERP, tài chính
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <h4 class="font-semibold text-blue-700 mb-2">
+                Khuyến nghị cho người học PHP
+              </h4>
+
+              <ul class="text-gray-700 space-y-1 text-sm">
+                <li>- MySQL: Dễ học nhất, tài liệu phong phú.</li>
+                <li>
+                  - PostgreSQL: Mạnh mẽ, phù hợp dự án lớn. PostgreSQL tuân thủ
+                  chuẩn SQL chặt chẽ rất hữu ích khi xử lý dữ liệu phức tạp. Hỗ
+                  trợ nhiều kiểu dữ liệu nâng cao (JSONB, ARRAY, UUID,
+                  GEOGRAPHY), Độ tin cậy cao
+                </li>
+                <li>- MariaDB: Gần giống MySQL, dễ chuyển đổi.</li>
+                <li>- SQL Server: Thường dùng trong hệ sinh thái Microsoft.</li>
+                <li>
+                  - Oracle Database: Phổ biến trong các doanh nghiệp lớn và ngân
+                  hàng. Oracle nổi tiếng về: Transaction, Khả năng phục hồi, Độ
+                  ổn định, Bảo mật mạnh
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-center items-center gap-8 my-8">
+            <img
+              src="images/sql_struct/mysql.png"
+              alt="MySQL"
+              class="w-32 h-20 object-contain transition-transform hover:scale-105"
+            />
+
+            <img
+              src="images/sql_struct/mariadb.png"
+              alt="MariaDB"
+              class="w-32 h-20 object-contain transition-transform hover:scale-105"
+            />
+
+            <img
+              src="images/sql_struct/postgresql.jpg"
+              alt="PostgreSQL"
+              class="w-32 h-20 object-contain transition-transform hover:scale-105"
+            />
+
+            <img
+              src="images/sql_struct/sqlServer.png"
+              alt="SQL Server"
+              class="w-32 h-20 object-contain transition-transform hover:scale-105"
+            />
+
+            <img
+              src="images/sql_struct/oracle.png"
+              alt="Oracle Database"
+              class="w-32 h-20 object-contain transition-transform hover:scale-105"
+            />
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+          >
+            <h3 class="text-2xl font-bold text-violet-600 mb-4">
+              2. NoSQL Database
+            </h3>
+
+            <p class="text-gray-600 mb-4">
+              NoSQL (Not Only SQL) là nhóm cơ sở dữ liệu không sử dụng mô hình
+              bảng quan hệ truyền thống như RDBMS. Thay vào đó, dữ liệu có thể
+              được lưu trữ dưới nhiều dạng khác nhau như Document, Key-Value,
+              Column Family hoặc Graph.
+            </p>
+
+            <p class="text-gray-600 mb-4">
+              NoSQL được thiết kế để xử lý lượng dữ liệu rất lớn, có khả năng mở
+              rộng dễ dàng trên nhiều máy chủ và phù hợp với những hệ thống có
+              cấu trúc dữ liệu thay đổi thường xuyên.
+            </p>
+
+            <div class="bg-gray-50 p-4 rounded-xl mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Ví dụ thực tế: Thông tin người dùng trong MongoDB
+              </h4>
+
+              <pre
+                class="bg-gray-800 text-gray-100 p-3 rounded-lg text-sm overflow-x-auto"
+              >
+{
+  "_id": 1,
+  "name": "Nguyen Van A",
+  "email": "vana@gmail.com",
+  "skills": ["PHP", "Laravel", "MySQL"],
+  "address": {
+    "city": "Ha Noi",
+    "district": "Cau Giay"
+  }
+}
+</pre
+              >
+
+              <p class="text-sm text-gray-600 mt-2">
+                Khác với RDBMS phải định nghĩa cột trước, MongoDB cho phép mỗi
+                document có cấu trúc khác nhau. Điều này giúp việc lưu trữ dữ
+                liệu linh hoạt hơn.
+              </p>
+            </div>
+
+            <div class="bg-violet-50 p-4 rounded-xl mb-4">
+              <h4 class="font-semibold text-violet-700 mb-2">
+                Các loại NoSQL phổ biến
+              </h4>
+
+              <ul class="text-sm text-gray-700 space-y-2">
+                <li>
+                  <strong>Document Database:</strong>
+                  Lưu dữ liệu dưới dạng document JSON/BSON. Ví dụ: MongoDB,
+                  Firebase Firestore.
+                </li>
+
+                <li>
+                  <strong>Key-Value Database:</strong>
+                  Lưu dữ liệu theo cặp key-value. Ví dụ: Redis.
+                </li>
+
+                <li>
+                  <strong>Column Family Database:</strong>
+                  Tối ưu cho dữ liệu khổng lồ và phân tán. Ví dụ: Cassandra.
+                </li>
+
+                <li>
+                  <strong>Graph Database:</strong>
+                  Chuyên lưu trữ các mối quan hệ phức tạp. Ví dụ: Neo4j.
+                </li>
+              </ul>
+            </div>
+
+            <ul class="text-sm text-gray-600 space-y-2">
+              <li>
+                <strong>Ưu điểm:</strong>
+                Linh hoạt về cấu trúc dữ liệu, dễ mở rộng ngang (Horizontal
+                Scaling), xử lý dữ liệu lớn hiệu quả và phù hợp với các hệ thống
+                phân tán.
+              </li>
+              <li>
+                <strong>Nhược điểm:</strong>
+                Không mạnh về các mối quan hệ dữ liệu phức tạp như RDBMS, một số
+                hệ thống không hỗ trợ đầy đủ ACID Transaction.
+              </li>
+
+              <li>
+                <strong>Hệ quản trị phổ biến:</strong>
+                MongoDB, Firebase Firestore, Redis, Cassandra, Neo4j.
+              </li>
+
+              <li>
+                <strong>Ngôn ngữ truy vấn:</strong>
+                Tùy từng hệ quản trị, không nhất thiết phải dùng SQL.
+              </li>
+
+              <li>
+                <strong>Ứng dụng:</strong>
+                Mạng xã hội, hệ thống chat thời gian thực, game online, IoT, Big
+                Data, AI, Machine Learning và các hệ thống có lượng truy cập rất
+                lớn hoặc các hệ thống có dữ liệu thay đổi liên tục.
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 mt-6"
+          >
+            <h3 class="text-2xl font-bold text-violet-600 mb-4">
+              Một số hệ quản trị NoSQL phổ biến
+            </h3>
+
+            <p class="text-gray-600 mb-6">
+              NoSQL không phải là một loại cơ sở dữ liệu duy nhất mà là một nhóm
+              các hệ quản trị dữ liệu được thiết kế cho những mục đích khác
+              nhau. Dưới đây là một số NoSQL phổ biến hiện nay.
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="bg-violet-50">
+                    <th class="border border-gray-300 p-3 text-left">
+                      Tiêu chí
+                    </th>
+                    <th class="border border-gray-300 p-3">MongoDB</th>
+                    <th class="border border-gray-300 p-3">Redis</th>
+                    <th class="border border-gray-300 p-3">Firebase</th>
+                    <th class="border border-gray-300 p-3">Cassandra</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Loại NoSQL
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Document Database
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Key-Value Database
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Document Database
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Column Family Database
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Cách lưu dữ liệu
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      JSON / BSON Document
+                    </td>
+                    <td class="border border-gray-300 p-3">Key → Value</td>
+                    <td class="border border-gray-300 p-3">JSON Document</td>
+                    <td class="border border-gray-300 p-3">Cột phân tán</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Tốc độ đọc/ghi
+                    </td>
+                    <td class="border border-gray-300 p-3">Nhanh</td>
+                    <td class="border border-gray-300 p-3">Rất nhanh</td>
+                    <td class="border border-gray-300 p-3">Nhanh</td>
+                    <td class="border border-gray-300 p-3">Rất nhanh</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Khả năng mở rộng
+                    </td>
+                    <td class="border border-gray-300 p-3">Tốt</td>
+                    <td class="border border-gray-300 p-3">Tốt</td>
+                    <td class="border border-gray-300 p-3">Tự động</td>
+                    <td class="border border-gray-300 p-3">Rất mạnh</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Điểm mạnh
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Linh hoạt, dễ sử dụng
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Hiệu năng cực cao
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Realtime Database
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Big Data, phân tán
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Ứng dụng phổ biến
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Mạng xã hội, CMS, E-commerce
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Cache, Chat, Game Online
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Mobile App, Chat Realtime
+                    </td>
+                    <td class="border border-gray-300 p-3">IoT, Big Data</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Độ khó học
+                    </td>
+                    <td class="border border-gray-300 p-3">⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐</td>
+                    <td class="border border-gray-300 p-3">⭐</td>
+                    <td class="border border-gray-300 p-3">⭐⭐⭐⭐</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      Nên dùng khi
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Cần dữ liệu linh hoạt
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Cần tốc độ cực cao
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Muốn triển khai nhanh
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Dữ liệu cực lớn, nhiều server
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="mt-6 bg-violet-50 border border-violet-200 rounded-xl p-4"
+            >
+              <h4 class="font-semibold text-violet-700 mb-2">Gợi ý lựa chọn</h4>
+
+              <ul class="text-sm text-gray-700 space-y-2">
+                <li>
+                  <strong>MongoDB:</strong> NoSQL phổ biến nhất, phù hợp để học
+                  và xây dựng ứng dụng web.
+                </li>
+
+                <li>
+                  <strong>Redis:</strong> Thường dùng làm Cache, Session
+                  Storage, Chat Realtime và Game Online.
+                </li>
+
+                <li>
+                  <strong>Firebase:</strong> Phù hợp cho ứng dụng Mobile và Web
+                  Realtime, không cần quản lý server.
+                </li>
+
+                <li>
+                  <strong>Cassandra:</strong> Dành cho hệ thống Big Data, IoT
+                  hoặc các hệ thống phân tán quy mô rất lớn.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-center gap-6 my-8">
+            <div class="bg-white border rounded-xl p-4 shadow-sm w-40">
+              <img
+                src="images/nosql/mongodb.png"
+                alt="MongoDB"
+                class="w-full h-20 object-contain"
+              />
+            </div>
+
+            <div class="bg-white border rounded-xl p-4 shadow-sm w-40">
+              <img
+                src="images/nosql/redis.jpg"
+                alt="Redis"
+                class="w-full h-20 object-contain"
+              />
+            </div>
+
+            <div class="bg-white border rounded-xl p-4 shadow-sm w-40">
+              <img
+                src="images/nosql/firebase.png"
+                alt="Firebase"
+                class="w-full h-20 object-contain"
+              />
+            </div>
+
+            <div class="bg-white border rounded-xl p-4 shadow-sm w-40">
+              <img
+                src="images/nosql/cassandra.svg"
+                alt="Cassandra"
+                class="w-full h-20 object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATABASE QUAN HỆ ==================== -->
+      <section id="relational" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Tiêu chí lựa chọn Database phù hợp
+        </h2>
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+          <p class="text-gray-600 mb-4">
+            Không có cơ sở dữ liệu nào là tốt nhất cho mọi trường hợp. Việc lựa
+            chọn Database phụ thuộc vào yêu cầu của hệ thống, quy mô dữ liệu,
+            hiệu năng và khả năng mở rộng trong tương lai.
+          </p>
+
+          <div class="space-y-4">
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                1. Cấu trúc dữ liệu
+              </h4>
+              <p class="text-sm text-gray-700">
+                Nếu dữ liệu có cấu trúc rõ ràng, nhiều mối quan hệ giữa các bảng
+                (Sinh viên, Đơn hàng, Hóa đơn, Khách hàng...), RDBMS là lựa chọn
+                phù hợp. Nếu dữ liệu thay đổi thường xuyên hoặc không đồng nhất,
+                NoSQL sẽ linh hoạt hơn.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                2. Mối quan hệ giữa dữ liệu
+              </h4>
+              <p class="text-sm text-gray-700">
+                Hệ thống cần nhiều JOIN, khóa chính, khóa ngoại và đảm bảo tính
+                toàn vẹn dữ liệu nên sử dụng RDBMS. Ngược lại, nếu dữ liệu ít
+                phụ thuộc lẫn nhau, NoSQL có thể mang lại hiệu năng tốt hơn.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                3. Khối lượng dữ liệu
+              </h4>
+              <p class="text-sm text-gray-700">
+                Với các ứng dụng quản lý thông thường, RDBMS hoàn toàn đáp ứng
+                tốt. Nếu hệ thống phải lưu trữ hàng tỷ bản ghi hoặc dữ liệu tăng
+                trưởng rất nhanh, cần cân nhắc các giải pháp NoSQL như MongoDB
+                hoặc Cassandra.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                4. Hiệu năng đọc và ghi dữ liệu
+              </h4>
+              <p class="text-sm text-gray-700">
+                Một số hệ thống cần xử lý hàng trăm nghìn hoặc hàng triệu thao
+                tác mỗi giây như Chat Realtime, Game Online, IoT hoặc Cache sẽ
+                phù hợp với Redis hoặc các NoSQL chuyên biệt. Trong khi đó, các
+                hệ thống nghiệp vụ thường ưu tiên tính chính xác dữ liệu hơn tốc
+                độ tuyệt đối.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                5. Khả năng mở rộng
+              </h4>
+              <p class="text-sm text-gray-700">
+                Nếu dự án dự kiến tăng trưởng mạnh trong tương lai, cần xem xét
+                khả năng mở rộng của Database. PostgreSQL, MongoDB, Cassandra và
+                Oracle đều hỗ trợ mở rộng tốt nhưng theo những cách khác nhau.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                6. Chi phí triển khai
+              </h4>
+              <p class="text-sm text-gray-700">
+                MySQL, PostgreSQL, MariaDB và MongoDB Community có thể sử dụng
+                miễn phí. Trong khi đó SQL Server Enterprise hoặc Oracle
+                Database có thể phát sinh chi phí bản quyền đáng kể đối với
+                doanh nghiệp.
+              </p>
+            </div>
+
+            <div class="bg-orange-50 p-4 rounded-xl">
+              <h4 class="font-semibold text-orange-700 mb-2">
+                7. Kinh nghiệm của đội ngũ phát triển
+              </h4>
+              <p class="text-sm text-gray-700">
+                Một Database mạnh nhưng khó vận hành có thể làm tăng chi phí
+                phát triển. Vì vậy cần cân nhắc trình độ của đội ngũ kỹ thuật
+                trước khi lựa chọn công nghệ.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-6 overflow-x-auto">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr class="bg-orange-100">
+                  <th class="border border-gray-300 p-3 text-left">
+                    Loại hệ thống
+                  </th>
+                  <th class="border border-gray-300 p-3">Database phù hợp</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td class="border border-gray-300 p-3">
+                    Website bán hàng, quản lý sinh viên, CRM
+                  </td>
+                  <td class="border border-gray-300 p-3">
+                    MySQL, PostgreSQL, SQL Server
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="border border-gray-300 p-3">
+                    Hệ thống doanh nghiệp lớn, ERP, ngân hàng
+                  </td>
+                  <td class="border border-gray-300 p-3">
+                    Oracle Database, PostgreSQL
+                  </td>
+                </tr>
+
+                <tr>
+                  <td class="border border-gray-300 p-3">
+                    Mạng xã hội, CMS, ứng dụng Web hiện đại
+                  </td>
+                  <td class="border border-gray-300 p-3">MongoDB</td>
+                </tr>
+
+                <tr>
+                  <td class="border border-gray-300 p-3">
+                    Cache, Session, Chat Realtime, Game Online
+                  </td>
+                  <td class="border border-gray-300 p-3">Redis</td>
+                </tr>
+
+                <tr>
+                  <td class="border border-gray-300 p-3">
+                    IoT, Big Data, Telemetry
+                  </td>
+                  <td class="border border-gray-300 p-3">Cassandra</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <h4 class="font-semibold text-blue-700 mb-2">Kết luận</h4>
+            <p class="text-sm text-gray-700">
+              Trong thực tế, nhiều hệ thống sử dụng kết hợp nhiều loại Database
+              cùng lúc. Ví dụ một website Laravel có thể sử dụng MySQL để lưu dữ
+              liệu nghiệp vụ, Redis để cache và lưu session, đồng thời MongoDB
+              để lưu log hoặc dữ liệu phi cấu trúc. Vì vậy việc lựa chọn
+              Database cần dựa trên bài toán thực tế thay vì chỉ dựa vào độ phổ
+              biến của công nghệ.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+        <h3 class="text-2xl font-bold text-cyan-600 mb-4">
+          Các công cụ quản lý và truy cập Database
+        </h3>
+
+        <p class="text-gray-600 mb-4">
+          Để làm việc với cơ sở dữ liệu, lập trình viên thường sử dụng các công
+          cụ quản trị (Database Management Tools) giúp tạo Database, tạo bảng,
+          thực hiện truy vấn SQL, sao lưu dữ liệu và quản lý người dùng một cách
+          trực quan thay vì phải thao tác hoàn toàn bằng dòng lệnh.
+        </p>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-sm">
+            <thead>
+              <tr class="bg-cyan-50">
+                <th class="border border-gray-300 p-3 text-left">Database</th>
+                <th class="border border-gray-300 p-3">Công cụ phổ biến</th>
+                <th class="border border-gray-300 p-3">Đặc điểm</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">MySQL</td>
+                <td class="border border-gray-300 p-3">
+                  phpMyAdmin, MySQL Workbench, DBeaver
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Dễ sử dụng, phổ biến trong các dự án PHP và Laravel.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">
+                  MariaDB
+                </td>
+                <td class="border border-gray-300 p-3">
+                  phpMyAdmin, DBeaver, HeidiSQL
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Tương thích cao với MySQL nên có thể sử dụng chung nhiều công
+                  cụ.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">
+                  PostgreSQL
+                </td>
+                <td class="border border-gray-300 p-3">
+                  pgAdmin, DBeaver, DataGrip
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Hỗ trợ tốt cho các tính năng SQL nâng cao và dữ liệu phức tạp.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">
+                  SQL Server
+                </td>
+                <td class="border border-gray-300 p-3">
+                  SQL Server Management Studio (SSMS), Azure Data Studio,
+                  DBeaver
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Tích hợp tốt với hệ sinh thái Microsoft.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">
+                  Oracle Database
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Oracle SQL Developer, DBeaver, TOAD
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Thường được sử dụng trong doanh nghiệp lớn và hệ thống ngân
+                  hàng.
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">
+                  MongoDB
+                </td>
+                <td class="border border-gray-300 p-3">
+                  MongoDB Compass, Studio 3T
+                </td>
+                <td class="border border-gray-300 p-3">
+                  Hỗ trợ thao tác trực tiếp với dữ liệu dạng Document (JSON).
+                </td>
+              </tr>
+
+              <tr>
+                <td class="border border-gray-300 p-3 font-semibold">Redis</td>
+                <td class="border border-gray-300 p-3">Redis Insight</td>
+                <td class="border border-gray-300 p-3">
+                  Chuyên quản lý dữ liệu dạng Key-Value và Cache.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-6 bg-cyan-50 border border-cyan-200 rounded-xl p-4">
+          <h4 class="font-semibold text-cyan-700 mb-2">
+            Công cụ đa nền tảng phổ biến
+          </h4>
+
+          <ul class="text-sm text-gray-700 space-y-2">
+            <li>
+              ⭐ <strong>DBeaver:</strong> Hỗ trợ gần như tất cả các hệ quản trị
+              cơ sở dữ liệu phổ biến hiện nay.
+            </li>
+
+            <li>
+              ⭐ <strong>DataGrip:</strong> Công cụ quản lý Database chuyên
+              nghiệp của JetBrains.
+            </li>
+
+            <li>
+              ⭐ <strong>TablePlus:</strong> Giao diện đẹp, nhẹ và được nhiều
+              lập trình viên macOS yêu thích.
+            </li>
+
+            <li>
+              ⭐ <strong>phpMyAdmin:</strong> Công cụ quản lý MySQL/MariaDB
+              thông qua trình duyệt web.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 my-8">
+        <a
+          href="https://learn.microsoft.com/en-us/azure-data-studio/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/azure.png"
+            alt="Azure Data Studio"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">Azure Data Studio</p>
+        </a>
+
+        <a
+          href="https://www.jetbrains.com/datagrip/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/DataGrip.jpeg"
+            alt="DataGrip"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">DataGrip</p>
+        </a>
+
+        <a
+          href="https://dbeaver.io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/dbeaver.png"
+            alt="DBeaver"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">DBeaver</p>
+        </a>
+
+        <a
+          href="https://www.heidisql.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/HeidiSQL.jpeg"
+            alt="HeidiSQL"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">HeidiSQL</p>
+        </a>
+
+        <a
+          href="https://www.mongodb.com/products/tools/compass"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/mongoCompact.png"
+            alt="MongoDB Compass"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">MongoDB Compass</p>
+        </a>
+
+        <a
+          href="https://www.mysql.com/products/workbench/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/mysql_workbench.jpg"
+            alt="MySQL Workbench"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">MySQL Workbench</p>
+        </a>
+
+        <a
+          href="https://www.oracle.com/database/sqldeveloper/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/OracleSqlDev.webp"
+            alt="Oracle SQL Developer"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">
+            Oracle SQL Developer
+          </p>
+        </a>
+
+        <a
+          href="https://www.pgadmin.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/pgadmin.png"
+            alt="pgAdmin"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">pgAdmin</p>
+        </a>
+
+        <a
+          href="https://www.phpmyadmin.net/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/phpmyadmin.webp"
+            alt="phpMyAdmin"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">phpMyAdmin</p>
+        </a>
+
+        <a
+          href="https://redis.io/insight/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/redisInsight.png"
+            alt="Redis Insight"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">Redis Insight</p>
+        </a>
+
+        <a
+          href="https://learn.microsoft.com/en-us/sql/ssms/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/SSMS.jpg"
+            alt="SQL Server Management Studio"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">SSMS</p>
+        </a>
+
+        <a
+          href="https://studio3t.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/studio3t.jpg"
+            alt="Studio 3T"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">Studio 3T</p>
+        </a>
+
+        <a
+          href="https://www.quest.com/products/toad-for-sql-server/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block bg-white border rounded-xl p-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition"
+        >
+          <img
+            src="images/tool/toad.png"
+            alt="TOAD"
+            class="w-full h-20 object-contain"
+          />
+          <p class="text-center mt-3 font-medium text-sm">TOAD</p>
+        </a>
+      </div>
+
+      <!-- ==================== SQL ==================== -->
+      <section id="sql" class="my-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Giới thiệu SQL (Structured Query Language)
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <div
+            class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100"
+          >
+            <p class="text-gray-600 mb-4">
+              SQL (Structured Query Language - Ngôn ngữ truy vấn có cấu trúc) là
+              ngôn ngữ tiêu chuẩn được sử dụng để làm việc với các hệ quản trị
+              cơ sở dữ liệu quan hệ (RDBMS) như MySQL, PostgreSQL, MariaDB, SQL
+              Server và Oracle Database.
+            </p>
+
+            <p class="text-gray-600 mb-4">
+              SQL cho phép người dùng tạo cơ sở dữ liệu, tạo bảng, thêm dữ liệu,
+              chỉnh sửa dữ liệu, xóa dữ liệu và truy vấn thông tin từ Database.
+              Đây là một trong những kỹ năng quan trọng nhất đối với lập trình
+              viên Backend, Data Analyst, Data Engineer và Database
+              Administrator (DBA).
+            </p>
+
+            <div class="bg-indigo-50 p-4 rounded-xl mb-4">
+              <h4 class="font-semibold text-indigo-700 mb-2">
+                SQL được sử dụng để làm gì?
+              </h4>
+
+              <ul class="text-sm text-gray-700 space-y-2">
+                <li>- Tạo và quản lý Database.</li>
+                <li>- Tạo, sửa đổi và xóa bảng dữ liệu.</li>
+                <li>- Thêm dữ liệu vào bảng.</li>
+                <li>- Cập nhật dữ liệu hiện có.</li>
+                <li>- Xóa dữ liệu khỏi bảng.</li>
+                <li>- Tìm kiếm, lọc và thống kê dữ liệu.</li>
+                <li>- Quản lý quyền truy cập của người dùng.</li>
+              </ul>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-xl mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">
+                Ví dụ truy vấn SQL đơn giản
+              </h4>
+
+              <pre
+                class="bg-gray-800 text-gray-100 p-3 rounded-lg overflow-x-auto text-sm"
+              >
+SELECT *
+FROM SinhVien
+WHERE Tuoi >= 18;
+</pre
+              >
+
+              <p class="text-sm text-gray-600 mt-2">
+                Câu lệnh trên dùng để lấy danh sách tất cả sinh viên có tuổi từ
+                18 trở lên.
+              </p>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse text-sm">
+                <thead>
+                  <tr class="bg-indigo-50">
+                    <th class="border border-gray-300 p-3">Nhóm lệnh</th>
+                    <th class="border border-gray-300 p-3">Chức năng</th>
+                    <th class="border border-gray-300 p-3">Ví dụ</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      DDL
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Định nghĩa cấu trúc Database
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      CREATE, ALTER, DROP
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      DML
+                    </td>
+                    <td class="border border-gray-300 p-3">Thao tác dữ liệu</td>
+                    <td class="border border-gray-300 p-3">
+                      INSERT, UPDATE, DELETE
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      DQL
+                    </td>
+                    <td class="border border-gray-300 p-3">Truy vấn dữ liệu</td>
+                    <td class="border border-gray-300 p-3">SELECT</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      DCL
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Quản lý quyền truy cập
+                    </td>
+                    <td class="border border-gray-300 p-3">GRANT, REVOKE</td>
+                  </tr>
+
+                  <tr>
+                    <td class="border border-gray-300 p-3 font-semibold">
+                      TCL
+                    </td>
+                    <td class="border border-gray-300 p-3">
+                      Quản lý Transaction
+                    </td>
+                    <td class="border border-gray-300 p-3">COMMIT, ROLLBACK</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="mt-6 bg-green-50 border border-green-200 rounded-xl p-4"
+            >
+              <h4 class="font-semibold text-green-700 mb-2">Lưu ý</h4>
+
+              <p class="text-sm text-gray-700">
+                Mặc dù mỗi hệ quản trị cơ sở dữ liệu có thể bổ sung các tính
+                năng riêng (ví dụ: PL/SQL của Oracle, T-SQL của SQL Server hay
+                PL/pgSQL của PostgreSQL), nhưng các câu lệnh SQL cơ bản như
+                SELECT, INSERT, UPDATE, DELETE, JOIN, GROUP BY và ORDER BY đều
+                gần như giống nhau trên hầu hết các RDBMS hiện nay.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
+        <h3 class="text-2xl font-bold text-emerald-600 mb-4">
+          Bài tập thực hành: Thiết kế Database Quản lý Sinh viên
+        </h3>
+
+        <h4 class="font-semibold text-lg mb-2">Yêu cầu</h4>
+
+        <p class="text-gray-600 mb-4">
+          Một trung tâm đào tạo cần xây dựng hệ thống quản lý sinh viên và lớp
+          học. Mỗi sinh viên có thể tham gia một lớp học và mỗi lớp học có nhiều
+          sinh viên.
+        </p>
+
+        <h4 class="font-semibold text-lg mb-2">Chức năng cần quản lý</h4>
+
+        <ul class="list-disc pl-6 text-gray-600 space-y-1 mb-4">
+          <li>Thông tin lớp học.</li>
+          <li>Thông tin sinh viên.</li>
+          <li>Danh sách sinh viên thuộc từng lớp.</li>
+        </ul>
+
+        <h4 class="font-semibold text-lg mb-2">Yêu cầu thiết kế Database</h4>
+
+        <ol class="list-decimal pl-6 text-gray-600 space-y-2 mb-4">
+          <li>Tạo Database tên <strong>QuanLySinhVien</strong>.</li>
+          <li>Tạo bảng <strong>LopHoc</strong>.</li>
+          <li>Tạo bảng <strong>SinhVien</strong>.</li>
+          <li>Thiết lập khóa chính (Primary Key).</li>
+          <li>Thiết lập khóa ngoại (Foreign Key).</li>
+          <li>Nhập dữ liệu mẫu.</li>
+        </ol>
+
+        <h4 class="font-semibold text-lg mb-2">Cấu trúc dữ liệu</h4>
+
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-sm mb-4">
+            <thead>
+              <tr class="bg-emerald-50">
+                <th class="border p-3">Bảng</th>
+                <th class="border p-3">Tên cột</th>
+                <th class="border p-3">Kiểu dữ liệu</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="border p-3 font-semibold" rowspan="3">LopHoc</td>
+                <td class="border p-3">MaLop</td>
+                <td class="border p-3">INT (PK)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">TenLop</td>
+                <td class="border p-3">VARCHAR(100)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">ChuyenNganh</td>
+                <td class="border p-3">VARCHAR(100)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3 font-semibold" rowspan="5">SinhVien</td>
+                <td class="border p-3">MaSV</td>
+                <td class="border p-3">INT (PK)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">HoTen</td>
+                <td class="border p-3">VARCHAR(100)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">NgaySinh</td>
+                <td class="border p-3">DATE</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">Email</td>
+                <td class="border p-3">VARCHAR(100)</td>
+              </tr>
+
+              <tr>
+                <td class="border p-3">MaLop</td>
+                <td class="border p-3">INT (FK)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h4 class="font-semibold text-lg mb-2">Câu hỏi thực hành</h4>
+
+        <ol class="list-decimal pl-6 text-gray-600 space-y-2">
+          <li>Viết lệnh CREATE DATABASE.</li>
+          <li>Viết lệnh CREATE TABLE cho hai bảng.</li>
+          <li>Thêm ít nhất 3 lớp học.</li>
+          <li>Thêm ít nhất 10 sinh viên.</li>
+          <li>Hiển thị danh sách sinh viên.</li>
+          <li>Hiển thị danh sách sinh viên kèm tên lớp.</li>
+          <li>Tìm các sinh viên thuộc lớp "CNTT".</li>
+          <li>Đếm số lượng sinh viên của mỗi lớp.</li>
+        </ol>
+      </div>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 9 - Tổng quan về Database
+      </div>
+    </div>
+  </body>
+</html>
