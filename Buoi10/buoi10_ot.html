@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 10: Kết nối MySQL với PHP (MVC)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .code-box {
+        background: linear-gradient(135deg, #1e2937, #334155);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-plug text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 10: Kết nối MySQL với PHP (MVC)
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#concept"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-lightbulb"></i>
+          MySQL là gì?
+        </a>
+        <a
+          href="#proscons"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-scale-balanced"></i>
+          Ưu - Nhược điểm
+        </a>
+        <a
+          href="#connect"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-link"></i>
+          Các cách kết nối
+        </a>
+        <a
+          href="#mvc"
+          class="px-6 py-3 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          Áp dụng trong MVC
+        </a>
+        <a
+          href="database.sql"
+          download=""
+          class="px-6 py-3 bg-red-600 text-white hover:bg-red-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          Database.sql
+        </a>
+      </nav>
+
+      <!-- ==================== KHÁI NIỆM MYSQL ==================== -->
+      <section id="concept" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Khái niệm MySQL
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>MySQL</strong> là một hệ quản trị cơ sở dữ liệu quan hệ
+            (RDBMS) mã nguồn mở phổ biến nhất thế giới. Nó sử dụng ngôn ngữ
+            <strong>SQL (Structured Query Language)</strong> để quản lý dữ liệu.
+          </p>
+
+          <div class="bg-sky-50 border border-sky-200 p-6 rounded-3xl my-8">
+            <h3 class="font-semibold text-sky-700 mb-3">
+              Đặc điểm nổi bật của MySQL:
+            </h3>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>Miễn phí (mã nguồn mở) và dễ cài đặt</li>
+              <li>
+                Hỗ trợ rất tốt với PHP (được thiết kế để kết hợp hoàn hảo)
+              </li>
+              <li>Khả năng mở rộng cao, phù hợp từ dự án nhỏ đến lớn</li>
+              <li>
+                Hỗ trợ nhiều kiểu dữ liệu, index, transaction, stored procedure
+              </li>
+              <li>
+                Được sử dụng bởi nhiều công ty lớn: Facebook, Netflix, Airbnb,
+                YouTube...
+              </li>
+            </ul>
+          </div>
+
+          <h3 class="text-2xl font-semibold mt-12 mb-4">Cấu trúc cơ bản</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-3xl border border-gray-200">
+              <div class="text-4xl mb-3">📊</div>
+              <h4 class="font-bold">Database</h4>
+              <p class="text-sm text-gray-600">Tập hợp các bảng</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl border border-gray-200">
+              <div class="text-4xl mb-3">📋</div>
+              <h4 class="font-bold">Table</h4>
+              <p class="text-sm text-gray-600">Bảng dữ liệu</p>
+            </div>
+            <div class="bg-white p-6 rounded-3xl border border-gray-200">
+              <div class="text-4xl mb-3">🔑</div>
+              <h4 class="font-bold">Row &amp; Column</h4>
+              <p class="text-sm text-gray-600">Dòng và cột</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== ƯU NHƯỢC ĐIỂM ==================== -->
+      <section id="proscons" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Ưu điểm và Nhược điểm của MySQL khi kết nối với PHP
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Ưu điểm -->
+          <div class="bg-emerald-50 border border-emerald-200 rounded-3xl p-8">
+            <h3
+              class="text-xl font-bold text-emerald-700 mb-6 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-thumbs-up"></i> Ưu điểm
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex gap-3">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span
+                  ><strong>Tốc độ nhanh</strong> và hiệu suất cao với PHP</span
+                >
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span>Dễ học, tài liệu phong phú</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span>Hỗ trợ transaction, foreign key, indexing tốt</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span>Chi phí thấp (miễn phí)</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span>Cộng đồng lớn, dễ tìm giải pháp</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Nhược điểm -->
+          <div class="bg-rose-50 border border-rose-200 rounded-3xl p-8">
+            <h3
+              class="text-xl font-bold text-rose-700 mb-6 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-thumbs-down"></i> Nhược điểm
+            </h3>
+            <ul class="space-y-4">
+              <li class="flex gap-3">
+                <span class="text-rose-600 font-bold">✗</span>
+                <span>Không mạnh bằng PostgreSQL về concurrency lớn</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rose-600 font-bold">✗</span>
+                <span>Hiệu suất giảm rõ khi dữ liệu rất lớn (terabytes)</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rose-600 font-bold">✗</span>
+                <span>Cần cấu hình tốt để đảm bảo an ninh</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-rose-600 font-bold">✗</span>
+                <span
+                  >Không linh hoạt bằng NoSQL với dữ liệu không cấu trúc</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CÁCH KẾT NỐI ==================== -->
+      <section id="connect" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Các cách kết nối MySQL với PHP
+        </h2>
+
+        <div
+          class="prose max-w-none text-gray-700 text-lg leading-relaxed mb-10"
+        >
+          <p>
+            PHP cung cấp 3 cách chính để kết nối với MySQL. Mỗi cách có cách
+            viết và mức độ phù hợp khác nhau.
+          </p>
+        </div>
+
+        <!-- Cách 1: mysqli Procedural -->
+        <div class="mb-16">
+          <h3
+            class="text-2xl font-semibold mb-4 text-emerald-700 flex items-center gap-2"
+          >
+            <span
+              class="bg-emerald-100 text-emerald-600 w-8 h-8 rounded-xl flex items-center justify-center text-lg font-bold"
+              >1</span
+            >
+            mysqli (Procedural Style)
+          </h3>
+          <p class="mb-4 text-gray-600">
+            Đây là cách truyền thống, sử dụng các hàm có tiền tố
+            <code>mysqli_</code>. Phù hợp cho người mới học vì cú pháp đơn giản,
+            dễ hiểu.
+          </p>
+          <pre><code>&lt;?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "php_mvc";
+
+// Tạo kết nối
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Kiểm tra kết nối
+if (!$conn) {
+    die("Kết nối thất bại: " . mysqli_connect_error());
+}
+
+echo "Kết nối thành công!";
+?&gt;</code></pre>
+          <p class="text-sm text-gray-500 mt-3">
+            <strong>Cách hoạt động:</strong> Hàm
+            <code>mysqli_connect()</code> trả về một đối tượng kết nối hoặc
+            <code>false</code> nếu thất bại.
+          </p>
+        </div>
+
+        <!-- Cách 2: mysqli OOP -->
+        <div class="mb-16">
+          <h3
+            class="text-2xl font-semibold mb-4 text-emerald-700 flex items-center gap-2"
+          >
+            <span
+              class="bg-emerald-100 text-emerald-600 w-8 h-8 rounded-xl flex items-center justify-center text-lg font-bold"
+              >2</span
+            >
+            mysqli (Object-Oriented)
+          </h3>
+          <p class="mb-4 text-gray-600">
+            Cách này sử dụng lập trình hướng đối tượng, code gọn và dễ quản lý
+            hơn so với Procedural.
+          </p>
+          <pre><code>&lt;?php
+$conn = new mysqli("localhost", "root", "", "php_mvc");
+
+if ($conn-&gt;connect_error) {
+    die("Kết nối thất bại: " . $conn-&gt;connect_error);
+}
+
+echo "Kết nối thành công!";
+?&gt;</code></pre>
+        </div>
+
+        <!-- Cách 3: PDO (Khuyến nghị) -->
+        <div class="mb-16">
+          <h3
+            class="text-2xl font-semibold mb-4 text-violet-700 flex items-center gap-2"
+          >
+            <span
+              class="bg-violet-100 text-violet-600 w-8 h-8 rounded-xl flex items-center justify-center text-lg font-bold"
+              >3</span
+            >
+            PDO (PHP Data Objects)
+            <span
+              class="ml-3 text-sm font-normal bg-violet-100 text-violet-700 px-3 py-1 rounded-2xl"
+              >Khuyến nghị sử dụng</span
+            >
+          </h3>
+          <p class="mb-4 text-gray-600">
+            PDO là lớp trừu tượng (abstraction layer), cho phép bạn kết nối với
+            nhiều loại database khác nhau (MySQL, PostgreSQL, SQLite...) chỉ
+            bằng cách thay đổi DSN.
+          </p>
+          <pre><code>&lt;?php
+try {
+    $pdo = new PDO(
+        "mysql:host=localhost;dbname=php_mvc;charset=utf8mb4", 
+        "root", 
+        "",
+        [
+            PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,      // Bật exception khi có lỗi
+            PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC, // Trả về mảng kết hợp
+            PDO::ATTR_EMULATE_PREPARES =&gt; false               // Sử dụng Prepared Statement thật
+        ]
+    );
+} catch(PDOException $e) {
+    die("Lỗi kết nối: " . $e-&gt;getMessage());
+}
+?&gt;</code></pre>
+        </div>
+
+        <!-- BẢNG SO SÁNH -->
+        <div class="mt-16">
+          <h3 class="text-xl font-bold mb-6 text-gray-800">
+            Bảng so sánh các cách kết nối
+          </h3>
+          <div class="overflow-x-auto">
+            <table
+              class="w-full border-collapse border border-gray-300 rounded-2xl overflow-hidden"
+            >
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border border-gray-300 px-6 py-4 text-left">
+                    Tiêu chí
+                  </th>
+                  <th class="border border-gray-300 px-6 py-4 text-center">
+                    mysqli Procedural
+                  </th>
+                  <th class="border border-gray-300 px-6 py-4 text-center">
+                    mysqli OOP
+                  </th>
+                  <th
+                    class="border border-gray-300 px-6 py-4 text-center bg-violet-50"
+                  >
+                    PDO (Khuyến nghị)
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-700">
+                <tr>
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Dễ học
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    ★★★★☆
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    ★★★☆☆
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    ★★★☆☆
+                  </td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Hỗ trợ nhiều Database
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-red-500"
+                  >
+                    Không
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-red-500"
+                  >
+                    Không
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-emerald-600"
+                  >
+                    Có (MySQL, PG, SQLite...)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Prepared Statements
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Có
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Có
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-emerald-600"
+                  >
+                    Rất tốt
+                  </td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Exception Handling
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-red-500"
+                  >
+                    Thủ công
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-red-500"
+                  >
+                    Thủ công
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-emerald-600"
+                  >
+                    Tự động (try-catch)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Bảo mật
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Tốt
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Tốt
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-emerald-600 font-bold"
+                  >
+                    Tốt nhất
+                  </td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-gray-300 px-6 py-4 font-medium">
+                    Phù hợp MVC
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Trung bình
+                  </td>
+                  <td class="border border-gray-300 px-6 py-4 text-center">
+                    Tốt
+                  </td>
+                  <td
+                    class="border border-gray-300 px-6 py-4 text-center text-emerald-600 font-bold"
+                  >
+                    Rất tốt
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Lý do nên dùng PDO -->
+        <div
+          class="mt-12 bg-violet-50 border border-violet-200 p-8 rounded-3xl"
+        >
+          <h3
+            class="font-bold text-xl text-violet-700 mb-4 flex items-center gap-2"
+          >
+            <i class="fa-solid fa-star"></i> Tại sao nên sử dụng PDO?
+          </h3>
+          <ul class="space-y-3 text-gray-700">
+            <li>
+              <strong>- Hỗ trợ nhiều hệ quản trị CSDL</strong>: Dễ dàng chuyển
+              sang PostgreSQL, SQL Server sau này mà không phải viết lại code.
+            </li>
+            <li>
+              <strong>- An toàn hơn</strong>: Hỗ trợ Prepared Statements tốt,
+              giảm nguy cơ SQL Injection.
+            </li>
+            <li>
+              <strong>- Xử lý lỗi chuyên nghiệp</strong>: Sử dụng Exception giúp
+              code sạch và dễ debug.
+            </li>
+            <li>
+              <strong>- Linh hoạt và hiện đại</strong>: Là cách tiếp cận được
+              khuyến nghị chính thức của PHP cho các dự án mới.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ==================== ÁP DỤNG MVC ==================== -->
+      <section id="mvc" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Áp dụng trong mô hình MVC
+        </h2>
+
+        <div
+          class="prose max-w-none text-gray-700 text-lg leading-relaxed mb-8"
+        >
+          <p>
+            Trong mô hình <strong>MVC</strong>, việc kết nối Database thường
+            được đặt trong <strong>Model</strong>. Controller sẽ gọi Model để
+            thực hiện các thao tác dữ liệu.
+          </p>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-8">
+          <h3 class="font-bold text-xl mb-6">Cấu trúc thư mục gợi ý</h3>
+          <pre><code>project/
+├── config/
+│   └── database.php
+├── app/
+│   ├── Models/
+│   │   └── User.php
+│   ├── Controllers/
+│   │   └── UserController.php
+│   └── Views/
+│       └── users/
+└── public/
+    └── index.php</code></pre>
+
+          <!-- Database Config -->
+          <h4 class="font-semibold mt-12 mb-4 text-gray-800">
+            1. config/database.php
+          </h4>
+          <pre><code>&lt;?php
+class Database {
+    private $host = "localhost";
+    private $db_name = "php_mvc";
+    private $username = "root";
+    private $password = "";
+    public $conn;
+
+    public function getConnection() {
+        $this-&gt;conn = null;
+        try {
+            $this-&gt;conn = new PDO(
+                "mysql:host=" . $this-&gt;host . ";dbname=" . $this-&gt;db_name . ";charset=utf8mb4",
+                $this-&gt;username,
+                $this-&gt;password
+            );
+            $this-&gt;conn-&gt;setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this-&gt;conn-&gt;setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch(PDOException $e) {
+            echo "Lỗi kết nối Database: " . $e-&gt;getMessage();
+        }
+        return $this-&gt;conn;
+    }
+}
+?&gt;</code></pre>
+
+          <!-- Model Example - FULL CRUD -->
+          <h4 class="font-semibold mt-12 mb-4 text-gray-800">
+            2. app/Models/User.php
+          </h4>
+          <pre><code>&lt;?php
+class User {
+    private $conn;
+    private $table = "users";
+
+    public function __construct($db) {
+        $this-&gt;conn = $db;
+    }
+
+    // Lấy tất cả users
+    public function getList() {
+        $sql = "SELECT * FROM " . $this-&gt;table . " ORDER BY id DESC";
+        $stmt = $this-&gt;conn-&gt;prepare($sql);
+        $stmt-&gt;execute();
+        return $stmt-&gt;fetchAll();
+    }
+
+    // Lấy 1 user theo ID
+    public function getById($id) {
+        $sql = "SELECT * FROM " . $this-&gt;table . " WHERE id = :id LIMIT 1";
+        $stmt = $this-&gt;conn-&gt;prepare($sql);
+        $stmt-&gt;bindParam(":id", $id, PDO::PARAM_INT);
+        $stmt-&gt;execute();
+        return $stmt-&gt;fetch();
+    }
+
+    // Thêm mới user
+    public function insert($data) {
+        $sql = "INSERT INTO " . $this-&gt;table . " (name, email, phone, status, created_at) 
+                VALUES (:name, :email, :phone, :status, NOW())";
+        
+        $stmt = $this-&gt;conn-&gt;prepare($sql);
+        $stmt-&gt;bindParam(":name", $data['name']);
+        $stmt-&gt;bindParam(":email", $data['email']);
+        $stmt-&gt;bindParam(":phone", $data['phone']);
+        $stmt-&gt;bindParam(":status", $data['status']);
+        
+        return $stmt-&gt;execute();
+    }
+
+    // Cập nhật user
+    public function update($id, $data) {
+        $sql = "UPDATE " . $this-&gt;table . " 
+                SET name = :name, 
+                    email = :email, 
+                    phone = :phone, 
+                    status = :status 
+                WHERE id = :id";
+        
+        $stmt = $this-&gt;conn-&gt;prepare($sql);
+        $stmt-&gt;bindParam(":name", $data['name']);
+        $stmt-&gt;bindParam(":email", $data['email']);
+        $stmt-&gt;bindParam(":phone", $data['phone']);
+        $stmt-&gt;bindParam(":status", $data['status']);
+        $stmt-&gt;bindParam(":id", $id, PDO::PARAM_INT);
+        
+        return $stmt-&gt;execute();
+    }
+
+    // Xóa user
+    public function delete($id) {
+        $sql = "DELETE FROM " . $this-&gt;table . " WHERE id = :id";
+        $stmt = $this-&gt;conn-&gt;prepare($sql);
+        $stmt-&gt;bindParam(":id", $id, PDO::PARAM_INT);
+        return $stmt-&gt;execute();
+    }
+}
+?&gt;</code></pre>
+
+          <div
+            class="mt-8 p-5 bg-amber-50 border border-amber-200 rounded-2xl text-sm"
+          >
+            <strong>Lưu ý:</strong> Trong thực tế, bạn nên thêm kiểm tra dữ liệu
+            (validation) và xử lý lỗi trong Model hoặc Service layer. Các hàm
+            trên sử dụng Prepared Statements để tránh SQL Injection.
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== SQL INJECTION ==================== -->
+      <section id="sql-injection" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >★</span
+          >
+          SQL Injection là gì? Tại sao phải dùng Prepared Statement?
+        </h2>
+
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p>
+            <strong>SQL Injection</strong> là một trong những lỗ hổng bảo mật
+            nghiêm trọng nhất trong lập trình web. Đây là kỹ thuật tấn công mà
+            hacker chèn thêm mã SQL vào các trường nhập liệu (form) để thao túng
+            câu truy vấn database.
+          </p>
+        </div>
+
+        <!-- Ví dụ tấn công -->
+        <div class="mt-10 bg-red-50 border border-red-300 rounded-3xl p-8">
+          <h3
+            class="text-red-700 font-bold text-xl mb-4 flex items-center gap-2"
+          >
+            <i class="fa-solid fa-skull-crossbones"></i>
+            Ví dụ bị tấn công SQL Injection
+          </h3>
+
+          <p class="mb-4 text-gray-600">
+            Giả sử code viết theo cách nguy hiểm sau:
+          </p>
+
+          <pre><code>&lt;?php
+// ❌ Cách viết NGUY HIỂM (Dễ bị SQL Injection)
+$id = $_GET['id'];   // Người dùng truyền vào
+
+$sql = "SELECT * FROM users WHERE id = $id";
+$stmt = $conn-&gt;query($sql);   // Không có prepare
+?&gt;</code></pre>
+
+          <p class="mt-6 font-medium text-red-600">
+            Nếu hacker nhập vào thanh địa chỉ:
+          </p>
+          <div
+            class="bg-white p-4 rounded-2xl font-mono text-red-600 border border-red-200"
+          >
+            <strong>1 OR 1=1 -- </strong>
+          </div>
+
+          <p class="mt-4 text-gray-700">Câu SQL sẽ trở thành:</p>
+          <pre
+            class="bg-red-100 text-red-700"
+          ><code>SELECT * FROM users WHERE id = 1 OR 1=1 --</code></pre>
+
+          <div class="mt-6 p-5 bg-white border border-red-200 rounded-2xl">
+            <strong>Kết quả:</strong> Hacker lấy được
+            <strong>toàn bộ</strong> thông tin user trong bảng! <br />
+            Họ còn có thể xóa dữ liệu bằng cách nhập:
+            <code>1; DROP TABLE users; --</code>
+          </div>
+        </div>
+
+        <!-- Cách phòng tránh -->
+        <div
+          class="mt-12 bg-emerald-50 border border-emerald-300 rounded-3xl p-8"
+        >
+          <h3
+            class="text-emerald-700 font-bold text-xl mb-4 flex items-center gap-2"
+          >
+            <i class="fa-solid fa-shield-halved"></i>
+            Cách phòng tránh bằng Prepared Statement
+          </h3>
+
+          <pre><code>&lt;?php
+// ✅ Cách viết AN TOÀN với PDO
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM users WHERE id = :id";
+$stmt = $pdo-&gt;prepare($sql);        // Chuẩn bị câu lệnh
+$stmt-&gt;bindParam(":id", $id, PDO::PARAM_INT);  // Gắn giá trị
+$stmt-&gt;execute();
+
+$user = $stmt-&gt;fetch();
+?&gt;</code></pre>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+            <div>
+              <h4 class="font-semibold text-emerald-700 mb-3">
+                prepare() làm gì?
+              </h4>
+              <p class="text-sm text-gray-600">
+                Tách biệt <strong>cấu trúc SQL</strong> với
+                <strong>dữ liệu</strong>. Server sẽ phân tích cú pháp SQL trước,
+                sau đó mới nhận dữ liệu.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-semibold text-emerald-700 mb-3">
+                bindParam() làm gì?
+              </h4>
+              <p class="text-sm text-gray-600">
+                Gửi dữ liệu riêng biệt, không cho phép dữ liệu được coi là một
+                phần của câu lệnh SQL. Dù hacker nhập gì, nó cũng chỉ là
+                <strong>dữ liệu</strong>, không phải lệnh SQL.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-10 p-6 bg-amber-50 border border-amber-200 rounded-3xl text-sm"
+        >
+          <strong>Kết luận:</strong> Luôn luôn sử dụng <code>prepare()</code> +
+          <code>bindParam()</code> hoặc <code>bindValue()</code> khi làm việc
+          với dữ liệu từ người dùng. Đây là cách bảo mật cơ bản và quan trọng
+          nhất khi làm việc với Database.
+        </div>
+      </section>
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu tóm tắt Buổi 10 - Kết nối MySQL với PHP (MVC)
+      </div>
+    </div>
+  </body>
+</html>
