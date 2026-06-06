@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 11: Hiển thị dữ liệu và thêm mới</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .code-box {
+        background: linear-gradient(135deg, #1e2937, #334155);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-plug text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 11: Hiển thị dữ liệu và thêm mới
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#mvc-flow"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          MVC Flow
+        </a>
+        <a
+          href="#display"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-table"></i>
+          Hiển thị dữ liệu
+        </a>
+        <a
+          href="#add"
+          class="px-6 py-3 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-plus"></i>
+          Thêm mới dữ liệu
+        </a>
+      </nav>
+
+      <!-- ==================== MVC FLOW ==================== -->
+      <section id="mvc-flow" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Luồng MVC
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Chúng ta sẽ thực hành đầy đủ theo mô hình <strong>MVC</strong>:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">📦</div>
+              <h4 class="font-bold text-lg">Model</h4>
+              <p class="text-sm text-gray-600">
+                Xử lý dữ liệu (kết nối DB, query)
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">⚙️</div>
+              <h4 class="font-bold text-lg">Controller</h4>
+              <p class="text-sm text-gray-600">
+                Nhận request, gọi Model, truyền data cho View
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">🖥️</div>
+              <h4 class="font-bold text-lg">View</h4>
+              <p class="text-sm text-gray-600">Hiển thị dữ liệu + Form</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- CẤU TRÚC DỰ ÁN -->
+      <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >📁</span
+          >
+          Cấu trúc thư mục dự án
+        </h2>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-8">
+          <div class="font-mono text-sm leading-relaxed text-gray-700">
+            <div class="flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span class="font-semibold">project-folder/</span>
+            </div>
+
+            <!-- config -->
+            <div class="ml-6 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>config</span>
+            </div>
+            <div class="ml-12 flex items-center gap-2 text-emerald-600 mb-1">
+              <i class="fa-solid fa-file text-emerald-500"></i>
+              <span class="text-xs">Database.sql</span>
+            </div>
+
+            <!-- app -->
+            <div class="ml-6 flex items-center gap-2 mt-5 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>app</span>
+            </div>
+
+            <!-- Controllers -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Controllers</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 text-blue-600 mb-4">
+              <i class="fa-solid fa-file-code text-blue-500"></i>
+              <span class="text-xs">UserController.php</span>
+            </div>
+
+            <!-- Models -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Models</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 text-violet-600 mb-4">
+              <i class="fa-solid fa-file-code text-violet-500"></i>
+              <span class="text-xs">User.php</span>
+            </div>
+
+            <!-- Views -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Views</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>user</span>
+            </div>
+            <div class="ml-20 space-y-1">
+              <div class="flex items-center gap-2 text-rose-600">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">danhsach.php</span>
+              </div>
+              <div class="flex items-center gap-2 text-rose-600">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">themmoi.php</span>
+              </div>
+            </div>
+
+            <!-- public -->
+            <div class="ml-6 flex items-center gap-2 mt-5 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>public</span>
+            </div>
+            <div class="ml-12 flex items-center gap-2 text-blue-600">
+              <i class="fa-solid fa-file-code text-blue-500"></i>
+              <span class="text-xs">index.php</span>
+            </div>
+
+            <!-- routes -->
+            <div class="ml-6 flex items-center gap-2 mt-5 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>routes</span>
+            </div>
+            <div class="ml-12 flex items-center gap-2 text-purple-600">
+              <i class="fa-solid fa-file-code text-purple-500"></i>
+              <span class="text-xs">route.php</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== HIỂN THỊ DỮ LIỆU ==================== -->
+      <section id="display" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Hiển thị danh sách Users
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          1. Model - app/Models/User.php
+        </h3>
+        <pre><code>class User {
+    private $conn;
+
+    public function __construct() {
+        $db = new Database();
+        $this->conn = $db->getConnection();
+    }
+
+    public function getAll() {
+        $sql = "SELECT * FROM users ORDER BY id DESC";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          2. Controller - app/Controllers/UserController.php
+        </h3>
+        <pre><code>class UserController {
+
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
+
+    // Hiển thị danh sách user
+    public function index() {
+        $users = $this->userModel->getAll();
+        
+        // Truyền dữ liệu sang View
+        require_once __DIR__ . '/../Views/user/danhsach.php';
+    }
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          3. View - app/Views/user/danhsach.php
+        </h3>
+        <pre><code>&lt;h1 class="text-2xl font-bold mb-6"&gt;Danh sách Users&lt;/h1&gt;
+
+&lt;table class="w-full border-collapse bg-white rounded-2xl overflow-hidden"&gt;
+  &lt;thead&gt;
+    &lt;tr class="bg-gray-100"&gt;
+      &lt;th class="p-4 text-left"&gt;ID&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Họ tên&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Email&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Ngày tạo&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;?php foreach($users as $user): ?&gt;
+    &lt;tr class="border-b hover:bg-gray-50 transition-colors"&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo $user['id']; ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['name']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['email']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4 text-gray-500"&gt;&lt;?php echo $user['created_at']; ?&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;?php endforeach; ?&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      </section>
+
+      <!-- ==================== THÊM MỚI DỮ LIỆU ==================== -->
+      <section id="add" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Thêm mới User
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          1. Form trong View - app/Views/user/themmoi.php
+        </h3>
+        <pre><code>&lt;h1 class="text-2xl font-bold mb-6"&gt;Thêm User Mới&lt;/h1&gt;
+
+&lt;form method="POST" action="/post-user" 
+      class="max-w-lg bg-white p-8 rounded-3xl shadow-sm"&gt;
+    
+    &lt;div class="mb-6"&gt;
+        &lt;label class="block text-gray-700 mb-2 font-medium"&gt;Họ tên&lt;/label&gt;
+        &lt;input type="text" name="name" required 
+               class="w-full p-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="mb-6"&gt;
+        &lt;label class="block text-gray-700 mb-2 font-medium"&gt;Email&lt;/label&gt;
+        &lt;input type="email" name="email" required 
+               class="w-full p-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"&gt;
+    &lt;/div&gt;
+
+    &lt;button type="submit" 
+            class="bg-emerald-600 text-white px-8 py-4 rounded-2xl hover:bg-emerald-700 transition-all font-medium"&gt;
+        Thêm mới User
+    &lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          2. Controller - app/Controllers/UserController.php
+        </h3>
+        <pre><code>class UserController {
+
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
+
+    // Hiển thị form thêm mới
+    public function create() {
+        require_once __DIR__ . '/../Views/user/themmoi.php';
+    }
+
+    // Xử lý thêm mới
+    public function store() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name  = trim($_POST['name']);
+            $email = trim($_POST['email']);
+
+            $result = $this->userModel->create($name, $email);
+
+            if ($result) {
+                header("Location: /");
+                exit;
+            } else {
+                echo "Lỗi khi thêm dữ liệu!";
+            }
+        }
+    }
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          3. Method create() trong Model - app/Models/User.php
+        </h3>
+        <pre><code>public function create($name, $email) {
+    $sql = "INSERT INTO users (name, email, created_at) 
+            VALUES (?, ?, NOW())";
+    
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$name, $email]);
+}</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu thực hành Buổi 11 - Hiển thị dữ liệu và thêm mới (MVC)
+      </div>
+    </div>
+  </body>
+</html>
