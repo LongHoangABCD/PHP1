@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 12: Cập nhật dữ liệu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .code-box {
+        background: linear-gradient(135deg, #1e2937, #334155);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-plug text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 12: Cập nhật dữ liệu (Update)
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#mvc-flow"
+          class="px-6 py-3 bg-indigo-600 text-white hover:bg-indigo-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          MVC Flow
+        </a>
+        <a
+          href="#display"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-table"></i>
+          Danh sách + Sửa
+        </a>
+        <a
+          href="#update"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+          Form Cập nhật
+        </a>
+      </nav>
+
+      <!-- ==================== MVC FLOW ==================== -->
+      <section id="mvc-flow" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Luồng MVC - Cập nhật dữ liệu
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6"><strong>Update</strong> theo mô hình MVC:</p>
+          <ul class="list-disc pl-6 space-y-3">
+            <li>
+              <strong>View</strong>: Hiển thị form cập nhật (đã có dữ liệu cũ)
+            </li>
+            <li>
+              <strong>Controller</strong>: Nhận ID → Lấy dữ liệu → Hiển thị form
+              → Xử lý POST cập nhật
+            </li>
+            <li>
+              <strong>Model</strong>: Thêm phương thức <code>update()</code> và
+              <code>findById()</code>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- CẤU TRÚC DỰ ÁN (Cập nhật) -->
+      <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >📁</span
+          >
+          Cập nhật cấu trúc dự án
+        </h2>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-8">
+          <div class="font-mono text-sm leading-relaxed text-gray-700">
+            <div class="flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span class="font-semibold">project-folder/</span>
+            </div>
+
+            <!-- Views -->
+            <div class="ml-6 flex items-center gap-2 mt-5 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>app/Views/user</span>
+            </div>
+            <div class="ml-12 space-y-1">
+              <div class="flex items-center gap-2 text-rose-600">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">danhsach.php</span>
+              </div>
+              <div class="flex items-center gap-2 text-rose-600">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">themmoi.php</span>
+              </div>
+              <div class="flex items-center gap-2 text-rose-600 font-bold">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">sua.php</span> ← Mới
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CẬP NHẬT DANH SÁCH (Thêm nút Sửa) ==================== -->
+      <section id="display" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Cập nhật Danh sách Users (Thêm nút Sửa)
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          Cập nhật View - app/Views/user/danhsach.php
+        </h3>
+        <pre><code>&lt;h1 class="text-2xl font-bold mb-6"&gt;Danh sách Users&lt;/h1&gt;
+
+&lt;!-- Nút thêm mới --&gt;
+&lt;a href="/create-user" 
+   class="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-2xl hover:bg-emerald-700 mb-6"&gt;
+  &lt;i class="fa-solid fa-plus"&gt;&lt;/i&gt; Thêm mới
+&lt;/a&gt;
+
+&lt;table class="w-full border-collapse bg-white rounded-3xl overflow-hidden shadow"&gt;
+  &lt;thead&gt;
+    &lt;tr class="bg-gray-100"&gt;
+      &lt;th class="p-4 text-left"&gt;ID&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Họ tên&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Email&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Ngày tạo&lt;/th&gt;
+      &lt;th class="p-4 text-center"&gt;Hành động&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;?php foreach($users as $user): ?&gt;
+    &lt;tr class="border-b hover:bg-gray-50 transition-colors"&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo $user['id']; ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['name']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['email']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4 text-gray-500"&gt;&lt;?php echo $user['created_at']; ?&gt;&lt;/td&gt;
+      &lt;td class="p-4 text-center"&gt;
+        &lt;a href="/edit-user?id=&lt;?php echo $user['id']; ?&gt;" 
+           class="inline-flex items-center gap-1 text-amber-600 hover:text-amber-700"&gt;
+          &lt;i class="fa-solid fa-pen-to-square"&gt;&lt;/i&gt; Sửa
+        &lt;/a&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;?php endforeach; ?&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      </section>
+
+      <!-- ==================== FORM CẬP NHẬT ==================== -->
+      <section id="update" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Cập nhật User
+        </h2>
+
+        <!-- 1. Model -->
+        <h3 class="text-2xl font-semibold mb-4">
+          1. Thêm method vào Model - app/Models/User.php
+        </h3>
+        <pre><code>// Lấy user theo ID
+public function findById($id) {
+    $sql = "SELECT * FROM users WHERE id = ?";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->execute([$id]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Cập nhật user
+public function update($id, $name, $email) {
+    $sql = "UPDATE users 
+            SET name = ?, email = ?, updated_at = NOW() 
+            WHERE id = ?";
+    
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$name, $email, $id]);
+}</code></pre>
+
+        <!-- 2. Controller -->
+        <h3 class="text-2xl font-semibold mt-12 mb-4">
+          2. Controller - app/Controllers/UserController.php
+        </h3>
+        <pre><code>class UserController {
+
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
+
+    // ... các method cũ ...
+
+    // Hiển thị form sửa
+    public function edit() {
+        $id = $_GET['id'] ?? null;
+        if (!$id) {
+            echo "ID không hợp lệ!";
+            return;
+        }
+
+        $user = $this->userModel->findById($id);
+        if (!$user) {
+            echo "Không tìm thấy user!";
+            return;
+        }
+
+        require_once __DIR__ . '/../Views/user/sua.php';
+    }
+
+    // Xử lý cập nhật
+    public function update() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id    = $_POST['id'] ?? null;
+            $name  = trim($_POST['name']);
+            $email = trim($_POST['email']);
+
+            if ($id) {
+                $result = $this->userModel->update($id, $name, $email);
+                if ($result) {
+                    header("Location: /");
+                    exit;
+                } else {
+                    echo "Lỗi khi cập nhật dữ liệu!";
+                }
+            }
+        }
+    }
+}</code></pre>
+
+        <!-- 3. View -->
+        <h3 class="text-2xl font-semibold mt-12 mb-4">
+          3. View Form Sửa - app/Views/user/sua.php
+        </h3>
+        <pre><code>&lt;h1 class="text-2xl font-bold mb-6"&gt;Sửa thông tin User&lt;/h1&gt;
+
+&lt;form method="POST" action="/update-user" 
+      class="max-w-lg bg-white p-8 rounded-3xl shadow-sm"&gt;
+    
+    &lt;input type="hidden" name="id" value="&lt;?php echo $user['id']; ?&gt;"&gt;
+    
+    &lt;div class="mb-6"&gt;
+        &lt;label class="block text-gray-700 mb-2 font-medium"&gt;Họ tên&lt;/label&gt;
+        &lt;input type="text" name="name" value="&lt;?php echo htmlspecialchars($user['name']); ?&gt;" required 
+               class="w-full p-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="mb-6"&gt;
+        &lt;label class="block text-gray-700 mb-2 font-medium"&gt;Email&lt;/label&gt;
+        &lt;input type="email" name="email" value="&lt;?php echo htmlspecialchars($user['email']); ?&gt;" required 
+               class="w-full p-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-indigo-500"&gt;
+    &lt;/div&gt;
+
+    &lt;div class="flex gap-4"&gt;
+        &lt;button type="submit" 
+                class="bg-amber-600 text-white px-8 py-4 rounded-2xl hover:bg-amber-700 transition-all font-medium flex-1"&gt;
+            Cập nhật
+        &lt;/button&gt;
+        &lt;a href="/" 
+           class="bg-gray-500 text-white px-8 py-4 rounded-2xl hover:bg-gray-600 transition-all font-medium flex-1 text-center"&gt;
+            Hủy
+        &lt;/a&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu thực hành Buổi 12 - Cập nhật dữ liệu (Update) theo MVC
+      </div>
+    </div>
+  </body>
+</html>
