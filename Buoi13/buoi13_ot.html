@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 13: Xoá dữ liệu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #ef4444, #b91c1c);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+      .code-box {
+        background: linear-gradient(135deg, #1e2937, #334155);
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-trash-can text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">Buổi 13: Xoá dữ liệu (Delete)</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#mvc-flow"
+          class="px-6 py-3 bg-red-600 text-white hover:bg-red-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          MVC Flow - Delete
+        </a>
+        <a
+          href="#list-update"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-table"></i>
+          Cập nhật danh sách
+        </a>
+        <a
+          href="#delete"
+          class="px-6 py-3 bg-rose-600 text-white hover:bg-rose-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-trash"></i>
+          Thực hiện xoá
+        </a>
+      </nav>
+
+      <!-- ==================== MVC FLOW ==================== -->
+      <section id="mvc-flow" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Luồng MVC - Xoá dữ liệu
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Chúng ta tiếp tục thực hành theo mô hình <strong>MVC</strong> để
+            thực hiện chức năng xoá:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">📦</div>
+              <h4 class="font-bold text-lg">Model</h4>
+              <p class="text-sm text-gray-600">
+                Viết hàm <code>delete($id)</code> để xoá trong DB
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">⚙️</div>
+              <h4 class="font-bold text-lg">Controller</h4>
+              <p class="text-sm text-gray-600">
+                Nhận request, gọi Model xoá, redirect về danh sách
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">🖥️</div>
+              <h4 class="font-bold text-lg">View</h4>
+              <p class="text-sm text-gray-600">Nút xoá + JavaScript confirm</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CẤU TRÚC DỰ ÁN -->
+      <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >📁</span
+          >
+          Cấu trúc thư mục dự án (Cập nhật)
+        </h2>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-8">
+          <div class="font-mono text-sm leading-relaxed text-gray-700">
+            <div class="flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span class="font-semibold">project-folder/</span>
+            </div>
+
+            <!-- app -->
+            <div class="ml-6 flex items-center gap-2 mt-5 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>app</span>
+            </div>
+
+            <!-- Controllers -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Controllers</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 text-blue-600 mb-4">
+              <i class="fa-solid fa-file-code text-blue-500"></i>
+              <span class="text-xs">UserController.php</span>
+            </div>
+
+            <!-- Models -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Models</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 text-violet-600 mb-4">
+              <i class="fa-solid fa-file-code text-violet-500"></i>
+              <span class="text-xs">User.php</span>
+            </div>
+
+            <!-- Views -->
+            <div class="ml-12 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>Views</span>
+            </div>
+            <div class="ml-16 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>user</span>
+            </div>
+            <div class="ml-20 space-y-1">
+              <div class="flex items-center gap-2 text-rose-600">
+                <i class="fa-solid fa-file-code text-rose-500"></i>
+                <span class="text-xs">danhsach.php</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== CẬP NHẬT DANH SÁCH ==================== -->
+      <section id="list-update" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Cập nhật View danh sách - Thêm nút xoá
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          1. View - app/Views/user/danhsach.php (Cập nhật)
+        </h3>
+        <pre><code>&lt;h1 class="text-2xl font-bold mb-6"&gt;Danh sách Users&lt;/h1&gt;
+
+&lt;table class="w-full border-collapse bg-white rounded-2xl overflow-hidden"&gt;
+  &lt;thead&gt;
+    &lt;tr class="bg-gray-100"&gt;
+      &lt;th class="p-4 text-left"&gt;ID&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Họ tên&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Email&lt;/th&gt;
+      &lt;th class="p-4 text-left"&gt;Ngày tạo&lt;/th&gt;
+      &lt;th class="p-4 text-center"&gt;Thao tác&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;?php foreach($users as $user): ?&gt;
+    &lt;tr class="border-b hover:bg-gray-50 transition-colors"&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo $user['id']; ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['name']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4"&gt;&lt;?php echo htmlspecialchars($user['email']); ?&gt;&lt;/td&gt;
+      &lt;td class="p-4 text-gray-500"&gt;&lt;?php echo $user['created_at']; ?&gt;&lt;/td&gt;
+      &lt;td class="p-4 text-center"&gt;
+        &lt;button onclick="confirmDelete(<?= $user['id'] ?>)"
+                class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl text-sm flex items-center gap-2 mx-auto"&gt;
+          &lt;i class="fa-solid fa-trash"&gt;&lt;/i&gt;
+          Xoá
+        &lt;/button&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;?php endforeach; ?&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;script&gt;
+function confirmDelete(id) {
+    if (confirm('Bạn có chắc chắn muốn xoá user này không?')) {
+        window.location.href = `/delete-user?id=${id}`;
+    }
+}
+&lt;/script&gt;</code></pre>
+      </section>
+
+      <!-- ==================== THỰC HIỆN XOÁ ==================== -->
+      <section id="delete" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Xoá dữ liệu
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          1. Model - app/Models/User.php (Thêm method delete)
+        </h3>
+        <pre><code>public function delete($id) {
+    $sql = "DELETE FROM users WHERE id = :id";
+    
+    $stmt = $this->conn->prepare($sql);
+    
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    
+    return $stmt->execute();
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          2. Controller - app/Controllers/UserController.php (Thêm method
+          delete)
+        </h3>
+        <pre><code>class UserController {
+
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
+
+    // ... các method cũ (index, create, store, update)
+
+    // Xử lý xoá user
+    public function delete() {
+        if (isset($_GET['id'])) {
+            $id = (int)$_GET['id'];
+            
+            $result = $this->userModel->delete($id);
+
+            if ($result) {
+                header("Location: /");
+                exit;
+            } else {
+                echo "Lỗi khi xoá dữ liệu!";
+            }
+        }
+    }
+}</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu thực hành Buổi 13 - Xoá dữ liệu (MVC)
+      </div>
+    </div>
+  </body>
+</html>

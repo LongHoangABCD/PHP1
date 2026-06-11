@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Buổi 14: Xử lý ảnh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+      }
+      pre {
+        background-color: #1f2937;
+        color: #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 16px;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800">
+    <!-- HEADER -->
+    <header class="hero-bg text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="flex items-center gap-4">
+          <i class="fa-solid fa-image text-5xl"></i>
+          <div>
+            <a href="/" class="text-4xl font-bold">Lập trình PHP 1</a>
+            <p class="text-xl mt-2 opacity-90">
+              Buổi 14: Xử lý ảnh (Upload &amp; Quản lý)
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+      <!-- NAV -->
+      <nav class="flex flex-wrap gap-3 mb-10 border-b pb-4">
+        <a
+          href="#mvc-flow"
+          class="px-6 py-3 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-cubes"></i>
+          MVC Flow
+        </a>
+        <a
+          href="#database"
+          class="px-6 py-3 bg-emerald-600 text-white hover:bg-emerald-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-database"></i>
+          Database
+        </a>
+        <a
+          href="#create"
+          class="px-6 py-3 bg-teal-600 text-white hover:bg-teal-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-plus"></i>
+          Thêm mới có ảnh
+        </a>
+        <a
+          href="#update"
+          class="px-6 py-3 bg-amber-600 text-white hover:bg-amber-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-pen-to-square"></i>
+          Cập nhật ảnh
+        </a>
+        <a
+          href="#delete"
+          class="px-6 py-3 bg-red-600 text-white hover:bg-red-700 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all"
+        >
+          <i class="fa-solid fa-trash"></i>
+          Xoá ảnh
+        </a>
+      </nav>
+
+      <!-- ==================== MVC FLOW ==================== -->
+      <section id="mvc-flow" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-violet-100 text-violet-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >1</span
+          >
+          Luồng MVC - Xử lý Ảnh
+        </h2>
+        <div class="prose max-w-none text-gray-700 text-lg leading-relaxed">
+          <p class="mb-6">
+            Trong buổi này chúng ta sẽ học cách xử lý file ảnh theo mô hình
+            <strong>MVC</strong>:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">📦</div>
+              <h4 class="font-bold text-lg">Model</h4>
+              <p class="text-sm text-gray-600">
+                Lưu/xoá đường dẫn ảnh trong DB + xoá file vật lý
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">⚙️</div>
+              <h4 class="font-bold text-lg">Controller</h4>
+              <p class="text-sm text-gray-600">
+                Xử lý $_FILES, di chuyển ảnh, gọi Model
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl border border-gray-200 text-center"
+            >
+              <div class="text-5xl mb-4">🖥️</div>
+              <h4 class="font-bold text-lg">View</h4>
+              <p class="text-sm text-gray-600">
+                Form upload ảnh + hiển thị ảnh
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CẤU TRÚC DỰ ÁN -->
+      <section class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >📁</span
+          >
+          Cập nhật cấu trúc dự án
+        </h2>
+
+        <div class="bg-white border border-gray-200 rounded-3xl p-8">
+          <div class="font-mono text-sm leading-relaxed text-gray-700">
+            <div class="flex items-center gap-2 mb-3">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span class="font-semibold">project-folder/</span>
+            </div>
+            <div class="ml-6 flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-folder text-yellow-500"></i>
+              <span>public</span>
+            </div>
+            <div class="ml-12 flex items-center gap-2 text-emerald-600">
+              <i class="fa-solid fa-folder text-emerald-500"></i>
+              <span class="text-xs">images</span> ← Tạo thư mục này
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== DATABASE ==================== -->
+      <section id="database" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >2</span
+          >
+          Cập nhật Database
+        </h2>
+        <pre><code>ALTER TABLE users 
+ADD COLUMN image VARCHAR(255) NULL AFTER email;
+
+-- Hoặc tạo lại bảng
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    image VARCHAR(255) NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);</code></pre>
+      </section>
+
+      <!-- ==================== THÊM MỚI CÓ ẢNH ==================== -->
+      <section id="create" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-teal-100 text-teal-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >3</span
+          >
+          Thêm mới User có ảnh
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          1. Model - app/Models/User.php (Thêm method)
+        </h3>
+        <pre><code>public function createWithImage($name, $email, $imagePath = null) {
+    $sql = "INSERT INTO users (name, email, image, created_at) 
+            VALUES (?, ?, ?, NOW())";
+    
+    $stmt = $this->conn->prepare($sql);
+    return $stmt->execute([$name, $email, $imagePath]);
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          2. Controller - app/Controllers/UserController.php
+        </h3>
+        <pre><code>// Xử lý thêm mới có upload ảnh
+public function store() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name  = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $imagePath = null;
+
+        // Xử lý upload ảnh
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+            $imagePath = $this->uploadImage($_FILES['image']);
+        }
+
+        $result = $this->userModel->createWithImage($name, $email, $imagePath);
+
+        if ($result) {
+            header("Location: /");
+            exit;
+        } else {
+            echo "Lỗi khi thêm dữ liệu!";
+        }
+    }
+}
+
+// Hàm upload ảnh (thêm vào Controller)
+private function uploadImage($file) {
+    $targetDir = __DIR__ . "/../../public/images/";
+    if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+
+    $fileExt = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    $allowed = ['jpg', 'jpeg', 'png', 'gif'];
+
+    if (!in_array($fileExt, $allowed)) {
+        echo "Chỉ chấp nhận file ảnh!";
+        return null;
+    }
+
+    $newFileName = uniqid() . '.' . $fileExt;
+    $targetFile = $targetDir . $newFileName;
+
+    if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+        return 'images/' . $newFileName; // Đường dẫn tương đối
+    }
+    return null;
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          3. View - app/Views/user/themmoi.php
+        </h3>
+        <pre><code>&lt;form method="POST" action="/post-user" enctype="multipart/form-data" ...&gt;
+    
+    &lt;!-- Các trường name, email ... --&gt;
+
+    &lt;div class="mb-6"&gt;
+        &lt;label class="block text-gray-700 mb-2 font-medium"&gt;Ảnh đại diện&lt;/label&gt;
+        &lt;input type="file" name="image" accept="image/*"
+               class="w-full p-4 border border-gray-300 rounded-2xl"&gt;
+    &lt;/div&gt;
+
+    &lt;button type="submit"&gt;Thêm mới User&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+      </section>
+
+      <!-- ==================== CẬP NHẬT ẢNH ==================== -->
+      <section id="update" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >4</span
+          >
+          Cập nhật User &amp; Ảnh
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">Model - update method</h3>
+        <pre><code>public function updateWithImage($id, $name, $email, $imagePath = null) {
+    if ($imagePath !== null) {
+        $sql = "UPDATE users SET name = ?, email = ?, image = ?, updated_at = NOW() WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$name, $email, $imagePath, $id]);
+    } else {
+        $sql = "UPDATE users SET name = ?, email = ?, updated_at = NOW() WHERE id = ?";
+        $stmt = $this->conn->prepare($sql);
+        return $stmt->execute([$name, $email, $id]);
+    }
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          Controller - update method
+        </h3>
+        <pre><code>public function update() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id    = $_POST['id'] ?? null;
+        $name  = trim($_POST['name']);
+        $email = trim($_POST['email']);
+        $oldImage = $_POST['old_image'] ?? null; // hidden input
+
+        $newImagePath = null;
+        if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+            $newImagePath = $this->uploadImage($_FILES['image']);
+            
+            // Xoá ảnh cũ nếu có ảnh mới
+            if ($newImagePath && $oldImage) {
+                $this->deleteImageFile($oldImage);
+            }
+        }
+
+        $result = $this->userModel->updateWithImage($id, $name, $email, $newImagePath);
+
+        if ($result) {
+            header("Location: /");
+            exit;
+        }
+    }
+}
+
+// Hàm xoá file ảnh
+private function deleteImageFile($imagePath) {
+    if ($imagePath) {
+        $fullPath = __DIR__ . "/../../public/" . $imagePath;
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+    }
+}</code></pre>
+      </section>
+
+      <!-- ==================== XOÁ ẢNH ==================== -->
+      <section id="delete" class="mb-20">
+        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+          <span
+            class="w-10 h-10 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-xl font-bold"
+            >5</span
+          >
+          Xoá User &amp; Xoá ảnh
+        </h2>
+
+        <h3 class="text-2xl font-semibold mb-4">
+          Model - delete method (Cập nhật)
+        </h3>
+        <pre><code>public function delete($id) {
+    // Lấy thông tin ảnh trước khi xoá
+    $user = $this->findById($id);
+    if ($user && !empty($user['image'])) {
+        // Xoá file ảnh
+        $fullPath = __DIR__ . "/../../public/" . $user['image'];
+        if (file_exists($fullPath)) {
+            unlink($fullPath);
+        }
+    }
+
+    $sql = "DELETE FROM users WHERE id = :id";
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}</code></pre>
+
+        <h3 class="text-2xl font-semibold mt-10 mb-4">
+          Hiển thị ảnh trong danh sách
+        </h3>
+        <pre><code>&lt;td class="p-4"&gt;
+    &lt;?php if (!empty($user['image'])): ?&gt;
+        &lt;img src="/&lt;?php echo htmlspecialchars($user['image']); ?&gt;" 
+             alt="Ảnh" class="w-12 h-12 object-cover rounded-lg"&gt;
+    &lt;?php else: ?&gt;
+        <span class="text-gray-400">Không có ảnh</span>
+    &lt;?php endif; ?&gt;
+&lt;/td&gt;</code></pre>
+      </section>
+
+      <div class="text-center text-gray-400 text-sm mt-20 py-8">
+        Tài liệu thực hành Buổi 14 - Xử lý ảnh (Upload - Update - Delete) theo
+        MVC
+      </div>
+    </div>
+  </body>
+</html>
